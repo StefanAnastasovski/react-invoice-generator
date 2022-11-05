@@ -7,6 +7,8 @@
       "@images/*": ["assets/images/*"],
       "@pages/*": ["pages/*"],
       "@layouts/*": ["layouts/*"],
+      "@styles/*": ["styles/*"],
+      "@stores/*": ["stores/*"],
       "@app/*": ["app/*"]
     }
   }
