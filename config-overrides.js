@@ -10,6 +10,7 @@ module.exports = function override(config) {
     "@layouts": "src/layouts",
     "@styles": "src/styles",
     "@stores": "src/stores",
+    "@constants": "src/constants",
   })(config);
 
   return config;
