@@ -8,6 +8,8 @@ module.exports = function override(config) {
     "@features": "src/features",
     "@pages": "src/pages",
     "@layouts": "src/layouts",
+    "@styles": "src/styles",
+    "@stores": "src/stores",
   })(config);
 
   return config;
