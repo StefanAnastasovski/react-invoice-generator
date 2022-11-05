@@ -7,6 +7,7 @@ module.exports = function override(config) {
     "@components": "src/components",
     "@features": "src/features",
     "@pages": "src/pages",
+    "@layouts": "src/layouts",
   })(config);
 
   return config;
