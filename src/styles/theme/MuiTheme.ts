@@ -1,5 +1,6 @@
 import { Theme } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
+import { HEADER_MIN_HEIGHT } from "@constants";
 
 const CONTRAST_TEXT = "#FFF";
 
@@ -79,7 +80,7 @@ export const MuiTheme: Theme = createTheme({
   },
   mixins: {
     toolbar: {
-      minHeight: 60,
+      minHeight: HEADER_MIN_HEIGHT,
     },
   },
   typography: {

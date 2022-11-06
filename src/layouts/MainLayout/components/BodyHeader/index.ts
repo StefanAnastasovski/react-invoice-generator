@@ -1,1 +1,1 @@
-export { default } from "./BodyHeader";
+export { BodyHeader } from "./BodyHeader";

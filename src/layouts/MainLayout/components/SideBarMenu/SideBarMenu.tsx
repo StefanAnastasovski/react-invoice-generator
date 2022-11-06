@@ -1,11 +1,8 @@
 import React from "react";
+import { MenuDrawer } from "@features/MenuDrawer/MenuDrawer";
 
 const SideBarMenu = () => {
-  return (
-    <div>
-      <h1>This is Side Bar Menu</h1>
-    </div>
-  );
+  return <MenuDrawer />;
 };
 
 export default SideBarMenu;

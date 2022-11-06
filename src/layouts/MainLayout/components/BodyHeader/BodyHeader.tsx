@@ -1,11 +1,65 @@
 import React from "react";
+import Toolbar from "@mui/material/Toolbar";
+import { Theme, Typography, useTheme } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { RowContainer } from "@components/RowContainer";
+import { GridItem } from "@components/GridItem";
+import { AppBarWrapper } from "./components";
+import { StyledIconButton } from "@components/atoms";
+import { useDispatch, useSelector } from "react-redux";
+import { menuDrawerActions } from "@stores/slices/menuDrawerSlice";
 
-const BodyHeader = () => {
+export const BodyHeader = () => {
+  const theme = useTheme();
+  const dispatch = useDispatch();
+  const open = useSelector((state: any) => state.drawer.isDrawerOpened);
+  const handleDrawerOpen = () => {
+    dispatch(menuDrawerActions.setMenuDrawerOpen());
+  };
+
+  const showMenuIcon = !open ? (
+    <StyledIconButton
+      onClick={handleDrawerOpen}
+      restProps={{
+        "aria-label": "open drawer",
+        edge: "start",
+      }}
+    >
+      <MenuIcon />
+    </StyledIconButton>
+  ) : null;
+
+  const { toolbar, rowContainer } = styles(theme);
+
   return (
-    <div>
-      <h1>This is Body Header</h1>
-    </div>
+    <AppBarWrapper>
+      <Toolbar {...toolbar}>
+        {showMenuIcon}
+        <RowContainer {...rowContainer}>
+          <GridItem>
+            <Typography>Left Header</Typography>
+          </GridItem>
+          <GridItem>
+            <Typography>Right Header</Typography>
+          </GridItem>
+        </RowContainer>
+      </Toolbar>
+    </AppBarWrapper>
   );
 };
 
-export default BodyHeader;
+const styles = (theme: Theme) => {
+  return {
+    toolbar: {
+      sx: {
+        borderBottom: 1,
+        borderColor: theme.palette.divider,
+      },
+    },
+    rowContainer: {
+      justifyContent: "space-between",
+      alignItems: "center",
+      containerStyle: { margin: 2 },
+    },
+  };
+};
