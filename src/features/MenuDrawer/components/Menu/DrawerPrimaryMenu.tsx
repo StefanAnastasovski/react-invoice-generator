@@ -4,28 +4,21 @@ import { List, Typography } from "@mui/material";
 
 // import DrawerItem from "./DrawerItem";
 // import { orders } from "../../../data/orders";
-import { menuItems } from "@constants";
+import { MenuItem } from "../MenuItem";
+import { menuItems } from "@constants/menuItems";
+
+const items = menuItems.map((item) => {
+  return <MenuItem key={item.id} data={item} style={{}} />;
+});
 
 export const DrawerPrimaryMenu = () => {
-  const items = menuItems.map((item) => {
-    const { id, title, subtitles } = item;
+  return <List {...styles.list}>{items}</List>;
+};
 
-    return <Typography>{id + title}</Typography>;
-
-    // let hasNews = title === "Orders";
-
-    // if (subtitles.length > 0) {
-    //   return <DrawerItem key={id} data={item} />;
-    // }
-    // return (
-    //   <DrawerItem
-    //     key={item.id}
-    //     data={item}
-    //     orders={hasNews && orders}
-    //     styleProps={{}}
-    //   />
-    // );
-  });
-
-  return <List>{items}</List>;
+const styles = {
+  list: {
+    sx: {
+      padding: "0 16px",
+    },
+  },
 };

@@ -1,5 +1,5 @@
 import { CSSObject, Theme } from "@mui/material";
-import { DRAWER_WIDTH } from "@constants";
+import { DRAWER_WIDTH } from "@constants/constants";
 
 export const closedMixin = (theme: Theme): CSSObject => {
   return {

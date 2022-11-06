@@ -1,1 +1,1 @@
-export {};
+export { useHandleMenuClick } from "./useHandleMenuClick";

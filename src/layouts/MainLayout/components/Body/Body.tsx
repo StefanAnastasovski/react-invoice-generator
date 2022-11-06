@@ -1,7 +1,7 @@
 import React from "react";
 import { ChildrenProps } from "types/ChildrenProps";
 import { BoxDiv, BoxMain } from "@components/atoms";
-import { HEADER_MIN_HEIGHT } from "@constants";
+import { HEADER_MIN_HEIGHT } from "@constants/constants";
 
 export const Body = ({ children }: ChildrenProps) => {
   const { outerContainer, innerContainer, rowContainer } = styles;

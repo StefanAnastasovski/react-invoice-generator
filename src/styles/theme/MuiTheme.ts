@@ -1,6 +1,6 @@
 import { Theme } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
-import { HEADER_MIN_HEIGHT } from "@constants";
+import { HEADER_MIN_HEIGHT } from "@constants/constants";
 
 const CONTRAST_TEXT = "#FFF";
 

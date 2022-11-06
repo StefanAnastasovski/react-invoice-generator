@@ -2,8 +2,8 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import { useSelector } from "react-redux";
-import { DRAWER_WIDTH } from "@constants";
 import { closedMixin, openedMixin } from "@features/MenuDrawer/utils/drawerMixins";
+import { DRAWER_WIDTH } from "@constants/constants";
 
 export const PermanentDrawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",

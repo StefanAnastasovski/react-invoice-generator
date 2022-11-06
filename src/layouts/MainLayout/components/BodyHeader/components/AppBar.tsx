@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { DRAWER_WIDTH } from "@constants";
+import { DRAWER_WIDTH } from "@constants/constants";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;

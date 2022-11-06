@@ -1,5 +1,5 @@
+import { menuItems } from "@constants/menuItems";
 import { createSlice } from "@reduxjs/toolkit";
-import { menuItems } from "@constants";
 
 const initialState: DrawerStateType = {
   isDrawerOpened: true,
@@ -10,7 +10,7 @@ const initialState: DrawerStateType = {
   url: "/",
   selectedMenuItemTitle: menuItems[0].title,
   //   selectedDropdownItem: dropdownMenuItems[0].title,
-  // isExpanded: {},
+  isExpanded: {},
 };
 
 const menuDrawerSlice = createSlice({
@@ -39,14 +39,14 @@ const menuDrawerSlice = createSlice({
     // setSelectedDropdownItem: (state, { payload: { title } }) => {
     //   state.selectedDropdownItem = title;
     // },
-    // setIsExpanded: (state, { payload: { id, isExpandable } }) => {
-    //   if (isExpandable) {
-    //     state.isExpanded = {
-    //       ...state.isExpanded,
-    //       [id]: !state.isExpanded[id],
-    //     };
-    //   }
-    // },
+    setIsExpanded: (state, { payload: { id, isExpandable } }) => {
+      if (isExpandable) {
+        state.isExpanded = {
+          ...state.isExpanded,
+          [id]: !state.isExpanded[id],
+        };
+      }
+    },
   },
 });
 
@@ -64,5 +64,5 @@ type DrawerStateType = {
   url: string;
   selectedMenuItemTitle: string;
   // selectedDropdownItem?: string;
-  // isExpanded: any; // TODO: change any
+  isExpanded: any; // TODO: change any
 };
