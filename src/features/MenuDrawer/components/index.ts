@@ -1,5 +1,3 @@
-export { Drawer } from "./Drawer";
-export { DrawerHeader } from "./DrawerHeader";
-export { DrawerHeaderWrapper } from "./DrawerHeaderWrapper";
-export { PermanentDrawer } from "./PermanentDrawer";
-export { DrawerPrimaryMenu } from "./DrawerPrimaryMenu";
+export { PermanentDrawer, Drawer } from "./Drawer";
+export { DrawerHeaderWrapper, DrawerHeader } from "./DrawerHeader";
+export { DrawerPrimaryMenu } from "./Menu/DrawerPrimaryMenu";
