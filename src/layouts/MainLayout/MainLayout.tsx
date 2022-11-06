@@ -1,24 +1,38 @@
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
 import SideBarMenu from "./components/SideBarMenu";
-import { RowContainer } from "@components/RowContainer";
-import { GridItem } from "@components/GridItem";
 import { BodyHeader } from "./components/BodyHeader";
 import { Body } from "./components/Body";
+import { BoxDiv } from "@components/atoms";
 
 const MainLayout = () => {
+  const { container, bodyContainer } = styles;
   return (
-    <RowContainer>
+    <BoxDiv {...container}>
       <CssBaseline />
-      <GridItem>
-        <SideBarMenu />
-      </GridItem>
+      <SideBarMenu />
 
-      <GridItem>
+      <BoxDiv {...bodyContainer}>
         <BodyHeader />
-        <Body>This is Body</Body>
-      </GridItem>
-    </RowContainer>
+        <Body>
+          <Typography>This Is Body</Typography>
+          <Typography>This Is Body</Typography>
+        </Body>
+      </BoxDiv>
+    </BoxDiv>
   );
 };
 
 export default MainLayout;
+
+const styles = {
+  container: {
+    sx: {
+      display: "flex",
+    },
+  },
+  bodyContainer: {
+    sx: {
+      flexGrow: 1,
+    },
+  },
+};

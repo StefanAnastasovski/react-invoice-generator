@@ -1,18 +1,16 @@
 import React from "react";
-
-import Box from "@mui/material/Box";
 import { ChildrenProps } from "types/ChildrenProps";
-import { RowContainer } from "@components/RowContainer";
-import { BoxMain } from "@components/atoms";
+import { BoxDiv, BoxMain } from "@components/atoms";
+import { HEADER_MIN_HEIGHT } from "@constants";
 
 export const Body = ({ children }: ChildrenProps) => {
   const { outerContainer, innerContainer, rowContainer } = styles;
   return (
     <BoxMain {...outerContainer}>
       {/* Page */}
-      <Box {...innerContainer}>
-        <RowContainer {...rowContainer}>{children}</RowContainer>
-      </Box>
+      <BoxDiv {...innerContainer}>
+        <BoxDiv {...rowContainer}>{children}</BoxDiv>
+      </BoxDiv>
     </BoxMain>
   );
 };
@@ -21,13 +19,13 @@ const styles = {
   outerContainer: {
     sx: {
       flexGrow: 1,
-      marginBottom: 5,
+      minHeight: "100vh",
+      paddingTop: `${HEADER_MIN_HEIGHT}px`,
     },
   },
   innerContainer: {
     sx: {
-      padding: "0 40px",
-      marginTop: "-4rem",
+      padding: "1em",
     },
   },
   rowContainer: {
