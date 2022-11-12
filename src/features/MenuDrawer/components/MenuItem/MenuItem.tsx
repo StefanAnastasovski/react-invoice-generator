@@ -33,10 +33,11 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
     );
   }
 
+  // TODO: optimize renders
   const onClickMenuHandler = (subId?: number | string | null) => {
-    setIsExpended();
     setIsSelectedItem(subId);
     setMenuUrl();
+    !subId && setIsExpended();
   };
 
   const submenuItems = SubMenuItem({
@@ -58,7 +59,7 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
         >
           <StyledListItemButton
             open={open}
-            onClick={() => onClickMenuHandler(subtitles[id]?.subtitleId)}
+            onClick={() => onClickMenuHandler()}
           >
             <StyledListItemIcon open={open} children={icon} />
             {open ? <StyledListItemText primary={title} open={open} /> : null}

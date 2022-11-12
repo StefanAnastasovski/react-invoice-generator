@@ -1,4 +1,5 @@
-import { Link, ListItem, Theme } from "@mui/material";
+import { Link, Theme } from "@mui/material";
+import { StyledListItem } from "./StyledListItem";
 import { StyledListItemButton } from "./StyledListItemButton";
 import { StyledListItemText } from "./StyledListItemText";
 
@@ -19,15 +20,15 @@ export const SubMenuItem = ({
         // to={pathName.concat(link)}
         {...linkStyle}
       >
-        <ListItem disablePadding selected={selectedItem.subId === subtitleId}>
+        <StyledListItem selected={selectedItem.subId === subtitleId}>
           <StyledListItemButton
             open={open}
-            onClick={() => onClickMenuHandler(subtitles[id]?.subtitleId)}
+            onClick={() => onClickMenuHandler(subtitleId)}
             {...innerItem}
           >
             {open && <StyledListItemText open={open} primary={subtitle} />}
           </StyledListItemButton>
-        </ListItem>
+        </StyledListItem>
       </Link>
     );
   });

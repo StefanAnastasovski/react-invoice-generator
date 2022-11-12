@@ -27,7 +27,7 @@ export const useHandleMenuClick = ({ data, subtitleId }: Props) => {
     dispatch(
       menuDrawerActions.setSelectedMenuItem({
         id: id,
-        subId: subtitleId || null,
+        subId: subId || null,
       })
     );
   };
