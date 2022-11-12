@@ -1,18 +1,14 @@
 import React from "react";
-
-import { List, Typography } from "@mui/material";
-
-// import DrawerItem from "./DrawerItem";
-// import { orders } from "../../../data/orders";
-import { MenuItem } from "../MenuItem";
+import { List } from "@mui/material";
+import { MenuCategoryWithItems } from "./MenuCategoryWithItems";
 import { menuItems } from "@constants/menuItems";
 
-const items = menuItems.map((item) => {
-  return <MenuItem key={item.id} data={item} style={{}} />;
-});
-
 export const DrawerPrimaryMenu = () => {
-  return <List {...styles.list}>{items}</List>;
+  const menuCategory = menuItems.map((item) => {
+    return <MenuCategoryWithItems key={item.id} data={item} />;
+  });
+
+  return <List {...styles.list}>{menuCategory}</List>;
 };
 
 const styles = {

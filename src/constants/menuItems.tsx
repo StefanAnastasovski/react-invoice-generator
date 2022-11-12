@@ -1,10 +1,9 @@
 import React from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
-export const menuItems = [
-  // General
+const generalMenuItems = [
   {
-    id: "t1",
+    id: "gmi1",
     category: "General",
     title: "Overview",
     subtitles: [],
@@ -12,7 +11,7 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t2",
+    id: "gmi2",
     category: "General",
     title: "Finance",
     subtitles: [],
@@ -20,26 +19,28 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t3",
+    id: "gmi3",
     category: "General",
     title: "Analytics",
     subtitles: [],
     link: "/",
     icon: <HomeOutlinedIcon />,
   },
-  // Management
+];
+
+const managementMenuItems = [
   {
-    id: "t4",
+    id: "mmi1",
     category: "Management",
     title: "Customers",
     subtitles: [
       {
-        subtitleId: "t4s1",
+        subtitleId: "mmi1s1",
         subtitle: "List",
         link: "/list",
       },
       {
-        subtitleId: "t4s2",
+        subtitleId: "mmi1s2",
         subtitle: "Details",
         link: "/details",
       },
@@ -48,17 +49,17 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t5",
+    id: "mmi2",
     category: "Management",
     title: "Products",
     subtitles: [
       {
-        subtitleId: "t5s1",
+        subtitleId: "mmi2s1",
         subtitle: "List",
         link: "/list",
       },
       {
-        subtitleId: "t5s2",
+        subtitleId: "mmi2s2",
         subtitle: "Create",
         link: "/create",
       },
@@ -67,17 +68,17 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t6",
+    id: "mmi3",
     category: "Management",
     title: "Orders",
     subtitles: [
       {
-        subtitleId: "t6s1",
+        subtitleId: "mmi3s1",
         subtitle: "List",
         link: "/list",
       },
       {
-        subtitleId: "t6s2",
+        subtitleId: "mmi3s2",
         subtitle: "Details",
         link: "/details",
       },
@@ -86,17 +87,17 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t7",
+    id: "mmi4",
     category: "Management",
     title: "Invoices",
     subtitles: [
       {
-        subtitleId: "t7s1",
+        subtitleId: "mmi4s1",
         subtitle: "List",
         link: "/list",
       },
       {
-        subtitleId: "t7s2",
+        subtitleId: "mmi4s2",
         subtitle: "Details",
         link: "/details",
       },
@@ -104,9 +105,11 @@ export const menuItems = [
     link: "/",
     icon: <HomeOutlinedIcon />,
   },
-  // Platforms
+];
+
+const platformMenuItems = [
   {
-    id: "t8",
+    id: "pmi1",
     category: "Platforms",
     title: "Job Listings",
     subtitles: [],
@@ -114,7 +117,7 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t9",
+    id: "pmi2",
     category: "Platforms",
     title: "Social Media",
     subtitles: [],
@@ -122,24 +125,26 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t10",
+    id: "pmi3",
     category: "Platforms",
     title: "Blog",
     subtitles: [],
     link: "/",
     icon: <HomeOutlinedIcon />,
   },
-  // Apps
+];
+
+const appMenuItems = [
   {
-    id: "t11",
-    category: "Kanban",
+    id: "ami1",
+    category: "Platforms",
     title: "Kanban",
     subtitles: [],
     link: "/",
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t12",
+    id: "ami2",
     category: "Platforms",
     title: "Mail",
     subtitles: [],
@@ -147,11 +152,38 @@ export const menuItems = [
     icon: <HomeOutlinedIcon />,
   },
   {
-    id: "t13",
+    id: "ami3",
     category: "Platforms",
     title: "Calendar",
     subtitles: [],
     link: "/",
     icon: <HomeOutlinedIcon />,
+  },
+];
+
+export const menuItems = [
+  // General
+  {
+    id: "cat1",
+    title: "General",
+    items: generalMenuItems,
+  },
+  // Management
+  {
+    id: "cat2",
+    title: "Management",
+    items: managementMenuItems,
+  },
+  // Platforms
+  {
+    id: "cat3",
+    title: "Platforms",
+    items: platformMenuItems,
+  },
+  // Apps
+  {
+    id: "cat4",
+    title: "Apps",
+    items: appMenuItems,
   },
 ];
