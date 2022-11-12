@@ -52,14 +52,11 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   return (
     <>
       <Link {...linkStyle}>
-        <StyledListItem
-          {...style}
-          {...otherProps}
-          selected={selectedItem.id === id}
-        >
+        <StyledListItem {...style} {...otherProps}>
           <StyledListItemButton
             open={open}
             onClick={() => onClickMenuHandler()}
+            selected={selectedItem.id === id}
           >
             <StyledListItemIcon open={open} children={icon} />
             {open ? <StyledListItemText primary={title} open={open} /> : null}

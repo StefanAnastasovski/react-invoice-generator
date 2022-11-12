@@ -20,10 +20,11 @@ export const SubMenuItem = ({
         // to={pathName.concat(link)}
         {...linkStyle}
       >
-        <StyledListItem selected={selectedItem.subId === subtitleId}>
+        <StyledListItem>
           <StyledListItemButton
             open={open}
             onClick={() => onClickMenuHandler(subtitleId)}
+            selected={selectedItem.subId === subtitleId}
             {...innerItem}
           >
             {open && <StyledListItemText open={open} primary={subtitle} />}
