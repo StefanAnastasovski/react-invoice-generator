@@ -1,4 +1,4 @@
-import { Link, ListItem } from "@mui/material";
+import { Link, ListItem, Theme } from "@mui/material";
 import { StyledListItemButton } from "./StyledListItemButton";
 import { StyledListItemText } from "./StyledListItemText";
 
@@ -8,8 +8,9 @@ export const SubMenuItem = ({
   open,
   onClickMenuHandler,
   selectedItem,
+  theme,
 }: SubMenuProps) => {
-  const { innerItem, linkStyle } = styles(open);
+  const { innerItem, linkStyle } = styles(theme);
   return subtitles.map(({ subtitleId, subtitle, link }: SubTitleProps) => {
     return (
       <Link
@@ -32,11 +33,12 @@ export const SubMenuItem = ({
   });
 };
 
-const styles = (open: boolean) => {
+const styles = (theme?: Theme) => {
   return {
     linkStyle: {
       sx: {
         textDecoration: "none",
+        color: theme?.palette.text.primary,
       },
     },
     innerItem: {
@@ -52,6 +54,7 @@ type SubMenuProps = {
   open: boolean;
   onClickMenuHandler: (subId: number | string | null | undefined) => void;
   selectedItem: any;
+  theme?: Theme;
 };
 
 type SubTitleProps = {

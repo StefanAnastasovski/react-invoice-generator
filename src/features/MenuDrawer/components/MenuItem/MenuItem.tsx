@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Collapse, Link, List } from "@mui/material";
+import { Collapse, Link, List, Theme, useTheme } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowForwardIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useHandleMenuClick } from "@hooks/useHandleMenuClick";
@@ -11,6 +11,7 @@ import { StyledListItemIcon } from "./StyledListItemIcon";
 import { SubMenuItem } from "./SubMenuItem";
 
 export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
+  const theme = useTheme();
   const { id, title, subtitles, icon, link } = data;
   // const [pathName, setPathName] = useState(link || "/");
   const open = useSelector((state: any) => state.drawer.isDrawerOpened);
@@ -23,7 +24,7 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   });
 
   let expandIcon = null;
-  const { arrowForwardStyle, linkStyle } = styles(open);
+  const { arrowForwardStyle, linkStyle } = styles({ theme, open });
   if (subtitles.length > 0) {
     expandIcon = isExpanded[id] ? (
       <ExpandMoreIcon />
@@ -44,6 +45,7 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
     open,
     onClickMenuHandler,
     selectedItem,
+    theme,
   });
 
   return (
@@ -75,7 +77,11 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   );
 };
 
-const styles = (open: boolean) => {
+type StyleProps = {
+  theme?: Theme;
+  open?: boolean;
+};
+const styles = ({ theme, open }: StyleProps) => {
   return {
     arrowForwardStyle: {
       sx: {
@@ -85,6 +91,7 @@ const styles = (open: boolean) => {
     linkStyle: {
       sx: {
         textDecoration: "none",
+        color: theme?.palette.text.primary,
       },
     },
   };
