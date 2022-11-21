@@ -5,6 +5,7 @@ export const StyledListItem = styled(ListItem)(() => {
     padding: 0,
     borderRadius: "10px",
     display: "block",
+    marginTop: "2px",
     "& .MuiCollapse-root": {
       // background: "",
       // color: "",

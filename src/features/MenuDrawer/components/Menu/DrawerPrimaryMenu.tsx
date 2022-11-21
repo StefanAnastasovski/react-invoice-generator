@@ -2,19 +2,21 @@ import React from "react";
 import { List } from "@mui/material";
 import { MenuCategoryWithItems } from "./MenuCategoryWithItems";
 import { menuItems } from "@constants/menuItems";
+import { OpenProps } from "types/OpenProps";
+import { useDrawerMenu } from "@hooks/useDrawerMenu";
 
 export const DrawerPrimaryMenu = () => {
+  const { isOpen } = useDrawerMenu();
   const menuCategory = menuItems.map((item) => {
     return <MenuCategoryWithItems key={item.id} data={item} />;
   });
-
-  return <List {...styles.list}>{menuCategory}</List>;
+  return <List {...styles(isOpen).list}>{menuCategory}</List>;
 };
 
-const styles = {
+const styles = (isOpen: OpenProps) => ({
   list: {
     sx: {
-      padding: "0 16px",
+      padding: isOpen ? "0 16px" : "0 4px",
     },
   },
-};
+});
