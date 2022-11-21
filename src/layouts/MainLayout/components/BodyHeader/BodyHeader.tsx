@@ -6,18 +6,19 @@ import { RowContainer } from "@components/RowContainer";
 import { GridItem } from "@components/GridItem";
 import { AppBarWrapper } from "./components";
 import { StyledIconButton } from "@components/atoms";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { menuDrawerActions } from "@stores/slices/menuDrawerSlice";
+import { useDrawerMenu } from "@hooks/useDrawerMenu";
 
 export const BodyHeader = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const open = useSelector((state: any) => state.drawer.isDrawerOpened);
+  const { isOpen } = useDrawerMenu();
   const handleDrawerOpen = () => {
     dispatch(menuDrawerActions.setMenuDrawerOpen());
   };
 
-  const showMenuIcon = !open ? (
+  const showMenuIcon = !isOpen ? (
     <StyledIconButton
       onClick={handleDrawerOpen}
       restProps={{

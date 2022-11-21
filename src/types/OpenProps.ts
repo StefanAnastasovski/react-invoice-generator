@@ -1,3 +1,3 @@
 export type OpenProps = {
-  open?: boolean;
+  isOpen?: boolean;
 };

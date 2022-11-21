@@ -4,12 +4,12 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { DRAWER_WIDTH } from "@constants/constants";
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  isOpen?: boolean;
 }
 
 export const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => {
+  shouldForwardProp: (prop) => prop !== "isOpen",
+})<AppBarProps>(({ theme, isOpen }) => {
   return {
     position: "fixed",
     background: theme.palette.background.paper,
@@ -19,7 +19,7 @@ export const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
+    ...(isOpen && {
       marginLeft: `${DRAWER_WIDTH}px`,
       width: `calc(100% - ${DRAWER_WIDTH}px)`,
       transition: theme.transitions.create(["width", "margin"], {

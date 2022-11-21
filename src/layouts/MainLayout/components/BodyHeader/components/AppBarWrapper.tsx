@@ -1,14 +1,14 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
 import { ChildrenProps } from "types/ChildrenProps";
+import { useDrawerMenu } from "@hooks/useDrawerMenu";
 import { AppBar } from "./AppBar";
 
 export const AppBarWrapper = ({ children }: ChildrenProps) => {
-  const open = useSelector((state: any) => state.drawer.isDrawerOpened);
+  const { isOpen } = useDrawerMenu();
 
   return (
-    <AppBar open={open} position="fixed">
+    <AppBar isOpen={isOpen} position="fixed">
       {children}
     </AppBar>
   );

@@ -6,7 +6,7 @@ import { StyledListItemText } from "./StyledListItemText";
 export const SubMenuItem = ({
   id,
   subtitles,
-  open,
+  isOpen,
   onClickMenuHandler,
   selectedItem,
   theme,
@@ -22,12 +22,14 @@ export const SubMenuItem = ({
       >
         <StyledListItem>
           <StyledListItemButton
-            open={open}
+            isOpen={isOpen}
             onClick={() => onClickMenuHandler(subtitleId)}
             selected={selectedItem.subId === subtitleId}
             {...innerItem}
           >
-            {open && <StyledListItemText open={open} primary={subtitle} />}
+            {isOpen && (
+              <StyledListItemText isOpen={isOpen} primary={subtitle} />
+            )}
           </StyledListItemButton>
         </StyledListItem>
       </Link>
@@ -53,7 +55,7 @@ const styles = (theme?: Theme) => {
 type SubMenuProps = {
   id: number | string;
   subtitles: any;
-  open: boolean;
+  isOpen: boolean;
   onClickMenuHandler: (subId: number | string | null | undefined) => void;
   selectedItem: any;
   theme?: Theme;

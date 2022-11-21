@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Theme, useTheme } from "@mui/material";
 import { MenuItem } from "../MenuItem";
 import { BoxDiv } from "@components/atoms";
+import { useDrawerMenu } from "@hooks/useDrawerMenu";
 
 const renderItems = (items: any) =>
   items.map((item: ItemProps) => {
@@ -10,12 +11,13 @@ const renderItems = (items: any) =>
 
 export const MenuCategoryWithItems = ({ data }: CategoryItemProps) => {
   const theme = useTheme();
+  const { isOpen } = useDrawerMenu();
   const { id, title, items } = data;
   const categoryItems = renderItems(items);
   const { categoryContainer, menuSubtitle } = styles(theme);
   return (
     <BoxDiv key={id} {...categoryContainer}>
-      <Typography {...menuSubtitle}>{title}</Typography>
+      {isOpen && <Typography {...menuSubtitle}>{title}</Typography>}
       <BoxDiv>{categoryItems}</BoxDiv>
     </BoxDiv>
   );

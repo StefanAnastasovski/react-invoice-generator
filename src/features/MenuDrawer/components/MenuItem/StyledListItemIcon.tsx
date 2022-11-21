@@ -1,11 +1,10 @@
 import { ListItemIcon, styled } from "@mui/material";
 import { OpenProps } from "types/OpenProps";
 
-
 export const StyledListItemIcon = styled(ListItemIcon, {
-  shouldForwardProp: (props) => props !== "open",
-})<OpenProps>(({ open }) => ({
+  shouldForwardProp: (props) => props !== "isOpen",
+})<OpenProps>(({ isOpen }) => ({
   minWidth: 0,
-  marginRight: open ? "0.5rem" : "auto",
+  marginRight: isOpen ? "0.5rem" : "auto",
   justifyContent: "center",
 }));

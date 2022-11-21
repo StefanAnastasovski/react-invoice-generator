@@ -4,13 +4,14 @@ import { Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { RowContainer } from "@components/RowContainer";
 import { GridItem } from "@components/GridItem";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { menuDrawerActions } from "@stores/slices/menuDrawerSlice";
 import { DrawerHeaderWrapper } from "./DrawerHeaderWrapper";
 import { StyledIconButton } from "@components/atoms";
+import { useDrawerMenu } from "@hooks/useDrawerMenu";
 
 export const DrawerHeader = () => {
-  const open = useSelector((state: any) => state.drawer.isDrawerOpened);
+  const { isOpen } = useDrawerMenu();
   const dispatch = useDispatch();
   const handleDrawerClose = () => {
     dispatch(menuDrawerActions.setMenuDrawerClose());
@@ -18,7 +19,7 @@ export const DrawerHeader = () => {
 
   return (
     <DrawerHeaderWrapper>
-      {open ? (
+      {isOpen ? (
         <RowContainer {...styles.rowContainer}>
           <GridItem>
             <Typography>left</Typography>

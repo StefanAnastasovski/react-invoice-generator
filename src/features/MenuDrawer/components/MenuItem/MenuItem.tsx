@@ -9,12 +9,13 @@ import { StyledListItemText } from "./StyledListItemText";
 import { StyledListItem } from "./StyledListItem";
 import { StyledListItemIcon } from "./StyledListItemIcon";
 import { SubMenuItem } from "./SubMenuItem";
+import { useDrawerMenu } from "@hooks/useDrawerMenu";
 
 export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   const theme = useTheme();
   const { id, title, subtitles, icon, link } = data;
   // const [pathName, setPathName] = useState(link || "/");
-  const open = useSelector((state: any) => state.drawer.isDrawerOpened);
+  const { isOpen } = useDrawerMenu();
   const isExpanded = useSelector((state: any) => state.drawer.isExpanded);
   const selectedItem = useSelector(
     (state: any) => state.drawer.selectedMenuItemId
@@ -24,7 +25,7 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   });
 
   let expandIcon = null;
-  const { arrowForwardStyle, linkStyle } = styles({ theme, open });
+  const { arrowForwardStyle, linkStyle } = styles({ theme, isOpen });
   if (subtitles.length > 0) {
     expandIcon = isExpanded[id] ? (
       <ExpandMoreIcon />
@@ -43,7 +44,7 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   const submenuItems = SubMenuItem({
     id,
     subtitles,
-    open,
+    isOpen,
     onClickMenuHandler,
     selectedItem,
     theme,
@@ -54,17 +55,19 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
       <Link {...linkStyle}>
         <StyledListItem {...style} {...otherProps}>
           <StyledListItemButton
-            open={open}
+            isOpen={isOpen}
             onClick={() => onClickMenuHandler()}
             selected={selectedItem.id === id}
           >
-            <StyledListItemIcon open={open} children={icon} />
-            {open ? <StyledListItemText primary={title} open={open} /> : null}
-            {expandIcon && open ? expandIcon : null}
+            <StyledListItemIcon isOpen={isOpen} children={icon} />
+            {isOpen ? (
+              <StyledListItemText primary={title} isOpen={isOpen} />
+            ) : null}
+            {expandIcon && isOpen ? expandIcon : null}
           </StyledListItemButton>
         </StyledListItem>
       </Link>
-      {open && (
+      {isOpen && (
         <Collapse in={isExpanded[id]} timeout="auto" unmountOnExit>
           <List component="ul" disablePadding>
             {submenuItems}
@@ -77,13 +80,13 @@ export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
 
 type StyleProps = {
   theme?: Theme;
-  open?: boolean;
+  isOpen?: boolean;
 };
-const styles = ({ theme, open }: StyleProps) => {
+const styles = ({ theme, isOpen }: StyleProps) => {
   return {
     arrowForwardStyle: {
       sx: {
-        display: open ? 0 : "none",
+        display: isOpen ? 0 : "none",
       },
     },
     linkStyle: {
