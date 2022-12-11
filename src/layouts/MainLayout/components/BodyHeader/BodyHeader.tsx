@@ -9,6 +9,7 @@ import { StyledIconButton } from "@components/atoms";
 import { useDispatch } from "react-redux";
 import { menuDrawerActions } from "@stores/slices/menuDrawerSlice";
 import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { ProfileMenu } from "@features/ProfileMenu/ProfileMenu";
 
 export const BodyHeader = () => {
   const theme = useTheme();
@@ -41,7 +42,7 @@ export const BodyHeader = () => {
             <Typography>Left Header</Typography>
           </GridItem>
           <GridItem>
-            <Typography>Right Header</Typography>
+            <ProfileMenu />
           </GridItem>
         </RowContainer>
       </Toolbar>
