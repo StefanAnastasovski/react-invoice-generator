@@ -17,6 +17,9 @@ const styles = (isOpen: OpenProps) => ({
   list: {
     sx: {
       padding: isOpen ? "0 16px" : "0 4px",
+      paddingTop: 1,
+      marginTop: isOpen ? 0 : "72px",
+      marginBottom: isOpen ? 0 : 6,
     },
   },
 });

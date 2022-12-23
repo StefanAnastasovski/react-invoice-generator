@@ -18,7 +18,7 @@ export const DrawerHeader = () => {
   };
 
   return (
-    <DrawerHeaderWrapper>
+    <DrawerHeaderWrapper isOpen={isOpen}>
       {isOpen ? (
         <RowContainer {...styles.rowContainer}>
           <GridItem>
