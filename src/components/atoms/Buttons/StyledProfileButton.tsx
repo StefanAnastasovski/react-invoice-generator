@@ -1,20 +1,13 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { ProfileMenuAriaValuesType } from "@features/ProfileMenu/ProfileMenu";
-
-type Props = {
-  children: React.ReactNode | JSX.Element;
-  isOpen: boolean;
-  ariaValues: ProfileMenuAriaValuesType;
-  onClick: (e: React.MouseEvent<HTMLElement>) => void;
-};
+import { StyledProfileButtonProps } from "./types/ButtonProps";
 
 export const StyledProfileButton = ({
   children,
   isOpen,
   onClick,
   ariaValues,
-}: Props) => {
+}: StyledProfileButtonProps) => {
   return (
     <Button
       id={ariaValues.button}

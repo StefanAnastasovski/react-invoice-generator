@@ -1,16 +1,12 @@
 import React from "react";
-import { IconButton, Theme } from "@mui/material";
+import { IconButton } from "@mui/material";
 import styled from "@emotion/styled";
 import { StyledIconButtonProps } from "types/components/StyledIconButtonProps";
-
-type Props = {
-  theme: Theme;
-  style?: React.CSSProperties;
-};
+import { StyledButtonProps } from "./types/ButtonProps";
 
 const CustomIconButton = styled(IconButton, {
   shouldForwardProp: (prop) => prop !== "style",
-})(({ theme, style }: Props) => ({
+})(({ theme, style }: StyledButtonProps) => ({
   ...style,
   "&:hover svg": {
     fill: theme.palette.primary.main,
