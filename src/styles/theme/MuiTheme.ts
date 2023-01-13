@@ -4,6 +4,15 @@ import { HEADER_MIN_HEIGHT } from "@constants/constants";
 
 const CONTRAST_TEXT = "#FFF";
 
+const breakpoints = {
+  values: {
+    mobile: 0,
+    tablet: 640,
+    laptop: 1024,
+    desktop: 1200,
+  },
+};
+
 export const MuiTheme: Theme = createTheme({
   palette: {
     mode: "dark",
@@ -102,7 +111,7 @@ export const MuiTheme: Theme = createTheme({
   },
   // transitions: {},
   // zIndex: {},
-  // breakpoints: {},
+  breakpoints: breakpoints,
   // direction: "ltr",
   // components: {},
   // spacing: f a(),

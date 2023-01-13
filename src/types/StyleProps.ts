@@ -1,11 +1,17 @@
-export type StyleDefaultProps = {
-  [key: string]: string | number;
-};
+import { SxProps } from "@mui/material";
 
-export type StyleCustomProps = {
+export interface StyleDefaultProps {
+  [key: string]: string | number;
+}
+
+export interface StyleCustomProps {
   [x: string]:
     | {
         [y: string]: string | number | { [z: string]: string | number };
       }
     | { [z: string]: string | number };
-};
+}
+
+export interface StyleSxCSSPropertiesProps {
+  [x: string]: React.CSSProperties | SxProps;
+}

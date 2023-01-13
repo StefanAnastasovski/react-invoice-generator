@@ -1,5 +1,13 @@
 import * as yup from "yup";
-import { emailRegExp } from "@constants/regexp";
+import { getMinSentance, shortStringTrimYup } from "@constants/schemaConstants";
+import {
+  bankAccountMKDRegExp,
+  edbMKDRegExp,
+  emailRegExp,
+  embsKDRegExp,
+  phoneMKDRegExp,
+  zipCodeMKDRegExp,
+} from "@constants/regexp";
 import {
   emailFieldValidMessage,
   emailFieldValidExampleMessage,
@@ -7,16 +15,8 @@ import {
   bankFieldValidExampleMessage,
   phoneNumberFieldValidExampleMessage,
   phoneNumberFieldValidMessage,
-  getMinSentance,
   fieldRequiredMessaage,
-} from "./../constants/schemaMessages";
-import {
-  bankAccountMKDRegExp,
-  phoneMKDRegExp,
-  edbMKDRegExp,
-  embsKDRegExp,
-  zipCodeMKDRegExp,
-} from "../../../constants/regexp";
+} from "../constants/schemaMessages";
 
 // constants
 const ADDRESS_CHARS = 5;
@@ -56,40 +56,38 @@ const zipCodeValidMessage = getMinSentance({
   isNumber: true,
 });
 
-const shortYup = yup.string().trim();
-
-export const newCustomerSchema = yup.object().shape({
-  address: shortYup
+export const customerSchema = yup.object().shape({
+  address: shortStringTrimYup
     .min(ADDRESS_CHARS, addressValidMessage)
     .required(fieldRequiredMessaage),
-  email: shortYup
+  email: shortStringTrimYup
     .email(emailFieldValidMessage)
     .matches(emailRegExp, emailFieldValidExampleMessage)
     .required(fieldRequiredMessaage),
-  "bank-account": shortYup
+  "bank-account": shortStringTrimYup
     .optional()
     .length(17, bankFieldValidMessage)
     .matches(bankAccountMKDRegExp, bankFieldValidExampleMessage),
   "company-name": yup.string().required(fieldRequiredMessaage),
-  "phone-number": shortYup
+  "phone-number": shortStringTrimYup
     .length(12, phoneNumberFieldValidExampleMessage)
     .matches(phoneMKDRegExp, phoneNumberFieldValidMessage)
     .required(fieldRequiredMessaage),
-  edb: shortYup
+  edb: shortStringTrimYup
     .length(EDB_NUMS, edbValidMessage)
     .matches(edbMKDRegExp, edbValidMessage)
     .required(fieldRequiredMessaage),
-  embs: shortYup
+  embs: shortStringTrimYup
     .length(EMBS_NUMS, ebmsValidMessage)
     .matches(embsKDRegExp, ebmsValidMessage)
     .required(fieldRequiredMessaage),
-  country: shortYup
+  country: shortStringTrimYup
     .min(COUNTRY_STATE_REGION_CHARS, countryAndStateRegionValidMessage)
     .required(fieldRequiredMessaage),
-  "state-region": shortYup
+  "state-region": shortStringTrimYup
     .min(COUNTRY_STATE_REGION_CHARS, countryAndStateRegionValidMessage)
     .required(fieldRequiredMessaage),
-  "zip-code": shortYup
+  "zip-code": shortStringTrimYup
     .length(ZIP_CODE_NUMS, zipCodeValidMessage)
     .matches(zipCodeMKDRegExp, zipCodeValidMessage)
     .required(fieldRequiredMessaage),

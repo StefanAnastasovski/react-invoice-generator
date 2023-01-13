@@ -8,7 +8,7 @@ import { StyleDefaultProps } from "types/StyleProps";
 
 type ParagraphProps = {
   children: React.ReactNode;
-  style: StyleDefaultProps;
+  style?: StyleDefaultProps;
   variant?: TypographyVariant;
   bold?: boolean;
   restProps?: TypographyVariantsOptions;
@@ -16,16 +16,17 @@ type ParagraphProps = {
 
 export const Paragraph = ({
   children,
-  style,
+  style = {},
   variant,
   bold,
   restProps,
 }: ParagraphProps) => {
   const boldStyle = bold ? { fontWeight: 800 } : null;
+  const defaultFontSize = { fontSize: "1em" };
   return (
     <Typography
       component="p"
-      sx={[style, boldStyle]}
+      sx={[defaultFontSize, style, boldStyle]}
       variant={variant}
       {...restProps}
     >

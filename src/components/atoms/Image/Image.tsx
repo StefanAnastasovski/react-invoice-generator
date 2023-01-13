@@ -1,11 +1,12 @@
-import { Avatar, Theme, useTheme } from "@mui/material";
 import * as React from "react";
+import { Avatar, Theme, useTheme } from "@mui/material";
+import { StyleCustomProps, StyleDefaultProps } from "types/StyleProps";
 import { BoxDiv } from "../Box";
 
 type ImageProps = {
   source: string;
   alt: string;
-  containerStyle?: React.CSSProperties;
+  containerStyle?: React.CSSProperties | StyleCustomProps | StyleDefaultProps;
   imageStyle?: React.CSSProperties;
   firstLetters?: string | null;
 };

@@ -5,14 +5,23 @@ import { BoxDiv } from "@components/atoms";
 import { Paragraph } from "@components/atoms/Typography/Paragraph";
 import { HStack } from "@components/atoms/Stack";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
-import { CustomerExtraInfo } from "./CustomerExtraInfo";
-import { CUSTOMER_TABLE_COL_SPAN } from "../CustomerTable";
-import { CustomerTableBodyCollapseProps } from "@features/Customer/types/CustomerTableTypes";
+import { TableExtraInfo } from "./TableExtraInfo";
 
-export const CustomerTableBodyCollapse = ({
-  collapseData,
+export const TableBodyCollapseWrapper = ({
   shouldCollapse,
-}: CustomerTableBodyCollapseProps) => {
+  colSpan,
+  titleLeft,
+  titleRight,
+  collapseDataLeft,
+  collapseDataRight,
+}: {
+  shouldCollapse: boolean;
+  colSpan: number;
+  titleLeft: string;
+  titleRight: string;
+  collapseDataLeft: any; // change
+  collapseDataRight: any; // change
+}) => {
   const theme = useTheme();
   const style = styles(theme, shouldCollapse);
 
@@ -24,7 +33,7 @@ export const CustomerTableBodyCollapse = ({
           paddingTop: 0,
           borderBottom: !shouldCollapse ? "none" : null,
         }}
-        colSpan={CUSTOMER_TABLE_COL_SPAN}
+        colSpan={colSpan}
       >
         <Collapse in={shouldCollapse} timeout="auto" unmountOnExit>
           <HStack style={style.collapseContainer}>
@@ -34,17 +43,10 @@ export const CustomerTableBodyCollapse = ({
                 ...style.collapseContainerCommon,
               }}
             >
-              <Paragraph style={style.title} bold>
-                {collapseData.contact.title}
-              </Paragraph>
-              {collapseData.contact.items.map((item: any) => {
-                return (
-                  <CustomerExtraInfo
-                    key={item.text}
-                    title={item.title}
-                    text={item.text}
-                  />
-                );
+              {renderExtraInfo({
+                title: titleLeft,
+                collapseData: collapseDataLeft,
+                style: style,
               })}
             </BoxDiv>
 
@@ -54,23 +56,43 @@ export const CustomerTableBodyCollapse = ({
                 ...style.collapseContainerCommon,
               }}
             >
-              <Paragraph style={style.title} bold>
-                {collapseData.bankAccount.title}
-              </Paragraph>
-              {collapseData.bankAccount.items.map((item: any) => {
-                return (
-                  <CustomerExtraInfo
-                    key={item.text}
-                    title={item.title}
-                    text={item.text}
-                  />
-                );
+              {renderExtraInfo({
+                title: titleRight,
+                collapseData: collapseDataRight,
+                style: style,
               })}
             </BoxDiv>
           </HStack>
         </Collapse>
       </CustomTableCell>
     </TableRow>
+  );
+};
+
+const renderExtraInfo = ({
+  title,
+  collapseData,
+  style,
+}: {
+  title: string;
+  collapseData: any;
+  style: any;
+}) => {
+  return (
+    <>
+      <Paragraph style={style.title} bold>
+        {title}
+      </Paragraph>
+      {collapseData?.map((item: any) => {
+        return (
+          <TableExtraInfo
+            key={item.id}
+            title={item.title}
+            text={item.text}
+          />
+        );
+      })}
+    </>
   );
 };
 

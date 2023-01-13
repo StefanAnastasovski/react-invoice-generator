@@ -1,6 +1,7 @@
 import React from "react";
+import { StyleCustomProps, StyleDefaultProps } from "./StyleProps";
 
-export type ChildrenProps = {
+export interface ChildrenProps {
   children: React.ReactNode | React.ReactNode[];
-  style?: React.CSSProperties;
-};
+  style?: React.CSSProperties | StyleCustomProps | StyleDefaultProps;
+}

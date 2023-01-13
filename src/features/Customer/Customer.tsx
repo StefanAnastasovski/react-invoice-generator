@@ -3,27 +3,12 @@ import { BoxDiv } from "@components/atoms";
 import { CustomButton } from "@components/atoms/Buttons";
 import { CustomerTable } from "./components/CustomerTable";
 import { NewCustomerProps } from "./types/NewCustomerTypes";
-import { AddNewOrEditCustomer } from "./components/AddNewOrEditCustomer";
+import { AddOrEditCustomer } from "./components/AddOrEditCustomer";
+import { CONTENT_BUTTON_ACTIONS } from "@constants/constants";
 
-// TODO: remove after BE implementation
-const existingCustomerData = {
-  address: "dadadadaa",
-  "bank-account": "111-1111111111-11",
-  "company-name": "dadadadada",
-  country: "dadadad",
-  edb: "1111111111111",
-  email: "dasdakod@gmail.com",
-  embs: "111111",
-  "phone-number": "+38977222222",
-  "state-region": "dadadad",
-  "zip-code": "1300",
-};
-
-const BUTTON_ACTIONS = {
-  ADD: "Add",
-  UPDATE: "Update",
-  CANCEL: "Cancel",
-  DELETE: "Delete",
+const BUTTON_CONTENT = {
+  ADD_BUTTON: "Add a New Customer",
+  EDIT_BUTTON: "Edit Customer",
 };
 
 export const Customer = () => {
@@ -72,14 +57,14 @@ export const Customer = () => {
           size="medium"
           onClick={handleNewCustomer}
         >
-          Add a New Customer
+          {BUTTON_CONTENT.ADD_BUTTON}
         </CustomButton>
       ) : (
-        <AddNewOrEditCustomer
+        <AddOrEditCustomer
           onClickSecondary={handleClose}
           addNewCustomer={setCustomerList}
-          primaryButtonText={BUTTON_ACTIONS.ADD}
-          secondaryButtonText={BUTTON_ACTIONS.CANCEL}
+          primaryButtonText={CONTENT_BUTTON_ACTIONS.ADD}
+          secondaryButtonText={CONTENT_BUTTON_ACTIONS.CANCEL}
           customerList={customerList}
         />
       )}
@@ -90,18 +75,18 @@ export const Customer = () => {
           size="medium"
           onClick={handleEditCustomer}
         >
-          Edit Customer
+          {BUTTON_CONTENT.EDIT_BUTTON}
         </CustomButton>
       ) : (
-        <AddNewOrEditCustomer
+        <AddOrEditCustomer
           onClickSecondary={handleClose}
           editCustomer={editCustomer}
           handleDelete={handleDelete}
-          primaryButtonText={BUTTON_ACTIONS.UPDATE}
-          secondaryButtonText={BUTTON_ACTIONS.CANCEL}
-          deleteButtonText={BUTTON_ACTIONS.DELETE}
+          primaryButtonText={CONTENT_BUTTON_ACTIONS.UPDATE}
+          secondaryButtonText={CONTENT_BUTTON_ACTIONS.CANCEL}
+          deleteButtonText={CONTENT_BUTTON_ACTIONS.DELETE}
           customerList={customerList}
-          shouldEditCustomer={true}
+          shouldEdit={true}
           customerData={existingCustomerData}
         />
       )}
@@ -143,3 +128,17 @@ const customerData = [
     "zip-code": "1300",
   },
 ];
+
+// TODO: remove after BE implementation
+const existingCustomerData = {
+  address: "dadadadaa",
+  "bank-account": "111-1111111111-11",
+  "company-name": "dadadadada",
+  country: "dadadad",
+  edb: "1111111111111",
+  email: "dasdakod@gmail.com",
+  embs: "111111",
+  "phone-number": "+38977222222",
+  "state-region": "dadadad",
+  "zip-code": "1300",
+};

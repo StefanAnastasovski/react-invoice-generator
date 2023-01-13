@@ -4,7 +4,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import { ChildrenProps } from "types/ChildrenProps";
 
-export const CustomerTableWrapper = ({ children }: ChildrenProps) => {
+export const TableCustomWrapper = ({ children }: ChildrenProps) => {
   return (
     <TableContainer component={Paper} sx={{ ...styles.tableMaxWidth }}>
       <Table
@@ -19,6 +19,7 @@ export const CustomerTableWrapper = ({ children }: ChildrenProps) => {
 
 const styles = {
   tableMaxWidth: {
+    marginTop: 20,
     maxWidth: 1000,
   },
   tableMinWidth: {

@@ -6,7 +6,7 @@ export interface NewCustomerCompProps {
   secondaryButtonText: string;
   deleteButtonText?: string;
   customerList?: NewCustomerProps[];
-  shouldEditCustomer?: boolean;
+  shouldEdit?: boolean;
   customerData?: FormikValues;
   onClickPrimary?: () => void;
   onClickSecondary?: () => void;

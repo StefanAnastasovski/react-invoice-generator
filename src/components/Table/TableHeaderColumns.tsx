@@ -1,33 +1,33 @@
 import React from "react";
 import TableRow from "@mui/material/TableRow";
-import { Checkbox, SxProps, TableHead } from "@mui/material";
-import { customerColumns } from "@features/Customer/constants/customerTable";
+import { Checkbox, TableHead } from "@mui/material";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
-import { CustomerTableHeadProps } from "@features/Customer/types/CustomerTableTypes";
+import { useTable } from "@hooks/useTable";
+import { TableCustomerProps } from "@features/Customer/types/NewCustomerTypes";
+import { TableServiceProps } from "@features/Services/types/ServiceProps";
+import { SelectedRows } from "types/components/TableProps";
 
 const ARIA_LABEL = {
   selectAllCustomers: "select all customers",
 };
 
-const renderColumns = (style: CustomerStyleProps) =>
-  customerColumns.map((column, index) => (
-    <CustomTableCell
-      key={column}
-      style={
-        customerColumns.length - 1 > index
-          ? style.cellBorderRight
-          : style.lastCellBorderRight
-      }
-    >
-      {column}
-    </CustomTableCell>
-  ));
+export interface TableHeadProps extends SelectedRows {
+  titles: string[]; // titiles
+  rowsPerPageData: TableServiceProps[] | TableCustomerProps[];
+  onSelectAllClick: () => void;
+}
 
-export const CustomerTableHead = ({
+export const TableHeaderColumns = ({
   rowsPerPageData,
   selectedRows,
+  titles,
   onSelectAllClick,
-}: CustomerTableHeadProps) => {
+}: TableHeadProps) => {
+  const { renderHeaderColumns } = useTable({
+    columnsData: titles,
+    style: styles,
+  });
+
   return (
     <TableHead>
       <TableRow>
@@ -41,8 +41,7 @@ export const CustomerTableHead = ({
           />
         </CustomTableCell>
         <CustomTableCell style={styles.cellBorderRight}>{""}</CustomTableCell>
-
-        {renderColumns(styles)}
+        {renderHeaderColumns}
       </TableRow>
     </TableHead>
   );
@@ -55,8 +54,4 @@ const styles = {
   lastCellBorderRight: {
     borderRight: "unset",
   },
-};
-
-type CustomerStyleProps = {
-  [x: string]: React.CSSProperties | SxProps;
 };

@@ -3,7 +3,7 @@ import { VStack } from "@components/atoms/Stack";
 import { Paragraph } from "@components/atoms/Typography/Paragraph";
 import { COLORS } from "@constants/colors";
 
-export const CustomerExtraInfo = ({ title, text }: Props) => {
+export const TableExtraInfo = ({ title, text }: Props) => {
   return (
     <VStack style={{ ...styles.container, ...styles.itemStyle }}>
       <Paragraph style={styles.title} bold>

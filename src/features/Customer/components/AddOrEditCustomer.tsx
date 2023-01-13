@@ -6,20 +6,14 @@ import { BasicCard } from "@components/atoms/Card/BasicCard";
 import { HStack } from "@components/atoms/Stack";
 import { CustomButton } from "@components/atoms/Buttons";
 import { opacityHexSuffix } from "@constants/opacityHexConstants";
-import { newCustomerSchema } from "../helpers/newCustomerSchema";
+import { customerSchema } from "../helpers/customerSchema";
 import { newCustomerFields } from "../constants/customerFields";
 import { NEW_CUSTOMER_INITIAL_VALUE } from "../constants/constants";
 import {
   NewCustomerCompProps,
   NewCustomerRenderFieldProps,
 } from "../types/NewCustomerTypes";
-
-const FORM_METHODS = {
-  PATCH: "PATCH",
-  PUT: "PUT",
-  GET: "GET",
-  POST: "POST",
-};
+import { FORM_METHODS } from "@constants/constants";
 
 const CONTENT = {
   NEW_CUSTOMER: "Add a New Customer",
@@ -67,12 +61,12 @@ const renderFields = ({
   });
 };
 
-export const AddNewOrEditCustomer = ({
+export const AddOrEditCustomer = ({
   primaryButtonText,
   secondaryButtonText,
   deleteButtonText,
   customerList,
-  shouldEditCustomer = false,
+  shouldEdit = false,
   customerData = {},
   onClickSecondary,
   handleDelete,
@@ -88,23 +82,19 @@ export const AddNewOrEditCustomer = ({
   };
 
   const formik = useFormik({
-    initialValues: !shouldEditCustomer
-      ? NEW_CUSTOMER_INITIAL_VALUE
-      : customerData,
-    validationSchema: newCustomerSchema,
+    initialValues: !shouldEdit ? NEW_CUSTOMER_INITIAL_VALUE : customerData,
+    validationSchema: customerSchema,
     onSubmit: (newCustomerData: any) => {
       // TODO: add implementation and test after BE implementation
-      if (shouldEditCustomer && editCustomer) {
+      if (shouldEdit && editCustomer) {
         editCustomer(newCustomerData);
       }
-      if (!shouldEditCustomer && addNewCustomer) {
+      if (!shouldEdit && addNewCustomer) {
         customerList && addNewCustomer(customerList.concat(newCustomerData));
       }
     },
   });
-  const title = !shouldEditCustomer
-    ? CONTENT.NEW_CUSTOMER
-    : CONTENT.EDIT_CUSTOMER;
+  const title = !shouldEdit ? CONTENT.NEW_CUSTOMER : CONTENT.EDIT_CUSTOMER;
 
   return (
     <BoxDiv>
@@ -118,9 +108,7 @@ export const AddNewOrEditCustomer = ({
             {/* TODO: get the fileds from BE */}
             <form
               onSubmit={formik.handleSubmit}
-              method={
-                !shouldEditCustomer ? FORM_METHODS.POST : FORM_METHODS.PATCH
-              }
+              method={!shouldEdit ? FORM_METHODS.POST : FORM_METHODS.PATCH}
             >
               {renderFields({
                 formik,
@@ -184,12 +172,12 @@ const styles = (theme: Theme) => {
       marginTop: 2,
       left: "unset !important",
       top: "unset !important",
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("laptop")]: {
         paddingLeft: 0,
         paddingRight: 0,
         width: "100%",
       },
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("laptop")]: {
         minWidth: "50%",
         maxWidth: "50%",
       },

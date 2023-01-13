@@ -7,11 +7,8 @@ import {
   KeyboardArrowRight as KeyboardArrowRightIcon,
   KeyboardArrowLeft as KeyboardArrowLeftIcon,
 } from "@mui/icons-material";
-import {
-  TablePaginationActionsProps,
-  TablePaginationEventProp,
-} from "@features/Customer/types/CustomerTableTypes";
 import { BoxDiv } from "@components/atoms";
+import { TablePaginationActionsProps, TablePaginationEventProp } from "types/components/TableProps";
 
 const PAGES = {
   firstPage: "first page",

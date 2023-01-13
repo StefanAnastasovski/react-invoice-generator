@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { customerMockedRows } from "@features/Customer/constants/customerTable";
-import { TablePaginationActions } from "./TablePaginationActions";
-import { CUSTOMER_TABLE_COL_SPAN } from "../CustomerTable";
-import { CustomerTableFooterProps, EventChangePageProp, EventChangeRowsPerPageProp } from "@features/Customer/types/CustomerTableTypes";
+import { TablePaginationActions } from "@components/Table/TablePaginationActions";
+import {
+  EventChangePageProp,
+  EventChangeRowsPerPageProp,
+  TablePaginationFooterProps,
+} from "types/components/TableProps";
 
 const ALLOWED_ROWS_PER_PAGE = [5, 10, 25, { label: "All", value: -1 }];
 
@@ -13,14 +15,16 @@ const ARIA_LABEL = {
   selectProps: "rows per page",
 };
 
-export const CustomerTableFooter = ({
+export const TablePaginationFooter = ({
   page,
   setPage,
   rowsPerPage,
   setRowsPerPage,
+  columnsData,
+  colSpan,
   resetSelectedRows,
   handleAllCollapse,
-}: CustomerTableFooterProps) => {
+}: TablePaginationFooterProps) => {
   const handleChangePage = (event: EventChangePageProp, newPage: number) => {
     setPage(newPage);
     handleAllCollapse();
@@ -44,8 +48,8 @@ export const CustomerTableFooter = ({
       <TableRow>
         <TablePagination
           rowsPerPageOptions={ALLOWED_ROWS_PER_PAGE}
-          colSpan={CUSTOMER_TABLE_COL_SPAN}
-          count={customerMockedRows.length}
+          colSpan={colSpan}
+          count={columnsData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           SelectProps={{

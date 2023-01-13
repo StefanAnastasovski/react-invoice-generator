@@ -5,6 +5,7 @@
       "@components/*": ["components/*", "components"],
       "@features/*": ["features/*", "features"],
       "@images/*": ["assets/images/*", "assets/images"],
+      "@icons/*": ["assets/icons/*", "assets/icons"],
       "@pages/*": ["pages/*", "pages"],
       "@layouts/*": ["layouts/*", "layouts"],
       "@styles/*": ["styles/*", "styles"],

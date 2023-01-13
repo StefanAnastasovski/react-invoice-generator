@@ -41,6 +41,11 @@ const managementMenuItems = [
       },
       {
         subtitleId: "mmi1s2",
+        subtitle: "Create",
+        link: "/create",
+      },
+      {
+        subtitleId: "mmi1s3",
         subtitle: "Details",
         link: "/details",
       },
@@ -51,7 +56,7 @@ const managementMenuItems = [
   {
     id: "mmi2",
     category: "Management",
-    title: "Products",
+    title: "Services",
     subtitles: [
       {
         subtitleId: "mmi2s1",

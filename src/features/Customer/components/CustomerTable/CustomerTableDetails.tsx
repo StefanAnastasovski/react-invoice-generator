@@ -9,42 +9,33 @@ import {
   Delete as DeleteIcon,
 } from "@mui/icons-material";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
-import { CustomerTableBodyCollapse } from "./CustomerTableBodyCollapse";
-import { CustomerTableDetailsProps } from "@features/Customer/types/CustomerTableTypes";
+import { CustomerTableDetailProps } from "@features/Customer/types/CustomerTableTypes";
 import { TableCustomerProps } from "@features/Customer/types/NewCustomerTypes";
-
-const CELL_WIDTH = {
-  checkbox: "50px",
-  collapse: "50px",
-  companyName: "200px",
-  location: "200px",
-  edb: "120px",
-  embs: "50px",
-  actions: " 100px",
-};
-
-const ARIA_LABEL = {
-  collapse: "expand row",
-  selectCustomer: "select customer",
-};
+import { getDataPerTablePage } from "@utils/tableUtils";
+import {
+  CUSTOMER_ARIA_LABEL,
+  CUSTOMER_TABLE_COL_SPAN,
+} from "@features/Customer/constants/constants";
+import { CUSTOMER_CELL_WIDTH } from "@features/Customer/constants/customerTable";
+import { TableBodyCollapseWrapper } from "@components/Table";
 
 export const CustomerTableDetails = ({
-  customerData,
+  tableData,
   page,
   rowsPerPage,
   selectedRows,
   collapseId,
   handleCollapse,
   onSelectClick,
-}: CustomerTableDetailsProps) => {
+}: CustomerTableDetailProps) => {
   const theme = useTheme();
   // TODO: remove when delete and BE are ready, only test purposes
-  const [data, setData] = useState<TableCustomerProps[]>([...customerData]);
+  const [data, setData] = useState<TableCustomerProps[]>([...tableData]);
   const handleDelete = (edb: number | string) => {
-    const filteredCustomerData = customerData.filter((item) => {
+    const filteredData = tableData.filter((item) => {
       return item.edb !== edb;
     });
-    return setData(filteredCustomerData);
+    return setData(filteredData);
     // TODO: implement delete when BE is ready
   };
   const handleEdit = (edb: number | string) => {
@@ -55,10 +46,11 @@ export const CustomerTableDetails = ({
 
   return (
     <>
-      {(rowsPerPage > 0
-        ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        : data
-      ).map((customerDetails: any) => {
+      {getDataPerTablePage({
+        rowsPerPage,
+        page,
+        data,
+      }).map((details: any) => {
         const {
           edb,
           embs,
@@ -70,7 +62,7 @@ export const CustomerTableDetails = ({
           bankAccount,
           email,
           phoneNumber,
-        } = customerDetails;
+        } = details;
         const shouldCollapse = collapseId === edb;
 
         // TODO: get from BE
@@ -106,7 +98,7 @@ export const CustomerTableDetails = ({
           <React.Fragment key={edb}>
             <TableRow key={companyName} style={styles(theme).container}>
               <CustomTableCell
-                style={styles(theme, CELL_WIDTH.checkbox).cellWidth}
+                style={styles(theme, CUSTOMER_CELL_WIDTH.checkbox).cellWidth}
               >
                 <Checkbox
                   checked={
@@ -114,16 +106,16 @@ export const CustomerTableDetails = ({
                   }
                   onChange={() => onSelectClick(edb)}
                   inputProps={{
-                    "aria-label": ARIA_LABEL.selectCustomer,
+                    "aria-label": CUSTOMER_ARIA_LABEL.selectCustomer,
                   }}
                 />
               </CustomTableCell>
               <CustomTableCell
-                style={styles(theme, CELL_WIDTH.collapse).cellWidth}
+                style={styles(theme, CUSTOMER_CELL_WIDTH.collapse).cellWidth}
               >
                 <IconButton
                   onClick={() => handleCollapse(edb)}
-                  aria-label={ARIA_LABEL.collapse}
+                  aria-label={CUSTOMER_ARIA_LABEL.collapse}
                 >
                   {shouldCollapse ? (
                     <KeyboardArrowDownIcon />
@@ -134,23 +126,27 @@ export const CustomerTableDetails = ({
               </CustomTableCell>
               {/* TODO: refactor */}
               <CustomTableCell
-                style={styles(theme, CELL_WIDTH.companyName).cellWidth}
+                style={styles(theme, CUSTOMER_CELL_WIDTH.companyName).cellWidth}
               >
                 {companyName}
               </CustomTableCell>
               <CustomTableCell
-                style={styles(theme, CELL_WIDTH.location).cellWidth}
+                style={styles(theme, CUSTOMER_CELL_WIDTH.location).cellWidth}
               >
                 {`${address}, ${stateRegion}, ${zipCode} - ${country}`}
               </CustomTableCell>
-              <CustomTableCell style={styles(theme, CELL_WIDTH.edb).cellWidth}>
+              <CustomTableCell
+                style={styles(theme, CUSTOMER_CELL_WIDTH.edb).cellWidth}
+              >
                 {edb}
               </CustomTableCell>
-              <CustomTableCell style={styles(theme, CELL_WIDTH.embs).cellWidth}>
+              <CustomTableCell
+                style={styles(theme, CUSTOMER_CELL_WIDTH.embs).cellWidth}
+              >
                 {embs}
               </CustomTableCell>
               <CustomTableCell
-                style={styles(theme, CELL_WIDTH.actions).cellWidth}
+                style={styles(theme, CUSTOMER_CELL_WIDTH.actions).cellWidth}
               >
                 <EditIcon
                   sx={styles(theme).icons}
@@ -162,10 +158,13 @@ export const CustomerTableDetails = ({
                 />
               </CustomTableCell>
             </TableRow>
-
-            <CustomerTableBodyCollapse
-              collapseData={collapseData}
+            <TableBodyCollapseWrapper
               shouldCollapse={shouldCollapse}
+              colSpan={CUSTOMER_TABLE_COL_SPAN}
+              titleLeft={collapseData?.contact?.title}
+              titleRight={collapseData?.bankAccount?.title}
+              collapseDataLeft={collapseData?.contact?.items}
+              collapseDataRight={collapseData?.bankAccount?.items}
             />
           </React.Fragment>
         );

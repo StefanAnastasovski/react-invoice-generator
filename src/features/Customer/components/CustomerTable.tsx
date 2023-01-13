@@ -1,26 +1,31 @@
-import React, { useMemo, useState } from "react";
-import { customerMockedRows } from "@features/Customer/constants/customerTable";
-import { CustomerTableWrapper } from "./CustomerTable/CustomerTableWrapper";
-import { CustomerTableHead } from "./CustomerTable/CustomerTableHead";
-import { CustomerTableFooter } from "./CustomerTable/CustomerTableFooter";
-import { CustomerTableBody } from "./CustomerTable/CustomerTableBody";
-
-export const CUSTOMER_TABLE_COL_SPAN = 7;
+import React from "react";
+import {
+  customerColumns,
+  customerMockedRows,
+} from "@features/Customer/constants/customerTable";
+import {
+  TableBodyWrapper,
+  TableCustomWrapper,
+  TableHeaderColumns,
+  TablePaginationFooter,
+} from "@components/Table";
+import { useTableRowsAndPage } from "@hooks/useTableRowsAndPage";
+import { CUSTOMER_TABLE_COL_SPAN } from "../constants/constants";
+import { EMPTY_TABLE_ROW_HEIGHT } from "@constants/table";
+import { CustomerTableDetails } from "./CustomerTable/CustomerTableDetails";
 
 export const CustomerTable = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [collapseId, setCollapseId] = useState("");
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-
-  const rowsPerPageData = useMemo(
-    () =>
-      customerMockedRows.slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
-    [page, rowsPerPage]
-  );
+  const {
+    page,
+    rowsPerPage,
+    collapseId,
+    selectedRows,
+    rowsPerPageData,
+    setPage,
+    setRowsPerPage,
+    setCollapseId,
+    setSelectedRows,
+  } = useTableRowsAndPage({ tableData: customerMockedRows });
 
   const onSelectAllClick = () => {
     if (selectedRows.length === rowsPerPageData.length) {
@@ -55,32 +60,41 @@ export const CustomerTable = () => {
   };
 
   return (
-    <CustomerTableWrapper>
-      <>
-        <CustomerTableHead
-          rowsPerPageData={rowsPerPageData}
-          selectedRows={selectedRows}
-          onSelectAllClick={onSelectAllClick}
-        />
-
-        <CustomerTableBody
+    <TableCustomWrapper>
+      <TableHeaderColumns
+        rowsPerPageData={rowsPerPageData}
+        titles={customerColumns}
+        selectedRows={selectedRows}
+        onSelectAllClick={onSelectAllClick}
+      />
+      <TableBodyWrapper
+        page={page}
+        rowsPerPage={rowsPerPage}
+        emptyRowHeight={EMPTY_TABLE_ROW_HEIGHT}
+        colSpan={CUSTOMER_TABLE_COL_SPAN}
+        tableData={customerMockedRows}
+      >
+        <CustomerTableDetails
           page={page}
           rowsPerPage={rowsPerPage}
           selectedRows={selectedRows}
           collapseId={collapseId}
+          tableData={customerMockedRows}
           handleCollapse={handleCollapse}
           onSelectClick={onSelectClick}
         />
+      </TableBodyWrapper>
 
-        <CustomerTableFooter
-          handleAllCollapse={handleAllCollapse}
-          page={page}
-          setPage={setPage}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-          resetSelectedRows={resetSelectedRows}
-        />
-      </>
-    </CustomerTableWrapper>
+      <TablePaginationFooter
+        page={page}
+        rowsPerPage={rowsPerPage}
+        columnsData={customerMockedRows}
+        colSpan={CUSTOMER_TABLE_COL_SPAN}
+        setPage={setPage}
+        setRowsPerPage={setRowsPerPage}
+        resetSelectedRows={resetSelectedRows}
+        handleAllCollapse={handleAllCollapse}
+      />
+    </TableCustomWrapper>
   );
 };

@@ -6,3 +6,4 @@ export const bankAccountMKDRegExp =
   /([1-9][0-9]{2})\-([1-9][0-9]{9})\-([0-9]{2})/i;
 export const emailRegExp =
   /^[a-zA-Z]\w{5,}([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i;
+export const skuRegExp = /^[a-zA-Z]{3}\-[0-9]{4,10}$/i;
