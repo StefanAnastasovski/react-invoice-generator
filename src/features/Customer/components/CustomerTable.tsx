@@ -35,14 +35,14 @@ export const CustomerTable = () => {
     return setSelectedRows(allEdbs);
   };
 
-  const onSelectClick = (edb: string | number) => {
-    const formattedEdb = edb.toString();
-    if (selectedRows.includes(formattedEdb)) {
-      const filteredRows = selectedRows.filter((item) => item !== formattedEdb);
+  const onSelectClick = (id: string | number) => {
+    const formattedId = id.toString();
+    if (selectedRows.includes(formattedId)) {
+      const filteredRows = selectedRows.filter((item) => item !== formattedId);
 
       return setSelectedRows(filteredRows);
     }
-    return setSelectedRows(selectedRows.concat(formattedEdb));
+    return setSelectedRows(selectedRows.concat(formattedId));
   };
 
   const resetSelectedRows = () => {
@@ -53,10 +53,10 @@ export const CustomerTable = () => {
     return setCollapseId("");
   };
 
-  const handleCollapse = (edb: string | number) => {
-    const formattedEdb = edb.toString();
-    if (edb === collapseId) return setCollapseId("");
-    return setCollapseId(formattedEdb);
+  const handleCollapse = (id: string | number) => {
+    const formmatedId = id.toString();
+    if (formmatedId === collapseId) return setCollapseId("");
+    return setCollapseId(formmatedId);
   };
 
   return (

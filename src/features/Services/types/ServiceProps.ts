@@ -1,5 +1,10 @@
 import { FormikValues } from "formik";
-import { CollapseId, HandleCollapseAndOnSelectClick, PageAndRowsPerPage, SelectedRows } from "types/components/TableProps";
+import {
+  CollapseId,
+  HandleCollapseAndOnSelectClick,
+  PageAndRowsPerPage,
+  SelectedRows,
+} from "types/components/TableProps";
 
 export interface ServiceDataProps {
   id: string;
@@ -18,6 +23,7 @@ export interface NewServiceCompProps {
   deleteButtonText?: string;
   serviceList?: NewServiceProps[];
   shouldEdit?: boolean;
+  isNew?: boolean;
   serviceData: FormikValues;
   onClickSecondary?: () => void;
   handleDelete?: (v: string | number) => void;

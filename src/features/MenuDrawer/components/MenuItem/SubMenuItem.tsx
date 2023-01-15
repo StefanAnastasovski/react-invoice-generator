@@ -1,7 +1,9 @@
-import { Link, Theme } from "@mui/material";
+import { RouterLink } from "@components/atoms/Link/RouterLink";
+import { Theme } from "@mui/material";
 import { StyledListItem } from "./StyledListItem";
 import { StyledListItemButton } from "./StyledListItemButton";
 import { StyledListItemText } from "./StyledListItemText";
+// import { Link as RouterLink } from "react-router-dom";
 
 export const SubMenuItem = ({
   id,
@@ -14,25 +16,25 @@ export const SubMenuItem = ({
   const { innerItem, linkStyle } = styles(theme);
   return subtitles.map(({ subtitleId, subtitle, link }: SubTitleProps) => {
     return (
-      <Link
+      <RouterLink
         key={subtitleId}
-        // component={RouterLink}
-        // to={pathName.concat(link)}
-        {...linkStyle}
+        href={link}
+        component={RouterLink}
+        style={linkStyle}
       >
         <StyledListItem>
           <StyledListItemButton
             isOpen={isOpen}
             onClick={() => onClickMenuHandler(subtitleId)}
             selected={selectedItem.subId === subtitleId}
-            {...innerItem}
+            sx={innerItem}
           >
             {isOpen && (
               <StyledListItemText isOpen={isOpen} primary={subtitle} />
             )}
           </StyledListItemButton>
         </StyledListItem>
-      </Link>
+      </RouterLink>
     );
   });
 };
@@ -40,13 +42,11 @@ export const SubMenuItem = ({
 const styles = (theme?: Theme) => {
   return {
     linkStyle: {
-      sx: {
-        textDecoration: "none",
-        color: theme?.palette.text.primary,
-      },
+      textDecoration: "none",
+      color: theme?.palette.text.primary,
     },
     innerItem: {
-      sx: { paddingLeft: 8 },
+      paddingLeft: 8,
     },
   };
 };

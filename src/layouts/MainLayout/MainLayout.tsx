@@ -1,10 +1,11 @@
-import { CssBaseline, Typography } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import SideBarMenu from "./components/SideBarMenu";
 import { BodyHeader } from "./components/BodyHeader";
 import { Body } from "./components/Body";
 import { BoxDiv } from "@components/atoms";
+import React from "react";
 
-const MainLayout = () => {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { container, bodyContainer } = styles;
   return (
     <BoxDiv {...container}>
@@ -13,10 +14,7 @@ const MainLayout = () => {
 
       <BoxDiv {...bodyContainer}>
         <BodyHeader />
-        <Body>
-          <Typography>This Is Body</Typography>
-          <Typography>This Is Body</Typography>
-        </Body>
+        <Body>{children}</Body>
       </BoxDiv>
     </BoxDiv>
   );

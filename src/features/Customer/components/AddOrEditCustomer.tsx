@@ -14,6 +14,8 @@ import {
   NewCustomerRenderFieldProps,
 } from "../types/NewCustomerTypes";
 import { FORM_METHODS } from "@constants/constants";
+import { RouterLink } from "@components/atoms/Link/RouterLink";
+import { customersRoutes } from "@features/Router/routes";
 
 const CONTENT = {
   NEW_CUSTOMER: "Add a New Customer",
@@ -67,6 +69,7 @@ export const AddOrEditCustomer = ({
   deleteButtonText,
   customerList,
   shouldEdit = false,
+  isNew,
   customerData = {},
   onClickSecondary,
   handleDelete,
@@ -94,7 +97,7 @@ export const AddOrEditCustomer = ({
       }
     },
   });
-  const title = !shouldEdit ? CONTENT.NEW_CUSTOMER : CONTENT.EDIT_CUSTOMER;
+  const title = isNew ? CONTENT.NEW_CUSTOMER : CONTENT.EDIT_CUSTOMER;
 
   return (
     <BoxDiv>
@@ -106,52 +109,66 @@ export const AddOrEditCustomer = ({
 
             <Divider sx={style.titleDivider} />
             {/* TODO: get the fileds from BE */}
-            <form
-              onSubmit={formik.handleSubmit}
-              method={!shouldEdit ? FORM_METHODS.POST : FORM_METHODS.PATCH}
-            >
-              {renderFields({
-                formik,
-                theme,
-                style,
-                inputRef,
-              })}
+            {isNew ||
+            (shouldEdit && Boolean(Object.keys(customerData).length > 0)) ? (
+              <form
+                onSubmit={formik.handleSubmit}
+                method={!shouldEdit ? FORM_METHODS.POST : FORM_METHODS.PATCH}
+              >
+                {renderFields({
+                  formik,
+                  theme,
+                  style,
+                  inputRef,
+                })}
 
-              <Divider sx={style.buttonDivider} />
+                <Divider sx={style.buttonDivider} />
 
-              <HStack style={style.hStackContainer} spacing={3}>
-                <BoxDiv>
-                  <CustomButton
-                    isPrimary={true}
-                    size="large"
-                    type="submit"
-                    style={style.primaryButton}
-                    onHoverStyle={style.primaryButtonOnHover}
-                  >
-                    {primaryButtonText}
-                  </CustomButton>
-                  <CustomButton
-                    isPrimary={false}
-                    size="large"
-                    style={style.secondaryButton}
-                    onHoverStyle={style.secondaryButtonOnHover}
-                    onClick={onClickSecondary}
-                  >
-                    {secondaryButtonText}
-                  </CustomButton>
-                </BoxDiv>
-                {Boolean(deleteButtonText) && (
-                  <CustomButton
-                    isPrimary={false}
-                    style={style.deleteButton}
-                    onHoverStyle={style.deleteButtonOnHover}
-                    onClick={handleDeleteClick}
-                  >
-                    {deleteButtonText}
-                  </CustomButton>
-                )}
-              </HStack>
-            </form>
+                <HStack style={style.hStackContainer} spacing={3}>
+                  <BoxDiv>
+                    <CustomButton
+                      isPrimary={true}
+                      size="large"
+                      type="submit"
+                      style={style.primaryButton}
+                      onHoverStyle={style.primaryButtonOnHover}
+                    >
+                      {primaryButtonText}
+                    </CustomButton>
+                    <CustomButton
+                      isPrimary={false}
+                      size="large"
+                      style={style.secondaryButton}
+                      onHoverStyle={style.secondaryButtonOnHover}
+                      onClick={onClickSecondary}
+                    >
+                      {secondaryButtonText}
+                    </CustomButton>
+                  </BoxDiv>
+                  {Boolean(deleteButtonText) && (
+                    <CustomButton
+                      isPrimary={false}
+                      style={style.deleteButton}
+                      onHoverStyle={style.deleteButtonOnHover}
+                      onClick={handleDeleteClick}
+                    >
+                      {deleteButtonText}
+                    </CustomButton>
+                  )}
+                </HStack>
+              </form>
+            ) : null}
+
+            {!shouldEdit && !isNew && (
+              <BoxDiv style={{ textAlign: "center" }}>
+                <Typography variant="h1">404</Typography>
+                <Typography>
+                  Sorry, the customer was not found. Please, choose the existing
+                  customer.
+                </Typography>
+                <RouterLink href={customersRoutes.list}>Go Back</RouterLink>
+              </BoxDiv>
+            )}
           </>
         }
       />

@@ -21,44 +21,36 @@ export const ServiceTable = () => {
     setPage,
     setRowsPerPage,
     setCollapseId,
-    // setSelectedRows,
+    setSelectedRows,
   } = useTableRowsAndPage({ tableData: serviceMockedRows });
 
   const onSelectAllClick = () => {
-    console.log("select all");
-    // if (selectedRows.length === rowsPerPageData.length) {
-    //   return setSelectedRows([]);
-    // }
-    // const allEdbs = rowsPerPageData.map(({ edb }) => edb.toString());
-    // return setSelectedRows(allEdbs);
+    if (selectedRows.length === rowsPerPageData.length) {
+      return setSelectedRows([]);
+    }
+    const allSku = rowsPerPageData.map(({ sku }) => sku.toString());
+    return setSelectedRows(allSku);
   };
 
-  const onSelectClick = (edb: string | number) => {
-    console.log("select all");
+  const onSelectClick = (id: string | number) => {
+    const formattedId = id.toString();
+    if (selectedRows.includes(formattedId)) {
+      const filteredRows = selectedRows.filter((item) => item !== formattedId);
 
-    // const formattedEdb = edb.toString();
-    // if (selectedRows.includes(formattedEdb)) {
-    //   const filteredRows = selectedRows.filter((item) => item !== formattedEdb);
-
-    //   return setSelectedRows(filteredRows);
-    // }
-    // return setSelectedRows(selectedRows.concat(formattedEdb));
+      return setSelectedRows(filteredRows);
+    }
+    return setSelectedRows(selectedRows.concat(formattedId));
   };
 
   const resetSelectedRows = () => {
-    console.log("select all");
-
-    // return setSelectedRows([]);
+    return setSelectedRows([]);
   };
 
   const handleAllCollapse = () => {
-    console.log("select all");
-
-    // return setCollapseId("");
+    return setCollapseId("");
   };
 
   const handleCollapse = (id: string | number) => {
-    console.log("collapse");
     const formmatedId = id.toString();
     if (formmatedId === collapseId) return setCollapseId("");
     return setCollapseId(formmatedId);

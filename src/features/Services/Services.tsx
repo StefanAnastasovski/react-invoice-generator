@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { BoxDiv } from "@components/atoms";
-import { CustomButton } from "@components/atoms/Buttons";
 import { CONTENT_BUTTON_ACTIONS } from "@constants/constants";
 import { AddOrEditService } from "./components/AddOrEditService";
 import { ServiceTable } from "./components/ServiceTable";
 import { NewServiceProps } from "./types/ServiceProps";
+import { servicesRoutes } from "@features/Router/routes";
+import { useRouterHook } from "@hooks/useRouterHook";
 
-const BUTTON_CONTENT = {
-  ADD_BUTTON: "Add a New Service",
-  EDIT_BUTTON: "Edit Service",
+type ServicesProps = {
+  isEdit?: boolean;
+  isNew?: boolean;
 };
 
-export const Services = () => {
-  const [isAddNewService, setIsAddNewService] = useState(false);
-  const [isEditService, setIsEditService] = useState(false);
+export const Services = ({ isNew = false, isEdit = false }: ServicesProps) => {
+  const { params, navigate } = useRouterHook();
 
   const [serviceList, setServiceList] =
     useState<NewServiceProps[]>(serviceData);
@@ -22,63 +22,43 @@ export const Services = () => {
   //   setServiceList([...serviceList.push(newService)]);
   // };
 
-  const editService = (customerData: any) => {
-    console.log(isEditService);
-    console.log(customerData);
-  };
+  const editService = (serviceData: any) => {};
 
-  const handleNewService = () => {
-    setIsEditService(false);
-    setIsAddNewService(!isAddNewService);
-  };
+  const handleNewService = () => {};
 
-  const handleEditCustomer = () => {
-    setIsAddNewService(false);
-    setIsEditService(!isEditService);
-  };
+  const handleEditService = () => {};
 
   const handleClose = () => {
-    setIsAddNewService(false);
-    setIsEditService(false);
+    navigate(servicesRoutes.list);
   };
 
-  const handleDelete = (value: string | number) => {
+  const handleDelete = (id: string | number) => {
     //onClick implement when BE is ready
-    console.log("Handle Delete");
-    console.log(value);
+  };
+
+  const getServiceById = () => {
+    const item = serviceData.filter((item) => {
+      return item["service-sku"] === params.id;
+    });
+    return item[0];
   };
 
   return (
     <BoxDiv>
-      <ServiceTable />
+      {!isNew && !isEdit && <ServiceTable />}
 
-      {!isAddNewService ? (
-        <CustomButton
-          style={styles.openNewCustomerButton}
-          size="medium"
-          onClick={handleNewService}
-        >
-          {BUTTON_CONTENT.ADD_BUTTON}
-        </CustomButton>
-      ) : (
+      {isNew && (
         <AddOrEditService
           onClickSecondary={handleClose}
           addNewService={setServiceList}
           primaryButtonText={CONTENT_BUTTON_ACTIONS.ADD}
           secondaryButtonText={CONTENT_BUTTON_ACTIONS.CANCEL}
           serviceData={serviceData}
+          isNew={isNew}
         />
       )}
 
-      {!isEditService ? (
-        <CustomButton
-          style={styles.openNewCustomerButton}
-          size="medium"
-          onClick={handleEditCustomer}
-        >
-          {BUTTON_CONTENT.EDIT_BUTTON}
-        </CustomButton>
-      ) : (
+      {isEdit && (
         <AddOrEditService
           onClickSecondary={handleClose}
           editService={editService}
@@ -86,20 +66,13 @@ export const Services = () => {
           primaryButtonText={CONTENT_BUTTON_ACTIONS.UPDATE}
           secondaryButtonText={CONTENT_BUTTON_ACTIONS.CANCEL}
           deleteButtonText={CONTENT_BUTTON_ACTIONS.DELETE}
-          serviceList={serviceList}
-          shouldEdit={true}
-          serviceData={existingServiceData}
+          serviceList={[]}
+          shouldEdit={isEdit && Boolean(getServiceById())}
+          serviceData={getServiceById()}
         />
       )}
     </BoxDiv>
   );
-};
-
-const styles = {
-  openNewCustomerButton: {
-    fontWeight: 800,
-    padding: "0.5em 2em",
-  },
 };
 
 const serviceData = [
@@ -110,7 +83,7 @@ const serviceData = [
     "service-price-hour": 0,
     "service-tax": 0,
     "service-category": "SEO",
-    "service-sku": "OLD-1111",
+    "service-sku": "SKU-2222",
     "service-image": {},
   },
   {
@@ -120,19 +93,7 @@ const serviceData = [
     "service-price-hour": 0,
     "service-tax": 0,
     "service-category": "SEO",
-    "service-sku": "OLD-1111",
+    "service-sku": "SKU-1111",
     "service-image": {},
   },
 ];
-
-// TODO: remove after BE implementation
-const existingServiceData = {
-  "service-name": "Website optimization",
-  "service-description": "Optimize your Website or Blog.",
-  "service-price-unit": 15,
-  "service-price-hour": 0,
-  "service-tax": 0,
-  "service-category": "SEO",
-  "service-sku": "OLD-1111",
-  "service-image": {},
-};

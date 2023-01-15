@@ -1,31 +1,33 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { FormikValues, useFormik } from "formik";
+import { useFormik } from "formik";
 import { ServiceCard } from "./ServiceCard";
 import { CustomButton } from "@components/atoms/Buttons";
 import { useCommonStyles } from "@hooks/useCommonStyles";
 import { BoxDiv, BoxFlex } from "@components/atoms/Box";
-import { CONTENT_BUTTON_ACTIONS, FORM_METHODS } from "@constants/constants";
+import { FORM_METHODS } from "@constants/constants";
 import { serviceFields } from "../constants/serviceFields";
 import { NEW_SERVICE_INITIAL_VALUE } from "../constants/constants";
 import { serviceSchema } from "../helpers/serviceSchema";
 import { NewServiceCompProps } from "../types/ServiceProps";
 
 const CONTENT = {
-  NEW_SERVICE_TITLE: "Create a new service",
+  NEW_SERVICE: "Create a New Service",
+  EDIT_SERVICE: "Edit Service",
 };
 
 export const AddOrEditService = ({
   primaryButtonText,
   secondaryButtonText,
   deleteButtonText,
-  shouldEdit = false,
-  onClickSecondary,
-  editService,
-  addNewService,
-  serviceData,
-  handleDelete,
   serviceList,
+  shouldEdit = false,
+  isNew,
+  serviceData = {},
+  onClickSecondary,
+  handleDelete,
+  addNewService,
+  editService,
 }: NewServiceCompProps) => {
   const { buttonStyle } = useCommonStyles();
   const style = styles();
@@ -33,11 +35,19 @@ export const AddOrEditService = ({
   const formik = useFormik({
     initialValues: !shouldEdit ? NEW_SERVICE_INITIAL_VALUE : serviceData,
     validationSchema: serviceSchema,
-    onSubmit: (newServiceData) => {
+    onSubmit: (newServiceData: any) => {
       // TODO: add implementation and test after BE implementation
       console.log(newServiceData);
+      if (shouldEdit && editService) {
+        editService(newServiceData);
+      }
+      if (!shouldEdit && addNewService) {
+        serviceList && addNewService(serviceList.concat(newServiceData));
+      }
     },
   });
+
+  const title = isNew ? CONTENT.NEW_SERVICE : CONTENT.EDIT_SERVICE;
 
   return (
     <BoxFlex column style={style.container}>
@@ -45,7 +55,7 @@ export const AddOrEditService = ({
         variant="h1"
         style={{ ...style.title, ...style.innerContainer }}
       >
-        {CONTENT.NEW_SERVICE_TITLE}
+        {title}
       </Typography>
       <form
         onSubmit={formik.handleSubmit}

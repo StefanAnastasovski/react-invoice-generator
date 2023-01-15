@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import { Checkbox, Theme, useTheme } from "@mui/material";
@@ -25,6 +26,8 @@ import {
 } from "@features/Services/constants/constants";
 import { TableBodyCollapseWrapper } from "@components/Table/";
 import { SERVICE_CELL_WIDTH } from "@features/Services/constants/serviceTable";
+import { servicesRoutes } from "@features/Router/routes";
+import { getEditLink } from "@features/Router/utils/routerUtils";
 
 export const ServiceTableDetails = ({
   tableData,
@@ -36,6 +39,7 @@ export const ServiceTableDetails = ({
   onSelectClick,
 }: ServiceTableDetailProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   // TODO: remove when delete and BE are ready, only test purposes
   const [data, setData] = useState<TableServiceProps[]>([...tableData]);
   const handleDelete = (value: number | string) => {
@@ -45,10 +49,12 @@ export const ServiceTableDetails = ({
     return setData(filteredData);
     // TODO: implement delete when BE is ready
   };
-  const handleEdit = (edb: number | string) => {
-    console.log("handle Edit");
-    // /customers/:{edb}
-    // TODO: implement edit when BE is ready
+  const handleEdit = (id: number | string) => {
+    const url = getEditLink({
+      path: servicesRoutes.base,
+      id: id,
+    });
+    navigate(url);
   };
 
   const returnPrice = (price: number, isPricePerHour: boolean) => {

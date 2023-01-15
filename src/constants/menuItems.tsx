@@ -37,12 +37,12 @@ const managementMenuItems = [
       {
         subtitleId: "mmi1s1",
         subtitle: "List",
-        link: "/list",
+        link: "/customers",
       },
       {
         subtitleId: "mmi1s2",
         subtitle: "Create",
-        link: "/create",
+        link: "/customers/new",
       },
       {
         subtitleId: "mmi1s3",
@@ -61,12 +61,12 @@ const managementMenuItems = [
       {
         subtitleId: "mmi2s1",
         subtitle: "List",
-        link: "/list",
+        link: "/services",
       },
       {
         subtitleId: "mmi2s2",
         subtitle: "Create",
-        link: "/create",
+        link: "/services/new",
       },
     ],
     link: "/",

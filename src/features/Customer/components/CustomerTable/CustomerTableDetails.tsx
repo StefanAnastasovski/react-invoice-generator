@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Checkbox, Theme, useTheme } from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
-import { Checkbox, Theme, useTheme } from "@mui/material";
 import {
   KeyboardArrowRight as KeyboardArrowRightIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -18,6 +19,8 @@ import {
 } from "@features/Customer/constants/constants";
 import { CUSTOMER_CELL_WIDTH } from "@features/Customer/constants/customerTable";
 import { TableBodyCollapseWrapper } from "@components/Table";
+import { getEditLink } from "@features/Router/utils/routerUtils";
+import { customersRoutes } from "@features/Router/routes";
 
 export const CustomerTableDetails = ({
   tableData,
@@ -29,6 +32,7 @@ export const CustomerTableDetails = ({
   onSelectClick,
 }: CustomerTableDetailProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   // TODO: remove when delete and BE are ready, only test purposes
   const [data, setData] = useState<TableCustomerProps[]>([...tableData]);
   const handleDelete = (edb: number | string) => {
@@ -38,10 +42,12 @@ export const CustomerTableDetails = ({
     return setData(filteredData);
     // TODO: implement delete when BE is ready
   };
-  const handleEdit = (edb: number | string) => {
-    console.log("handle Edit");
-    // /customers/:{edb}
-    // TODO: implement edit when BE is ready
+  const handleEdit = (id: number | string) => {
+    const url = getEditLink({
+      path: customersRoutes.base,
+      id,
+    });
+    navigate(url);
   };
 
   return (
