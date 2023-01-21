@@ -11,7 +11,7 @@ export const useTableRowsAndPage = ({ tableData }: Props) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
   const rowsPerPageData = useMemo(
-    () => getRowsPerPageData({ data: tableData, page, rowsPerPage }),
+    () => getRowsPerPageData({ tableData, page, rowsPerPage }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [page, rowsPerPage]
   );

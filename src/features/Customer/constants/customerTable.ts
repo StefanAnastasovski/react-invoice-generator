@@ -1,5 +1,5 @@
 import { TABLE_COMMON_CELL_WIDTH } from "@constants/table";
-import { TableCustomerProps } from "../types/NewCustomerTypes";
+import { TableCustomerProps } from "../types/CustomerTypes";
 
 export const customerColumns = [
   "Company Name",
@@ -15,6 +15,19 @@ export const CUSTOMER_CELL_WIDTH: { [x: string]: string } = {
   edb: "120px",
   embs: "50px",
   ...TABLE_COMMON_CELL_WIDTH,
+};
+
+export const CUSTOMER_FIELD_MAP: { [x: string]: string } = {
+  "company-name": "companyName",
+  "bank-account": "bankAccount",
+  email: "email",
+  "phone-number": "phoneNumber",
+  edb: "edb",
+  embs: "embs",
+  country: "country",
+  "state-region": "stateRegion",
+  "zip-code": "zipCode",
+  address: "address",
 };
 
 function createData({

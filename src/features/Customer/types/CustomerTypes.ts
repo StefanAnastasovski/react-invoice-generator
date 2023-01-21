@@ -1,11 +1,12 @@
 import { FormikValues } from "formik";
 import { Theme } from "@mui/material";
+import { TableActionsProps } from "types/components/TableProps";
 
-export interface NewCustomerCompProps {
+export interface CustomerCompProps {
   primaryButtonText: string;
   secondaryButtonText: string;
   deleteButtonText?: string;
-  customerList?: NewCustomerProps[];
+  customerList?: CustomerProps[];
   shouldEdit?: boolean;
   isNew?: boolean;
   customerData?: FormikValues;
@@ -16,7 +17,7 @@ export interface NewCustomerCompProps {
   addNewCustomer?: React.Dispatch<any>;
 }
 
-export type NewCustomerProps = {
+export type CustomerProps = {
   address: string;
   email: string;
   "bank-account"?: string;
@@ -42,8 +43,11 @@ export type TableCustomerProps = {
   zipCode: string | number;
 };
 
-export type FormikResProps = {
-  [x: string]: any;
+export type NewCustomerSchemaMessageProps = {
+  fieldName: string;
+  noOfCharacters: number;
+  characterOperator: "length" | "min" | "max";
+  isNumber?: boolean;
 };
 
 export type NewCustomerRenderFieldProps = {
@@ -53,9 +57,6 @@ export type NewCustomerRenderFieldProps = {
   inputRef: React.MutableRefObject<any>;
 };
 
-export type NewCustomerSchemaMessageProps = {
-  fieldName: string;
-  noOfCharacters: number;
-  characterOperator: "length" | "min" | "max";
-  isNumber?: boolean;
-};
+export interface CustomerTableDetailProps extends TableActionsProps {
+  tableData: any;
+}

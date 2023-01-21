@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Checkbox, Theme, useTheme } from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
@@ -10,8 +10,6 @@ import {
   Delete as DeleteIcon,
 } from "@mui/icons-material";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
-import { CustomerTableDetailProps } from "@features/Customer/types/CustomerTableTypes";
-import { TableCustomerProps } from "@features/Customer/types/NewCustomerTypes";
 import { getDataPerTablePage } from "@utils/tableUtils";
 import {
   CUSTOMER_ARIA_LABEL,
@@ -19,43 +17,25 @@ import {
 } from "@features/Customer/constants/constants";
 import { CUSTOMER_CELL_WIDTH } from "@features/Customer/constants/customerTable";
 import { TableBodyCollapseWrapper } from "@components/Table";
-import { getEditLink } from "@features/Router/utils/routerUtils";
-import { customersRoutes } from "@features/Router/routes";
+import { CustomerTableDetailProps } from "@features/Customer/types/CustomerTypes";
 
 export const CustomerTableDetails = ({
-  tableData,
-  page,
-  rowsPerPage,
-  selectedRows,
-  collapseId,
-  handleCollapse,
   onSelectClick,
+  handleCollapse,
+  handleDelete,
+  handleEdit,
+  tableData,
 }: CustomerTableDetailProps) => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  // TODO: remove when delete and BE are ready, only test purposes
-  const [data, setData] = useState<TableCustomerProps[]>([...tableData]);
-  const handleDelete = (edb: number | string) => {
-    const filteredData = tableData.filter((item) => {
-      return item.edb !== edb;
-    });
-    return setData(filteredData);
-    // TODO: implement delete when BE is ready
-  };
-  const handleEdit = (id: number | string) => {
-    const url = getEditLink({
-      path: customersRoutes.base,
-      id,
-    });
-    navigate(url);
-  };
-
+  const { selectedRows, collapseId, page, rowsPerPage } = useSelector(
+    (state: any) => state.table
+  );
   return (
     <>
       {getDataPerTablePage({
         rowsPerPage,
         page,
-        data,
+        tableData,
       }).map((details: any) => {
         const {
           edb,
@@ -102,7 +82,7 @@ export const CustomerTableDetails = ({
 
         return (
           <React.Fragment key={edb}>
-            <TableRow key={companyName} style={styles(theme).container}>
+            <TableRow style={styles(theme).container}>
               <CustomTableCell
                 style={styles(theme, CUSTOMER_CELL_WIDTH.checkbox).cellWidth}
               >
@@ -165,6 +145,7 @@ export const CustomerTableDetails = ({
               </CustomTableCell>
             </TableRow>
             <TableBodyCollapseWrapper
+              keyId={edb}
               shouldCollapse={shouldCollapse}
               colSpan={CUSTOMER_TABLE_COL_SPAN}
               titleLeft={collapseData?.contact?.title}

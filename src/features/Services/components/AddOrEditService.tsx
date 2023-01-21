@@ -2,14 +2,13 @@ import React from "react";
 import { Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { ServiceCard } from "./ServiceCard";
-import { CustomButton } from "@components/atoms/Buttons";
-import { useCommonStyles } from "@hooks/useCommonStyles";
 import { BoxDiv, BoxFlex } from "@components/atoms/Box";
 import { FORM_METHODS } from "@constants/constants";
 import { serviceFields } from "../constants/serviceFields";
 import { NEW_SERVICE_INITIAL_VALUE } from "../constants/constants";
 import { serviceSchema } from "../helpers/serviceSchema";
-import { NewServiceCompProps } from "../types/ServiceProps";
+import { ServiceCompProps } from "../types/ServiceTypes";
+import { ActionButtons } from "@components/ActionButtons";
 
 const CONTENT = {
   NEW_SERVICE: "Create a New Service",
@@ -28,8 +27,7 @@ export const AddOrEditService = ({
   handleDelete,
   addNewService,
   editService,
-}: NewServiceCompProps) => {
-  const { buttonStyle } = useCommonStyles();
+}: ServiceCompProps) => {
   const style = styles();
 
   const formik = useFormik({
@@ -37,7 +35,6 @@ export const AddOrEditService = ({
     validationSchema: serviceSchema,
     onSubmit: (newServiceData: any) => {
       // TODO: add implementation and test after BE implementation
-      console.log(newServiceData);
       if (shouldEdit && editService) {
         editService(newServiceData);
       }
@@ -76,23 +73,11 @@ export const AddOrEditService = ({
           })}
 
           <BoxDiv style={style.buttonContainer}>
-            <CustomButton
-              size="large"
-              type="submit"
-              style={buttonStyle.primaryButton}
-              onHoverStyle={buttonStyle.primaryButtonOnHover}
-            >
-              {primaryButtonText}
-            </CustomButton>
-            <CustomButton
-              isPrimary={false}
-              size="large"
-              style={buttonStyle.secondaryButton}
-              onHoverStyle={buttonStyle.secondaryButtonOnHover}
-              onClick={onClickSecondary}
-            >
-              {secondaryButtonText}
-            </CustomButton>
+            <ActionButtons
+              primaryButtonText={primaryButtonText}
+              secondaryButtonText={secondaryButtonText}
+              onClickSecondary={onClickSecondary}
+            />
           </BoxDiv>
         </>
       </form>

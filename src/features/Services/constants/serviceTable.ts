@@ -1,5 +1,5 @@
 import { TABLE_COMMON_CELL_WIDTH } from "@constants/table";
-import { TableServiceProps } from "../types/ServiceProps";
+import { TableServiceProps } from "../types/ServiceTypes";
 
 export const serviceColumns = [
   //   "Image",
@@ -20,6 +20,17 @@ export const SERVICE_CELL_WIDTH: { [x: string]: string } = {
   price: "200px",
   tax: "50px",
   ...TABLE_COMMON_CELL_WIDTH,
+};
+
+export const SERVICE_FIELD_MAP: { [x: string]: string } = {
+  "service-name": "service",
+  "service-description": "description",
+  "service-price-unit": "pricePerUnit",
+  "service-price-hour": "pricePerHour",
+  "service-tax": "tax",
+  "service-category": "category",
+  "service-sku": "sku",
+  image: "image",
 };
 
 function createData({

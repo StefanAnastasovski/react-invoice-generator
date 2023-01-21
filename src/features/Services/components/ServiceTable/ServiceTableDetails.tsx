@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
 import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import { Checkbox, Theme, useTheme } from "@mui/material";
@@ -13,10 +13,6 @@ import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
 import { Image } from "@components/atoms/Image/Image";
 import { BoxDiv } from "@components/atoms";
 import { Paragraph } from "@components/atoms/Typography/Paragraph";
-import {
-  ServiceTableDetailProps,
-  TableServiceProps,
-} from "@features/Services/types/ServiceProps";
 import { getDataPerTablePage } from "@utils/tableUtils";
 import {
   PRICE_SIGN,
@@ -26,36 +22,19 @@ import {
 } from "@features/Services/constants/constants";
 import { TableBodyCollapseWrapper } from "@components/Table/";
 import { SERVICE_CELL_WIDTH } from "@features/Services/constants/serviceTable";
-import { servicesRoutes } from "@features/Router/routes";
-import { getEditLink } from "@features/Router/utils/routerUtils";
+import { ServiceTableDetailProps } from "@features/Services/types/ServiceTypes";
 
 export const ServiceTableDetails = ({
-  tableData,
-  page,
-  rowsPerPage,
-  selectedRows,
-  collapseId,
-  handleCollapse,
   onSelectClick,
+  handleCollapse,
+  handleDelete,
+  handleEdit,
+  tableData,
 }: ServiceTableDetailProps) => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  // TODO: remove when delete and BE are ready, only test purposes
-  const [data, setData] = useState<TableServiceProps[]>([...tableData]);
-  const handleDelete = (value: number | string) => {
-    const filteredData = tableData.filter((item: any) => {
-      return item.sku !== value;
-    });
-    return setData(filteredData);
-    // TODO: implement delete when BE is ready
-  };
-  const handleEdit = (id: number | string) => {
-    const url = getEditLink({
-      path: servicesRoutes.base,
-      id: id,
-    });
-    navigate(url);
-  };
+  const { selectedRows, collapseId, page, rowsPerPage } = useSelector(
+    (state: any) => state.table
+  );
 
   const returnPrice = (price: number, isPricePerHour: boolean) => {
     return isPricePerHour
@@ -68,7 +47,7 @@ export const ServiceTableDetails = ({
       {getDataPerTablePage({
         rowsPerPage,
         page,
-        data,
+        tableData,
       }).map((details: any) => {
         const {
           service,
@@ -91,7 +70,7 @@ export const ServiceTableDetails = ({
 
         return (
           <React.Fragment key={sku}>
-            <TableRow key={service} style={styles(theme).container}>
+            <TableRow style={styles(theme).container}>
               <CustomTableCell
                 style={styles(theme, SERVICE_CELL_WIDTH.checkbox).cellWidth}
               >
@@ -158,6 +137,7 @@ export const ServiceTableDetails = ({
               </CustomTableCell>
             </TableRow>
             <TableBodyCollapseWrapper
+              keyId={sku}
               shouldCollapse={shouldCollapse}
               colSpan={SERVICE_TABLE_COL_SPAN}
               titleLeft={collapseData?.info?.title}

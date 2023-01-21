@@ -9,15 +9,6 @@ export interface TablePaginationActionsProps extends PageAndRowsPerPage {
 }
 export type TablePaginationEventProp = React.MouseEvent<HTMLButtonElement>;
 
-export interface TablePaginationFooterProps extends PageAndRowsPerPage {
-  setPage: React.Dispatch<any>;
-  setRowsPerPage: React.Dispatch<any>;
-  columnsData: any;
-  colSpan: number;
-  handleAllCollapse: () => void;
-  resetSelectedRows: () => void;
-}
-
 export type EventChangePageProp = React.MouseEvent<HTMLButtonElement> | null;
 export type EventChangeRowsPerPageProp = React.ChangeEvent<
   HTMLInputElement | HTMLTextAreaElement
@@ -28,8 +19,8 @@ export interface SelectedRows {
 }
 
 export interface HandleCollapseAndOnSelectClick {
-  handleCollapse: (v: string | number) => void;
-  onSelectClick: (v: string | number) => void;
+  handleCollapse?: (v: string | number) => void;
+  onSelectClick?: (v: string | number) => void;
 }
 
 export interface CollapseId {
@@ -49,4 +40,16 @@ export type CollapseDataProps = {
 
 export interface CollapseData {
   collapseData: CollapseDataProps;
+}
+
+export interface TableActionsProps {
+  onSelectClick: (v: string | number) => void;
+  handleCollapse: (v: string | number) => void;
+  handleDelete: (v: string | number) => void;
+  handleEdit: (v: string | number) => void;
+}
+
+export interface CustomTableActionsProps {
+  isEdit?: boolean;
+  isNew?: boolean;
 }

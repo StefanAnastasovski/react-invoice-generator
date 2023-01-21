@@ -4,18 +4,19 @@ import { Divider, TextField, Theme, Typography, useTheme } from "@mui/material";
 import { BoxDiv } from "@components/atoms";
 import { BasicCard } from "@components/atoms/Card/BasicCard";
 import { HStack } from "@components/atoms/Stack";
-import { CustomButton } from "@components/atoms/Buttons";
-import { opacityHexSuffix } from "@constants/opacityHexConstants";
 import { customerSchema } from "../helpers/customerSchema";
 import { newCustomerFields } from "../constants/customerFields";
 import { NEW_CUSTOMER_INITIAL_VALUE } from "../constants/constants";
-import {
-  NewCustomerCompProps,
-  NewCustomerRenderFieldProps,
-} from "../types/NewCustomerTypes";
 import { FORM_METHODS } from "@constants/constants";
 import { RouterLink } from "@components/atoms/Link/RouterLink";
 import { customersRoutes } from "@features/Router/routes";
+import {
+  CustomerCompProps,
+  NewCustomerRenderFieldProps,
+} from "../types/CustomerTypes";
+import { CUSTOMER_FIELD_MAP } from "../constants/customerTable";
+import { useCommonStyles } from "@hooks/useCommonStyles";
+import { ActionButtons, DeleteButton } from "@components/ActionButtons";
 
 const CONTENT = {
   NEW_CUSTOMER: "Add a New Customer",
@@ -29,11 +30,12 @@ const renderFields = ({
   inputRef,
 }: NewCustomerRenderFieldProps) => {
   const { touched, errors } = formik;
-
   return newCustomerFields.map((item, index) => {
     const itemPadding =
       index % 2 !== 0 ? { paddingLeft: 2 } : { paddingRight: 2 };
     const isError = touched[item.name] && Boolean(errors[item.name]);
+    const fieldValue = formik.values[CUSTOMER_FIELD_MAP[item.name]] as string;
+
     return (
       <TextField
         inputRef={(el) => (inputRef.current[el?.name] = el)}
@@ -44,7 +46,7 @@ const renderFields = ({
         name={item.name}
         type={item.type}
         label={item.label}
-        value={formik.values[item.name]}
+        value={fieldValue}
         placeholder={item.placeholder}
         autoComplete="off"
         helperText={isError ? errors[item.name] : ""}
@@ -75,10 +77,11 @@ export const AddOrEditCustomer = ({
   handleDelete,
   addNewCustomer,
   editCustomer,
-}: NewCustomerCompProps) => {
+}: CustomerCompProps) => {
   const theme = useTheme();
   const inputRef = useRef<any>({});
   const style = styles(theme);
+  const { dividerStyle } = useCommonStyles();
 
   const handleDeleteClick = () => {
     handleDelete && handleDelete(customerData.edb);
@@ -107,7 +110,7 @@ export const AddOrEditCustomer = ({
           <>
             <Typography variant="h5">{title}</Typography>
 
-            <Divider sx={style.titleDivider} />
+            <Divider sx={dividerStyle.titleDivider} />
             {/* TODO: get the fileds from BE */}
             {isNew ||
             (shouldEdit && Boolean(Object.keys(customerData).length > 0)) ? (
@@ -122,38 +125,21 @@ export const AddOrEditCustomer = ({
                   inputRef,
                 })}
 
-                <Divider sx={style.buttonDivider} />
+                <Divider sx={dividerStyle.buttonDivider} />
 
                 <HStack style={style.hStackContainer} spacing={3}>
                   <BoxDiv>
-                    <CustomButton
-                      isPrimary={true}
-                      size="large"
-                      type="submit"
-                      style={style.primaryButton}
-                      onHoverStyle={style.primaryButtonOnHover}
-                    >
-                      {primaryButtonText}
-                    </CustomButton>
-                    <CustomButton
-                      isPrimary={false}
-                      size="large"
-                      style={style.secondaryButton}
-                      onHoverStyle={style.secondaryButtonOnHover}
-                      onClick={onClickSecondary}
-                    >
-                      {secondaryButtonText}
-                    </CustomButton>
+                    <ActionButtons
+                      primaryButtonText={primaryButtonText}
+                      secondaryButtonText={secondaryButtonText}
+                      onClickSecondary={onClickSecondary}
+                    />
                   </BoxDiv>
                   {Boolean(deleteButtonText) && (
-                    <CustomButton
-                      isPrimary={false}
-                      style={style.deleteButton}
-                      onHoverStyle={style.deleteButtonOnHover}
-                      onClick={handleDeleteClick}
-                    >
-                      {deleteButtonText}
-                    </CustomButton>
+                    <DeleteButton
+                      deleteButtonText={deleteButtonText && deleteButtonText}
+                      handleDeleteClick={handleDeleteClick}
+                    />
                   )}
                 </HStack>
               </form>
@@ -207,36 +193,5 @@ const styles = (theme: Theme) => {
       marginTop: 4,
       justifyContent: "space-between",
     },
-    primaryButton: {
-      paddingLeft: "5rem",
-      paddingRight: "5rem",
-      fontWeight: 800,
-      letterSpacing: 0.5,
-      border: `1px solid ${theme.palette.primary.main}`,
-    },
-    primaryButtonOnHover: {
-      backgroundColor: `${theme.palette.primary.main}${opacityHexSuffix[80]}`,
-      borderColor: `${theme.palette.primary.main}${opacityHexSuffix[80]}`,
-    },
-    secondaryButton: {
-      color: theme.palette.common.white,
-      borderColor: theme.palette.common.white,
-      letterSpacing: 0.5,
-      marginLeft: 3,
-    },
-    secondaryButtonOnHover: {
-      color: theme.palette.primary.main,
-    },
-    deleteButton: {
-      color: theme.palette.error.main,
-      borderColor: theme.palette.error.main,
-      letterSpacing: 0.5,
-    },
-    deleteButtonOnHover: {
-      color: theme.palette.error.dark,
-      borderColor: theme.palette.error.dark,
-    },
-    titleDivider: { paddingBottom: 2, marginBottom: 4, width: "100%" },
-    buttonDivider: { marginTop: 4, marginBottom: 4, width: "100%" },
   };
 };

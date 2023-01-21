@@ -86,6 +86,7 @@ export const serviceFields = [
           { id: "sfc-i-10", value: "Video Editing & Production" },
           { id: "sfc-i-11", value: "Consulting" },
           { id: "sfc-i-12", value: "Web Development" },
+          { id: "sfc-i-13", value: "Digital Marketing" },
         ],
       },
       {

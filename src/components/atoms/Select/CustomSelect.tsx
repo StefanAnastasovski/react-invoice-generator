@@ -20,6 +20,7 @@ export const CustomSelect = ({
   label,
   selectId,
   selectName,
+  value,
   itemList,
   formik,
   fieldRef,
@@ -33,6 +34,7 @@ export const CustomSelect = ({
   label: string;
   selectId: string;
   selectName: string;
+  value: string;
   itemList: itemList[];
   formik: FormikProps<StringNumberObjectProps>;
   fieldRef?: React.RefObject<any>;
@@ -47,6 +49,7 @@ export const CustomSelect = ({
   const { touched, errors } = formik;
   const isError = touched[selectName] && Boolean(errors[selectName]);
   const styling = styles(theme, isError);
+
   return (
     <FormControl fullWidth={fullWidth} error={isError} sx={formControlStyle}>
       <InputLabel id={selectId} error={isError} sx={styling.labelStyle}>
@@ -56,7 +59,7 @@ export const CustomSelect = ({
         labelId={selectId}
         id={selectId}
         name={selectName}
-        value={formik.values[selectName]}
+        value={value || ""}
         label={label}
         onChange={formik.handleChange}
         error={isError}

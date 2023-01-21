@@ -6,8 +6,9 @@ import { CustomSelect } from "@components/atoms/Select";
 import { FormikProps } from "formik";
 import { StringNumberObjectProps } from "types/CommonProps";
 import { StyleCustomProps } from "types/StyleProps";
-import { ServiceDataProps } from "../types/ServiceProps";
+import { ServiceDataProps } from "../types/ServiceTypes";
 import { DropzoneComponent } from "@components/Dropzone";
+import { SERVICE_FIELD_MAP } from "../constants/serviceTable";
 
 const renderItems = ({
   serviceData,
@@ -19,17 +20,19 @@ const renderItems = ({
   style: StyleCustomProps;
 }) => {
   const { touched, errors } = formik;
+
   return serviceData.map((item: any) => {
     const isTextarea = item.type === "textarea";
     const isPercentage = item.name === "service-tax";
     const isError = touched[item.name] && Boolean(errors[item.name]);
-
+    const fieldValue = formik.values[SERVICE_FIELD_MAP[item.name]] as string;
     return item.items ? (
       <CustomSelect
         key={item.id}
         label={item.label}
         selectId={item.name}
         selectName={item.name}
+        value={fieldValue}
         itemList={item.items}
         formik={formik}
         labelStyle={style.labelStyle}
@@ -45,7 +48,7 @@ const renderItems = ({
         type={item.type}
         label={item.label}
         placeholder={item.placeholder}
-        value={formik.values[item.name]}
+        value={fieldValue}
         autoComplete="off"
         fullWidth
         multiline={isTextarea}

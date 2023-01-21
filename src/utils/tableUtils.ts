@@ -1,23 +1,23 @@
 type Props = {
   rowsPerPage: number;
   page: number;
-  data: any;
+  tableData: any;
 };
 
 export const getDataPerTablePage = ({
   rowsPerPage,
   page,
-  data,
+  tableData,
 }: Props): any[] => {
   return rowsPerPage > 0
-    ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    : data;
+    ? tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    : tableData;
 };
 
 export const getRowsPerPageData = ({
   rowsPerPage,
   page,
-  data,
+  tableData,
 }: Props): any[] => {
-  return data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  return tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 };
