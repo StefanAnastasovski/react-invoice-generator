@@ -1,6 +1,6 @@
 import React from "react";
 import { CustomButton } from "@components/atoms/Buttons";
-import { useCommonStyles } from "@hooks/useCommonStyles";
+import { useCommonStyles } from "@hooks/index";
 
 export const ActionButtons = ({
   primaryButtonText,
@@ -11,7 +11,7 @@ export const ActionButtons = ({
   secondaryButtonText?: string;
   onClickSecondary?: () => void;
 }) => {
-  const { buttonStyle } = useCommonStyles();
+  const { buttonStyle } = useCommonStyles({});
 
   return (
     <>

@@ -30,7 +30,7 @@ export const SERVICE_FIELD_MAP: { [x: string]: string } = {
   "service-tax": "tax",
   "service-category": "category",
   "service-sku": "sku",
-  image: "image",
+  "service-image": "image",
 };
 
 function createData({
@@ -44,14 +44,14 @@ function createData({
   image,
 }: TableServiceProps) {
   return {
-    service,
-    description,
-    pricePerUnit,
-    pricePerHour,
-    tax,
-    category,
-    sku,
-    image,
+    "service-name": service,
+    "service-description": description,
+    "service-price-unit": pricePerUnit,
+    "service-price-hour": pricePerHour,
+    "service-tax": tax,
+    "service-category": category,
+    "service-sku": sku,
+    "service-image": image,
   };
 }
 
@@ -65,12 +65,13 @@ export const serviceMockedRows = [
     category: "SEO",
     sku: "SKU-1111",
     image: {
-      path: "",
-      lastModified: "",
-      lastModifiedDate: "",
-      name: "",
-      size: 0,
-      type: "",
+      path: "smile.png",
+      lastModified: "1674434250608",
+      lastModifiedDate:
+        "Mon Jan 23 2023 01:37:30 GMT+0100 (Central European Standard Time)",
+      name: "smile.png",
+      size: 22760,
+      type: "image/png",
       webkitRelativePath: "",
     },
   }),
@@ -84,13 +85,14 @@ export const serviceMockedRows = [
     category: "Digital Marketing",
     sku: "SKU-2222",
     image: {
-      path: "",
-      lastModified: "",
-      lastModifiedDate: "",
-      name: "",
-      size: 0,
-      type: "",
+      path: "smile.png",
+      lastModified: "1674434250608",
+      lastModifiedDate:
+        "Mon Jan 23 2023 01:37:30 GMT+0100 (Central European Standard Time)",
+      name: "smile.png",
+      size: 22760,
+      type: "image/png",
       webkitRelativePath: "",
     },
   }),
-].sort((a, b) => (a.service < b.service ? -1 : 1));
+].sort((a, b) => (a["service-name"] < b['service-name'] ? -1 : 1));

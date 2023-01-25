@@ -45,14 +45,14 @@ function createData({
   return {
     address,
     email,
-    bankAccount,
-    companyName,
-    phoneNumber,
+    "bank-account": bankAccount,
+    "company-name": companyName,
+    "phone-number": phoneNumber,
     edb,
     embs,
     country,
-    stateRegion,
-    zipCode,
+    "state-region": stateRegion,
+    "zip-code": zipCode,
   };
 }
 
@@ -189,7 +189,7 @@ export const customerMockedRows = [
     stateRegion: "Kumanovo",
     zipCode: "1300",
   }),
-].sort((a, b) => (a.companyName < b.companyName ? -1 : 1));
+].sort((a, b) => (a["company-name"] < b["company-name"] ? -1 : 1));
 
 // TODO: get from BE
 

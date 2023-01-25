@@ -1,48 +1,49 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Customer } from "@features/Customer";
-import { Services } from "@features/Services";
 import { Dashboard } from "@features/Dashboard";
-import { NotFound } from "@pages/errors";
 import {
   customersRoutes,
   errorsRoutes,
   homeRoutes,
   servicesRoutes,
 } from "./routes";
+import { Customers } from "@pages/Customers";
+import { NotFound } from "@pages/errors";
+import { Services } from "@pages/Services";
+
+const BASE_ROUTE = "/";
 
 export const AppRouter = () => {
-  const baseRoute = "/";
   return (
     <Routes>
       {/* Home */}
-      <Route path={`${baseRoute}${homeRoutes.list}`} element={<Dashboard />} />
+      <Route path={`${BASE_ROUTE}${homeRoutes.list}`} element={<Dashboard />} />
 
       {/* Customers */}
       <Route
-        path={`${baseRoute}${customersRoutes.list}`}
-        element={<Customer />}
+        path={`${BASE_ROUTE}${customersRoutes.list}`}
+        element={<Customers />}
       />
       <Route
-        path={`${baseRoute}${customersRoutes.new}`}
-        element={<Customer isNew />}
+        path={`${BASE_ROUTE}${customersRoutes.new}`}
+        element={<Customers isNew />}
       />
       <Route
-        path={`${baseRoute}${customersRoutes.edit}`}
-        element={<Customer isEdit />}
+        path={`${BASE_ROUTE}${customersRoutes.edit}`}
+        element={<Customers isEdit />}
       />
 
       {/* Services */}
       <Route
-        path={`${baseRoute}${servicesRoutes.list}`}
+        path={`${BASE_ROUTE}${servicesRoutes.list}`}
         element={<Services />}
       />
       <Route
-        path={`${baseRoute}${servicesRoutes.new}`}
+        path={`${BASE_ROUTE}${servicesRoutes.new}`}
         element={<Services isNew />}
       />
       <Route
-        path={`${baseRoute}${servicesRoutes.edit}`}
+        path={`${BASE_ROUTE}${servicesRoutes.edit}`}
         element={<Services isEdit />}
       />
 

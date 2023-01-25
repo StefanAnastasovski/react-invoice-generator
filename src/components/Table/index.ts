@@ -6,3 +6,6 @@ export { TableBodyCollapseWrapper } from "./TableBodyCollapseWrapper";
 export { TableBodyWrapper } from "./TableBodyWrapper";
 export { TableExtraInfo } from "./TableExtraInfo";
 export { CustomTable } from "./CustomTable";
+export { TableDetailsWrapper } from "./TableDetailsWrapper";
+export { CheckboxAndCollapseEntities } from "./CheckboxAndCollapseEntities";
+export { TableActions } from "./TableActions";

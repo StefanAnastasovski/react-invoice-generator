@@ -105,6 +105,17 @@ export const serviceFields = [
     id: "bdi-114",
     title: "Images",
     subtitle: "Images will appear in the services list",
-    items: null,
+    items: [
+      {
+        id: "sfi-1",
+        label: "Image",
+        name: "service-image",
+        placeholder: "Add Image",
+        type: "file",
+        dbKey: "serviceImage",
+        isRequired: false,
+        items: null,
+      },
+    ],
   },
 ];

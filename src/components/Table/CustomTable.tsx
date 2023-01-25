@@ -5,13 +5,7 @@ import {
   TableHeaderColumns,
   TablePaginationFooter,
 } from "@components/Table";
-
-type CustomTableProps = {
-  children: React.ReactNode;
-  titles: string[];
-  onSelectAllClick: () => void;
-  tableData: any;
-};
+import { CustomTableProps } from "types/components/TableProps";
 
 export const CustomTable = ({
   children,

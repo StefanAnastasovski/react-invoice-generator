@@ -8,14 +8,11 @@ import {
   KeyboardArrowLeft as KeyboardArrowLeftIcon,
 } from "@mui/icons-material";
 import { BoxDiv } from "@components/atoms";
-import { TablePaginationActionsProps, TablePaginationEventProp } from "types/components/TableProps";
-
-const PAGES = {
-  firstPage: "first page",
-  lastPage: "last page",
-  nextPage: "next page",
-  previousPage: "previous page",
-};
+import {
+  TablePaginationActionsProps,
+  TablePaginationEventProp,
+} from "types/components/TableProps";
+import { TABLE_ARIA_LABEL } from "@constants/table";
 
 export const TablePaginationActions = (props: TablePaginationActionsProps) => {
   const theme = useTheme();
@@ -45,28 +42,28 @@ export const TablePaginationActions = (props: TablePaginationActionsProps) => {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={isFirstPage}
-        aria-label={PAGES.firstPage}
+        aria-label={TABLE_ARIA_LABEL.firstPage}
       >
         {isRtl ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={isFirstPage}
-        aria-label={PAGES.previousPage}
+        aria-label={TABLE_ARIA_LABEL.previousPage}
       >
         {isRtl ? <KeyboardArrowRightIcon /> : <KeyboardArrowLeftIcon />}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={isNextPageAllow}
-        aria-label={PAGES.nextPage}
+        aria-label={TABLE_ARIA_LABEL.nextPage}
       >
         {isRtl ? <KeyboardArrowLeftIcon /> : <KeyboardArrowRightIcon />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={isNextPageAllow}
-        aria-label={PAGES.lastPage}
+        aria-label={TABLE_ARIA_LABEL.lastPage}
       >
         {isRtl ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>

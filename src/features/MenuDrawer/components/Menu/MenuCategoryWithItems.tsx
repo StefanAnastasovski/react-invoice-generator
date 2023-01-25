@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Theme, useTheme } from "@mui/material";
 import { MenuItem } from "../MenuItem";
 import { BoxDiv } from "@components/atoms";
-import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { useDrawerMenu } from "@hooks/index";
 
 const renderItems = (items: any) =>
   items.map((item: ItemProps) => {

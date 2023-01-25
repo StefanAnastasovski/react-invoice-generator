@@ -13,7 +13,9 @@
       "@constants/*": ["constants/*", "constants"],
       "@hooks/*": ["hooks/*", "hooks"],
       "@app/*": ["app/*", "app"],
-      "@utils/*": ["utils/*", "utils"]
+      "@utils/*": ["utils/*", "utils"],
+      "@config/*": ["config/*", "config"]
+      
     }
   }
 }

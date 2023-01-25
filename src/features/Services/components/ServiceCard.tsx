@@ -3,36 +3,30 @@ import { TextField, Theme, Typography, useTheme } from "@mui/material";
 import { BasicCard } from "@components/atoms/Card";
 import { BoxDiv, BoxFlex } from "@components/atoms/Box";
 import { CustomSelect } from "@components/atoms/Select";
-import { FormikProps } from "formik";
-import { StringNumberObjectProps } from "types/CommonProps";
-import { StyleCustomProps } from "types/StyleProps";
-import { ServiceDataProps } from "../types/ServiceTypes";
+import {
+  CardContentProps,
+  ServiceCardProps,
+  ServiceItemsProps,
+} from "../types/ServiceTypes";
 import { DropzoneComponent } from "@components/Dropzone";
-import { SERVICE_FIELD_MAP } from "../constants/serviceTable";
+// import { SERVICE_FIELD_MAP } from "../constants/serviceTable";
 
-const renderItems = ({
-  serviceData,
-  formik,
-  style,
-}: {
-  serviceData: ServiceDataProps[];
-  formik: FormikProps<StringNumberObjectProps>;
-  style: StyleCustomProps;
-}) => {
+const renderItems = ({ serviceData, formik, style }: ServiceItemsProps) => {
   const { touched, errors } = formik;
 
   return serviceData.map((item: any) => {
     const isTextarea = item.type === "textarea";
     const isPercentage = item.name === "service-tax";
     const isError = touched[item.name] && Boolean(errors[item.name]);
-    const fieldValue = formik.values[SERVICE_FIELD_MAP[item.name]] as string;
+    // const fieldValue = formik.values[SERVICE_FIELD_MAP[item.name]] as string;
+
     return item.items ? (
       <CustomSelect
         key={item.id}
         label={item.label}
         selectId={item.name}
         selectName={item.name}
-        value={fieldValue}
+        value={formik.values[item.name] as string}
         itemList={item.items}
         formik={formik}
         labelStyle={style.labelStyle}
@@ -48,7 +42,7 @@ const renderItems = ({
         type={item.type}
         label={item.label}
         placeholder={item.placeholder}
-        value={fieldValue}
+        value={formik.values[item.name]}
         autoComplete="off"
         fullWidth
         multiline={isTextarea}
@@ -66,20 +60,15 @@ const renderItems = ({
   });
 };
 
-export const ServiceCard = ({
+const CardContent = ({
   title,
   subtitle,
   serviceData,
   formik,
-}: {
-  title: string;
-  subtitle?: string;
-  serviceData: ServiceDataProps[] | null;
-  formik: FormikProps<any>;
-}) => {
-  const theme = useTheme();
-  const style = styles(theme);
+  style,
+}: CardContentProps) => {
   const isServiceDataEmpty = Boolean(serviceData);
+  const isImage = serviceData?.[0]?.name === "service-image";
   return (
     <BasicCard
       key={title}
@@ -96,7 +85,7 @@ export const ServiceCard = ({
           </BoxDiv>
 
           <BoxDiv style={style.rightCardContainer}>
-            {isServiceDataEmpty && serviceData ? (
+            {isServiceDataEmpty && serviceData && !isImage ? (
               renderItems({ serviceData, formik, style })
             ) : (
               <DropzoneComponent formik={formik} name="service-image" />
@@ -104,6 +93,19 @@ export const ServiceCard = ({
           </BoxDiv>
         </BoxFlex>
       }
+    />
+  );
+};
+
+export const ServiceCard = (props: ServiceCardProps) => {
+  const { title } = props;
+  const theme = useTheme();
+  const style = styles(theme);
+  return (
+    <BasicCard
+      key={title}
+      containerStyle={style.outerContainer}
+      cardContent={<CardContent {...props} style={style} />}
     />
   );
 };

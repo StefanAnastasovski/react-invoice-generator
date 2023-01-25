@@ -54,7 +54,6 @@ const tableSlice = createSlice({
     // },
     addSelectedRow: (state, { payload: { id } }) => {
       const formattedId = id.toString();
-      console.log(formattedId);
       if (state.selectedRows.includes(formattedId)) {
         state.selectedRows = state.selectedRows.filter(
           (item: any) => item !== formattedId

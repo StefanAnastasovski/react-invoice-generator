@@ -14,9 +14,9 @@ import {
   CustomerCompProps,
   NewCustomerRenderFieldProps,
 } from "../types/CustomerTypes";
-import { CUSTOMER_FIELD_MAP } from "../constants/customerTable";
-import { useCommonStyles } from "@hooks/useCommonStyles";
+import { useCommonStyles } from "@hooks/index";
 import { ActionButtons, DeleteButton } from "@components/ActionButtons";
+// import { CUSTOMER_FIELD_MAP } from "../constants/customerTable";
 
 const CONTENT = {
   NEW_CUSTOMER: "Add a New Customer",
@@ -34,7 +34,7 @@ const renderFields = ({
     const itemPadding =
       index % 2 !== 0 ? { paddingLeft: 2 } : { paddingRight: 2 };
     const isError = touched[item.name] && Boolean(errors[item.name]);
-    const fieldValue = formik.values[CUSTOMER_FIELD_MAP[item.name]] as string;
+    // const fieldValue = formik.values[CUSTOMER_FIELD_MAP[item.name]] as string;
 
     return (
       <TextField
@@ -46,7 +46,7 @@ const renderFields = ({
         name={item.name}
         type={item.type}
         label={item.label}
-        value={fieldValue}
+        value={formik.values[item.name]}
         placeholder={item.placeholder}
         autoComplete="off"
         helperText={isError ? errors[item.name] : ""}
@@ -69,34 +69,33 @@ export const AddOrEditCustomer = ({
   primaryButtonText,
   secondaryButtonText,
   deleteButtonText,
-  customerList,
+  tableData,
   shouldEdit = false,
   isNew,
-  customerData = {},
+  existingItemData = {},
   onClickSecondary,
   handleDelete,
-  addNewCustomer,
-  editCustomer,
+  addNewItem,
+  editItem,
 }: CustomerCompProps) => {
   const theme = useTheme();
   const inputRef = useRef<any>({});
   const style = styles(theme);
-  const { dividerStyle } = useCommonStyles();
+  const { dividerStyle } = useCommonStyles({});
 
   const handleDeleteClick = () => {
-    handleDelete && handleDelete(customerData.edb);
+    handleDelete && handleDelete(existingItemData.edb);
   };
-
   const formik = useFormik({
-    initialValues: !shouldEdit ? NEW_CUSTOMER_INITIAL_VALUE : customerData,
+    initialValues: !shouldEdit ? NEW_CUSTOMER_INITIAL_VALUE : existingItemData,
     validationSchema: customerSchema,
     onSubmit: (newCustomerData: any) => {
       // TODO: add implementation and test after BE implementation
-      if (shouldEdit && editCustomer) {
-        editCustomer(newCustomerData);
+      if (shouldEdit && editItem) {
+        editItem(newCustomerData);
       }
-      if (!shouldEdit && addNewCustomer) {
-        customerList && addNewCustomer(customerList.concat(newCustomerData));
+      if (!shouldEdit && addNewItem) {
+        tableData && addNewItem(tableData.concat(newCustomerData));
       }
     },
   });
@@ -113,7 +112,7 @@ export const AddOrEditCustomer = ({
             <Divider sx={dividerStyle.titleDivider} />
             {/* TODO: get the fileds from BE */}
             {isNew ||
-            (shouldEdit && Boolean(Object.keys(customerData).length > 0)) ? (
+            (shouldEdit && Boolean(Object.keys(existingItemData).length > 0)) ? (
               <form
                 onSubmit={formik.handleSubmit}
                 method={!shouldEdit ? FORM_METHODS.POST : FORM_METHODS.PATCH}

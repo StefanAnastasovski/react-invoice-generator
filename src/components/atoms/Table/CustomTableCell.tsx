@@ -1,6 +1,6 @@
 import React from "react";
 import TableCell from "@mui/material/TableCell";
-import { SxProps } from "@mui/material";
+import { CustomerTableCellProps } from "types/components/TableProps";
 
 export const CustomTableCell = ({
   children,
@@ -25,15 +25,4 @@ export const CustomTableCell = ({
       {children}
     </TableCell>
   );
-};
-
-type CustomerTableCellProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties | SxProps;
-  paddingProps?: "none" | "normal" | "checkbox";
-  align?: "center" | "left" | "right" | "justify" | "inherit";
-  component?: string;
-  scope?: string;
-  otherProps?: any;
-  colSpan?: number;
 };

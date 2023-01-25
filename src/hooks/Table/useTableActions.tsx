@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getEditLink } from "@features/Router/utils/routerUtils";
 import { tableActions } from "@stores/slices/tableSlice";
-import { useRouterHook } from "./useRouterHook";
+import { useRouterHook } from "../index";
 
 export const useTableActions = ({
-  rowId,
+  tableId,
   titles,
   tableData,
   colSpan,
@@ -26,7 +26,7 @@ export const useTableActions = ({
 
   const onSelectAllClick = () => {
     dispatch(tableActions.setRowsPerPageData({ data: tableData }));
-    dispatch(tableActions.setSelectAllRows({ id: rowId }));
+    dispatch(tableActions.setSelectAllRows({ id: tableId }));
   };
 
   const onSelectClick = (id: string | number) => {
@@ -39,9 +39,10 @@ export const useTableActions = ({
 
   const handleDelete = (id: number | string) => {
     const filteredData = tableData.filter((item: any) => {
-      return item[rowId] !== id;
+      return item[tableId] !== id;
     });
-    dispatch(tableActions.setTableData({ tableData: filteredData }));
+    return setData(filteredData);
+    // dispatch(tableActions.setTableData({ tableData: filteredData }));
   };
 
   const handleEdit = (id: number | string) => {
@@ -58,7 +59,7 @@ export const useTableActions = ({
 
   const getDataById = () => {
     const item = tableData.filter((item: any) => {
-      return item[rowId] === params.id;
+      return item[tableId] === params.id;
     });
     return item[0];
   };

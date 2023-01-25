@@ -3,7 +3,7 @@ import { List } from "@mui/material";
 import { MenuCategoryWithItems } from "./MenuCategoryWithItems";
 import { menuItems } from "@constants/menuItems";
 import { OpenProps } from "types/OpenProps";
-import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { useDrawerMenu } from "@hooks/index";
 
 export const DrawerPrimaryMenu = () => {
   const { isOpen } = useDrawerMenu();

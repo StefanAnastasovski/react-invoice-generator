@@ -2,8 +2,9 @@ import React from "react";
 import { VStack } from "@components/atoms/Stack";
 import { Paragraph } from "@components/atoms/Typography/Paragraph";
 import { COLORS } from "@constants/colors";
+import { ExtraInfoComponentProps } from "types/components/TableProps";
 
-export const TableExtraInfo = ({ title, text }: Props) => {
+export const TableExtraInfo = ({ title, text }: ExtraInfoComponentProps) => {
   return (
     <VStack style={{ ...styles.container, ...styles.itemStyle }}>
       <Paragraph style={styles.title} bold>
@@ -33,9 +34,4 @@ const styles = {
     padding: 1,
     borderRadius: 2,
   },
-};
-
-type Props = {
-  title: string;
-  text: string;
 };

@@ -3,16 +3,9 @@ import { useSelector } from "react-redux";
 import TableRow from "@mui/material/TableRow";
 import { Checkbox, TableHead } from "@mui/material";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
-import { useTable } from "@hooks/useTable";
-
-const ARIA_LABEL = {
-  selectAllCustomers: "select all customers",
-};
-
-export interface TableHeadProps {
-  titles: string[]; // titiles
-  onSelectAllClick: () => void;
-}
+import { useTable } from "@hooks/index";
+import { TableHeadProps } from "types/components/TableProps";
+import { TABLE_ARIA_LABEL } from "@constants/table";
 
 export const TableHeaderColumns = ({
   titles,
@@ -29,20 +22,22 @@ export const TableHeaderColumns = ({
   return (
     <TableHead>
       <TableRow>
-        <CustomTableCell style={styles.cellBorderRight}>
-          <Checkbox
-            checked={
-              selectedRows.length > 0 &&
-              rowsPerPageData.length === selectedRows.length
-            }
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": ARIA_LABEL.selectAllCustomers,
-            }}
-          />
-        </CustomTableCell>
-        <CustomTableCell style={styles.cellBorderRight}>{""}</CustomTableCell>
-        {renderHeaderColumns}
+        <>
+          <CustomTableCell style={styles.cellBorderRight}>
+            <Checkbox
+              checked={
+                selectedRows.length > 0 &&
+                rowsPerPageData.length === selectedRows.length
+              }
+              onChange={onSelectAllClick}
+              inputProps={{
+                "aria-label": TABLE_ARIA_LABEL.headerSelectAllCustomers,
+              }}
+            />
+          </CustomTableCell>
+          <CustomTableCell style={styles.cellBorderRight}>{""}</CustomTableCell>
+          {renderHeaderColumns}
+        </>
       </TableRow>
     </TableHead>
   );

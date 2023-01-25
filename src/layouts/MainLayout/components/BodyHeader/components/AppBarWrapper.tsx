@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ChildrenProps } from "types/ChildrenProps";
-import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { useDrawerMenu } from "@hooks/index";
 import { AppBar } from "./AppBar";
 
 export const AppBarWrapper = ({ children }: ChildrenProps) => {

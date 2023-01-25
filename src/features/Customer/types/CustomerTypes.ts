@@ -6,18 +6,18 @@ export interface CustomerCompProps {
   primaryButtonText: string;
   secondaryButtonText: string;
   deleteButtonText?: string;
-  customerList?: CustomerProps[];
+  tableData?: CustomerProps[];
   shouldEdit?: boolean;
   isNew?: boolean;
-  customerData?: FormikValues;
+  existingItemData?: FormikValues;
   onClickPrimary?: () => void;
   onClickSecondary?: () => void;
   handleDelete?: (v: string | number) => void;
-  editCustomer?: (v: any) => void;
-  addNewCustomer?: React.Dispatch<any>;
+  editItem?: (v: any) => void;
+  addNewItem?: React.Dispatch<any>;
 }
 
-export type CustomerProps = {
+export interface CustomerProps {
   address: string;
   email: string;
   "bank-account"?: string;
@@ -28,9 +28,9 @@ export type CustomerProps = {
   country: string;
   "state-region": string;
   "zip-code": string | number;
-};
+}
 
-export type TableCustomerProps = {
+export interface TableCustomerProps {
   address: string;
   email: string;
   bankAccount?: string;
@@ -41,7 +41,7 @@ export type TableCustomerProps = {
   country: string;
   stateRegion: string;
   zipCode: string | number;
-};
+}
 
 export type NewCustomerSchemaMessageProps = {
   fieldName: string;

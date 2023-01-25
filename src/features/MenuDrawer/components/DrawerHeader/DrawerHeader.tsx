@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { menuDrawerActions } from "@stores/slices/menuDrawerSlice";
 import { DrawerHeaderWrapper } from "./DrawerHeaderWrapper";
 import { StyledIconButton } from "@components/atoms";
-import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { useDrawerMenu } from "@hooks/index";
 
 export const DrawerHeader = () => {
   const { isOpen } = useDrawerMenu();

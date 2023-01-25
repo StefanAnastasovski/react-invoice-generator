@@ -67,13 +67,15 @@ export const serviceSchema = yup.object().shape(
     "service-image": yup
       .mixed()
       .required(fieldRequiredMessaage)
-      .test(
-        "fileFormat",
-        imageSupportedFormatMessage,
-        (file) =>
+      .test("fileFormat", imageSupportedFormatMessage, (file) => {
+        if (!Boolean(file)) {
+          return false;
+        }
+        return (
           Object.keys(file).length > 0 &&
           SUPPORTED_IMAGES_FORMAT.includes(file.type)
-      ),
+        );
+      }),
     "service-price-unit": shortNumberYup.when("service-price-hour", {
       is: (pricePerHour: number) => !pricePerHour || pricePerHour === 0,
       then: shortNumberYup

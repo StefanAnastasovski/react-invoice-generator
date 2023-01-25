@@ -6,6 +6,10 @@ import { Paragraph } from "@components/atoms/Typography/Paragraph";
 import { HStack } from "@components/atoms/Stack";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
 import { TableExtraInfo } from "./TableExtraInfo";
+import {
+  ExtraInfoProps,
+  TableBodyCollapseWrapperProps,
+} from "types/components/TableProps";
 
 export const TableBodyCollapseWrapper = ({
   shouldCollapse,
@@ -14,14 +18,7 @@ export const TableBodyCollapseWrapper = ({
   titleRight,
   collapseDataLeft,
   collapseDataRight,
-}: {
-  shouldCollapse: boolean;
-  colSpan: number;
-  titleLeft: string;
-  titleRight: string;
-  collapseDataLeft: any; // change
-  collapseDataRight: any; // change
-}) => {
+}: TableBodyCollapseWrapperProps) => {
   const theme = useTheme();
   const style = styles(theme, shouldCollapse);
 
@@ -69,15 +66,7 @@ export const TableBodyCollapseWrapper = ({
   );
 };
 
-const renderExtraInfo = ({
-  title,
-  collapseData,
-  style,
-}: {
-  title: string;
-  collapseData: any;
-  style: any;
-}) => {
+const renderExtraInfo = ({ title, collapseData, style }: ExtraInfoProps) => {
   return (
     <>
       <Paragraph style={style.title} bold>
@@ -85,11 +74,7 @@ const renderExtraInfo = ({
       </Paragraph>
       {collapseData?.map((item: any) => {
         return (
-          <TableExtraInfo
-            key={item.id}
-            title={item.title}
-            text={item.text}
-          />
+          <TableExtraInfo key={item.id} title={item.title} text={item.text} />
         );
       })}
     </>

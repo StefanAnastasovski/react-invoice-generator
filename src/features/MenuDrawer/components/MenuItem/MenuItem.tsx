@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import { Collapse, Link, List, Theme, useTheme } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowForwardIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useHandleMenuClick } from "@hooks/useHandleMenuClick";
+import { useHandleMenuClick } from "@hooks/index";
 import { StyledListItemButton } from "./StyledListItemButton";
 import { StyledListItemText } from "./StyledListItemText";
 import { StyledListItem } from "./StyledListItem";
 import { StyledListItemIcon } from "./StyledListItemIcon";
 import { SubMenuItem } from "./SubMenuItem";
-import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { useDrawerMenu } from "@hooks/index";
 
 export const MenuItem = ({ data, style, otherProps }: DrawerItemType) => {
   const theme = useTheme();

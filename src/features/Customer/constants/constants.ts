@@ -1,14 +1,14 @@
 export const NEW_CUSTOMER_INITIAL_VALUE: { [x: string]: string } = {
   address: "",
   email: "",
-  "bank-account": "",
-  "company-name": "",
-  "phone-number": "",
+  "bankAccount": "",
+  "companyName": "",
+  "phoneNumber": "",
   edb: "",
   embs: "",
   country: "",
-  "state-region": "",
-  "zip-code": "",
+  "stateRegion": "",
+  "zipCode": "",
 };
 
 export const CUSTOMER_TABLE_COL_SPAN = 7;

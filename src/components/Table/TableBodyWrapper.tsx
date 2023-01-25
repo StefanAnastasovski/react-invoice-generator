@@ -3,11 +3,7 @@ import { useSelector } from "react-redux";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
-
-interface TableBodyWrapperProps {
-  children: React.ReactNode;
-  tableData: any;
-}
+import { TableBodyWrapperProps } from "types/components/TableProps";
 
 export const TableBodyWrapper = ({
   children,

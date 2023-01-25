@@ -1,18 +1,20 @@
-import { FormikValues } from "formik";
+import { FormikProps, FormikValues } from "formik";
+import { StringNumberObjectProps } from "types/CommonProps";
 import { TableActionsProps } from "types/components/TableProps";
+import { StyleCustomProps } from "types/StyleProps";
 
 export interface ServiceCompProps {
   primaryButtonText?: string;
   secondaryButtonText?: string;
   deleteButtonText?: string;
-  serviceList?: ServiceProps[];
+  tableData?: ServiceProps[];
   shouldEdit?: boolean;
   isNew?: boolean;
-  serviceData: FormikValues;
+  existingItemData?: FormikValues;
   onClickSecondary?: () => void;
   handleDelete?: (v: string | number) => void;
-  editService?: (v: any) => void;
-  addNewService?: React.Dispatch<any>;
+  editItem?: (v: any) => void;
+  addNewItem?: React.Dispatch<any>;
 }
 
 export type ServiceProps = {
@@ -60,4 +62,20 @@ export type ImageProps = {
 
 export interface ServiceTableDetailProps extends TableActionsProps {
   tableData: any;
+}
+export interface ServiceItemsProps {
+  serviceData: ServiceDataProps[];
+  formik: FormikProps<StringNumberObjectProps>;
+  style: StyleCustomProps;
+}
+
+export interface ServiceCardProps {
+  title: string;
+  subtitle?: string;
+  serviceData: ServiceDataProps[] | null;
+  formik: FormikProps<any>;
+}
+
+export interface CardContentProps extends ServiceCardProps {
+  style: StyleCustomProps;
 }

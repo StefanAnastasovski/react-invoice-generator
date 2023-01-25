@@ -8,7 +8,7 @@ import { AppBarWrapper } from "./components";
 import { StyledIconButton } from "@components/atoms";
 import { useDispatch } from "react-redux";
 import { menuDrawerActions } from "@stores/slices/menuDrawerSlice";
-import { useDrawerMenu } from "@hooks/useDrawerMenu";
+import { useDrawerMenu } from "@hooks/index";
 import { ProfileMenu } from "@features/ProfileMenu/ProfileMenu";
 
 export const BodyHeader = () => {

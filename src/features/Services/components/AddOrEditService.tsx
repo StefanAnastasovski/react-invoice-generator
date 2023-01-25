@@ -19,27 +19,27 @@ export const AddOrEditService = ({
   primaryButtonText,
   secondaryButtonText,
   deleteButtonText,
-  serviceList,
+  tableData,
   shouldEdit = false,
   isNew,
-  serviceData = {},
+  existingItemData = {},
   onClickSecondary,
   handleDelete,
-  addNewService,
-  editService,
+  addNewItem,
+  editItem,
 }: ServiceCompProps) => {
   const style = styles();
 
   const formik = useFormik({
-    initialValues: !shouldEdit ? NEW_SERVICE_INITIAL_VALUE : serviceData,
+    initialValues: !shouldEdit ? NEW_SERVICE_INITIAL_VALUE : existingItemData,
     validationSchema: serviceSchema,
     onSubmit: (newServiceData: any) => {
       // TODO: add implementation and test after BE implementation
-      if (shouldEdit && editService) {
-        editService(newServiceData);
+      if (shouldEdit && editItem) {
+        editItem(newServiceData);
       }
-      if (!shouldEdit && addNewService) {
-        serviceList && addNewService(serviceList.concat(newServiceData));
+      if (!shouldEdit && addNewItem) {
+        tableData && addNewItem(tableData.concat(newServiceData));
       }
     },
   });

@@ -1,6 +1,9 @@
-export { useHandleMenuClick } from "./useHandleMenuClick";
-export { useDrawerMenu } from "./useDrawerMenu";
-export { useCommonStyles } from "./useCommonStyles";
-export { useTable } from "./useTable";
-export { useTableRowsAndPage } from "./useTableRowsAndPage";
-export { useRouterHook } from "./useRouterHook";
+export { useHandleMenuClick } from "./MenuDrawer/useHandleMenuClick";
+export { useDrawerMenu } from "./MenuDrawer/useDrawerMenu";
+export { useCommonStyles } from "./Style/useCommonStyles";
+export { useRouterHook } from "./Router/useRouterHook";
+export { useTable } from "./Table/useTable";
+export { useTableRowsAndPage } from "./Table/useTableRowsAndPage";
+export { useMakeTableCellsComponent } from "./Table/useMakeTableCellsComponent";
+export { useTableActions } from "./Table/useTableActions";
+export { useMakeTableComponent } from "./Table/useMakeTableComponent";

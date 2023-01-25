@@ -1,13 +1,18 @@
-import { opacityHexSuffix } from "@constants/opacityHexConstants";
 import { Theme, useTheme } from "@mui/material";
+import { opacityHexSuffix } from "@constants/opacityHexConstants";
+import { DEFAULT_CELL_WIDTH } from "@constants/table";
 
-export const useCommonStyles = () => {
+export const useCommonStyles = ({
+  cellWidth = DEFAULT_CELL_WIDTH,
+}: CommonStyleProps) => {
   const theme = useTheme();
   const buttonStyle = buttonStyles(theme);
   const dividerStyle = dividerStyles();
+  const tableStyle = tableStyles({ theme, cellWidth });
   return {
     buttonStyle,
     dividerStyle,
+    tableStyle,
   };
 };
 
@@ -52,4 +57,32 @@ export const dividerStyles = () => {
     titleDivider: { paddingBottom: 2, marginBottom: 4, width: "100%" },
     buttonDivider: { marginTop: 4, marginBottom: 4, width: "100%" },
   };
+};
+
+export const tableStyles = ({
+  theme,
+  cellWidth,
+}: {
+  theme: Theme;
+  cellWidth?: number;
+}) => {
+  return {
+    container: {
+      width: 800,
+    },
+    cellWidth: {
+      width: cellWidth,
+    },
+    icons: {
+      fontSize: 24,
+      cursor: "pointer",
+      "&:hover": {
+        color: theme.palette.primary.main,
+      },
+    },
+  };
+};
+
+type CommonStyleProps = {
+  cellWidth?: number;
 };
