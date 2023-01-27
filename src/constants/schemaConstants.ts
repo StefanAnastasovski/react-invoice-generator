@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { OPERATORS_CHARACTERS, OPERATORS_MAPPED } from "./constants";
-import { NewCustomerSchemaMessageProps } from "@features/Customer/types/CustomerTypes";
+import { NewCustomerSchemaMessageProps } from "@features/Customers/types/CustomerTypes";
 
 const numberFieldValidMessage = "Please enter a valid number.";
 

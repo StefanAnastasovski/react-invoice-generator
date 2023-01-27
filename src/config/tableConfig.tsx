@@ -3,13 +3,13 @@ import { EMPTY_TABLE_ROW_HEIGHT } from "@constants/table";
 import {
   CUSTOMER_ARIA_LABEL,
   CUSTOMER_TABLE_COL_SPAN,
-} from "@features/Customer/constants/constants";
+} from "@features/Customers/constants/constants";
 import {
   customerColumns,
   customerMockedRows,
   CUSTOMER_CELL_WIDTH,
-} from "@features/Customer/constants/customerTable";
-import { getFormattedCustomerData } from "@features/Customer/utils";
+} from "@features/Customers/constants/customerTable";
+import { getFormattedCustomerData } from "@features/Customers/utils";
 import { customersRoutes, servicesRoutes } from "@features/Router/routes";
 import {
   SERVICE_ARIA_LABEL,
@@ -21,9 +21,9 @@ import {
   SERVICE_CELL_WIDTH,
 } from "@features/Services/constants/serviceTable";
 import { getFormattedServiceData } from "@features/Services/utils";
-import { AddOrEditCustomer } from "@features/Customer/components/AddOrEditCustomer";
+import { AddOrEditCustomer } from "@features/Customers/components/AddOrEditCustomer";
 import { AddOrEditService } from "@features/Services/components/AddOrEditService";
-import { CustomerTableCells } from "@features/Customer/components/CustomerTable/CustomerTableCells";
+import { CustomerTableCells } from "@features/Customers/components/CustomerTable/CustomerTableCells";
 import { ServiceTableCells } from "@features/Services/components/ServiceTable/ServiceTableCells";
 
 export const tableConfig = {
