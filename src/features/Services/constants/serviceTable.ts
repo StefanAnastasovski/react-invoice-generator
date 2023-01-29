@@ -95,4 +95,4 @@ export const serviceMockedRows = [
       webkitRelativePath: "",
     },
   }),
-].sort((a, b) => (a["service-name"] < b['service-name'] ? -1 : 1));
+].sort((a, b) => (a["service-name"] < b["service-name"] ? -1 : 1));

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 import TableRow from "@mui/material/TableRow";
 import { getDataPerTablePage, getTableCellWidthStyle } from "@utils/tableUtils";
@@ -52,12 +52,15 @@ const TableDetails = ({
     tableCellWidth,
     ariaLabelContent,
     colSpan,
+    isCheckboxAndCollapseEnabled = true,
+    actions,
     detailsComponent,
     getFormattedData,
     onSelectClick,
     handleCollapse,
-    handleDelete,
     handleEdit,
+    handleDelete,
+    handleForward,
   } = params;
   const { formattedData, rowId, collapseData } = getFormattedData(details);
   const shouldCollapse = collapseId === rowId;
@@ -69,32 +72,62 @@ const TableDetails = ({
     cellComponent: detailsComponent,
   });
 
+  const deleteHandler = useCallback(() => {
+    return handleDelete && handleDelete(rowId);
+  }, [handleDelete, rowId]);
+
+  const editHandler = useCallback(() => {
+    return handleEdit && handleEdit(rowId);
+  }, [handleEdit, rowId]);
+
+  const forwardHandler = useCallback(() => {
+    return handleForward && handleForward(rowId);
+  }, [handleForward, rowId]);
+
+  const handleCollapseHandler = () => {
+    return handleCollapse && handleCollapse(rowId);
+  };
+
+  const onSelectClickHandler = () => {
+    return onSelectClick && onSelectClick(rowId);
+  };
+
+  const actionItems = useMemo(() => {
+    return actions.map((item: any) => {
+      // TODO: refactor
+      if (item.onClick === "handleEdit")
+        return { ...item, onClick: editHandler };
+      if (item.onClick === "handleDelete")
+        return { ...item, onClick: deleteHandler };
+      if (item.onClick === "handleForward")
+        return { ...item, onClick: forwardHandler };
+    });
+  }, [actions, deleteHandler, editHandler, forwardHandler]);
+
   return (
     <React.Fragment key={rowId}>
       <TableRow style={tableStyle.container}>
-        <CheckboxAndCollapseEntities
-          rowId={rowId}
-          shouldCollapse={shouldCollapse}
-          tableCellWidth={tableCellWidth}
-          ariaLabelContent={ariaLabelContent}
-          getStyle={(cellName: string) =>
-            getTableCellWidthStyle({
-              tableCellWidth,
-              cellName,
-            })
-          }
-          handleCollapse={() => handleCollapse(rowId)}
-          onSelectClick={() => onSelectClick(rowId)}
-        />
+        {isCheckboxAndCollapseEnabled ? (
+          <CheckboxAndCollapseEntities
+            rowId={rowId}
+            shouldCollapse={shouldCollapse}
+            tableCellWidth={tableCellWidth}
+            ariaLabelContent={ariaLabelContent}
+            getStyle={(cellName: string) =>
+              getTableCellWidthStyle({
+                tableCellWidth,
+                cellName,
+              })
+            }
+            handleCollapse={handleCollapseHandler}
+            onSelectClick={onSelectClickHandler}
+          />
+        ) : null}
 
         {/* data */}
         {tableCellsComponent}
 
-        <TableActions
-          tableCellWidth={tableCellWidth}
-          handleDelete={() => handleDelete(rowId)}
-          handleEdit={() => handleEdit(rowId)}
-        />
+        <TableActions tableCellWidth={tableCellWidth} actions={actionItems} />
       </TableRow>
 
       <TableBodyCollapseWrapper

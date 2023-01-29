@@ -9,6 +9,7 @@ export const TableComponentWrapper = ({
   isNew = false,
   isEdit = false,
   config,
+  isCheckboxAndCollapseEnabled,
 }: TableConfigProps) => {
   const isTable = !isEdit && !isNew;
   const {
@@ -27,6 +28,7 @@ export const TableComponentWrapper = ({
     getFormattedData,
     tableComponent,
     detailsComponent,
+    actions,
   } = config;
 
   const {
@@ -38,6 +40,7 @@ export const TableComponentWrapper = ({
     handleDelete,
     handleEdit,
     handleClose,
+    handleForward,
     getDataById,
   } = useTableActions({
     tableId,
@@ -88,6 +91,7 @@ export const TableComponentWrapper = ({
           titles={titles}
           tableData={data}
           onSelectAllClick={onSelectAllClick}
+          isCheckboxAndCollapseEnabled={isCheckboxAndCollapseEnabled}
         >
           <TableDetailsWrapper
             tableData={data}
@@ -95,11 +99,14 @@ export const TableComponentWrapper = ({
             ariaLabelContent={ariaLabelContent}
             colSpan={colSpan}
             detailsComponent={detailsComponent}
+            isCheckboxAndCollapseEnabled={isCheckboxAndCollapseEnabled}
+            actions={actions}
             getFormattedData={(details: any) => getFormattedData({ details })}
             onSelectClick={onSelectClick}
             handleCollapse={handleCollapse}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
+            handleForward={handleForward}
           />
         </CustomTable>
       )}

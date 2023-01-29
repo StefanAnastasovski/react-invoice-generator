@@ -10,6 +10,7 @@ import { TABLE_ARIA_LABEL } from "@constants/table";
 export const TableHeaderColumns = ({
   titles,
   onSelectAllClick,
+  isCheckboxAndCollapseEnabled,
 }: TableHeadProps) => {
   const { selectedRows, rowsPerPageData } = useSelector(
     (state: any) => state.table
@@ -23,19 +24,25 @@ export const TableHeaderColumns = ({
     <TableHead>
       <TableRow>
         <>
-          <CustomTableCell style={styles.cellBorderRight}>
-            <Checkbox
-              checked={
-                selectedRows.length > 0 &&
-                rowsPerPageData.length === selectedRows.length
-              }
-              onChange={onSelectAllClick}
-              inputProps={{
-                "aria-label": TABLE_ARIA_LABEL.headerSelectAllCustomers,
-              }}
-            />
-          </CustomTableCell>
-          <CustomTableCell style={styles.cellBorderRight}>{""}</CustomTableCell>
+          {isCheckboxAndCollapseEnabled ? (
+            <>
+              <CustomTableCell style={styles.cellBorderRight}>
+                <Checkbox
+                  checked={
+                    selectedRows.length > 0 &&
+                    rowsPerPageData.length === selectedRows.length
+                  }
+                  onChange={onSelectAllClick}
+                  inputProps={{
+                    "aria-label": TABLE_ARIA_LABEL.headerSelectAllCustomers,
+                  }}
+                />
+              </CustomTableCell>
+              <CustomTableCell style={styles.cellBorderRight}>
+                {""}
+              </CustomTableCell>
+            </>
+          ) : null}
           {renderHeaderColumns}
         </>
       </TableRow>

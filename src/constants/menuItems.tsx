@@ -72,25 +72,25 @@ const managementMenuItems = [
     link: "/",
     icon: <HomeOutlinedIcon />,
   },
-  {
-    id: "mmi3",
-    category: "Management",
-    title: "Orders",
-    subtitles: [
-      {
-        subtitleId: "mmi3s1",
-        subtitle: "List",
-        link: "/list",
-      },
-      {
-        subtitleId: "mmi3s2",
-        subtitle: "Details",
-        link: "/details",
-      },
-    ],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
+  // {
+  //   id: "mmi3",
+  //   category: "Management",
+  //   title: "Orders",
+  //   subtitles: [
+  //     {
+  //       subtitleId: "mmi3s1",
+  //       subtitle: "List",
+  //       link: "/list",
+  //     },
+  //     {
+  //       subtitleId: "mmi3s2",
+  //       subtitle: "Details",
+  //       link: "/details",
+  //     },
+  //   ],
+  //   link: "/",
+  //   icon: <HomeOutlinedIcon />,
+  // },
   {
     id: "mmi4",
     category: "Management",
@@ -99,12 +99,12 @@ const managementMenuItems = [
       {
         subtitleId: "mmi4s1",
         subtitle: "List",
-        link: "/list",
+        link: "/invoices",
       },
       {
         subtitleId: "mmi4s2",
-        subtitle: "Details",
-        link: "/details",
+        subtitle: "Create",
+        link: "/invoices/new",
       },
     ],
     link: "/",
@@ -183,12 +183,14 @@ export const menuItems = [
   {
     id: "cat3",
     title: "Platforms",
-    items: platformMenuItems,
+    // items: platformMenuItems,
+    items: [],
   },
   // Apps
-  {
-    id: "cat4",
-    title: "Apps",
-    items: appMenuItems,
-  },
+  // {
+  //   id: "cat4",
+  //   title: "Apps",
+  //   // items: appMenuItems,
+  //   items: [],
+  // },
 ];

@@ -46,10 +46,11 @@ export interface CollapseData {
 }
 
 export interface TableActionsProps {
-  onSelectClick: (v: string | number) => void;
-  handleCollapse: (v: string | number) => void;
-  handleDelete: (v: string | number) => void;
-  handleEdit: (v: string | number) => void;
+  onSelectClick?: (v: string | number) => void;
+  handleCollapse?: (v: string | number) => void;
+  handleDelete?: (v: string | number) => void;
+  handleEdit?: (v: string | number) => void;
+  handleForward?: (v: string | number) => void;
 }
 
 export interface TablePageProps {
@@ -59,6 +60,7 @@ export interface TablePageProps {
 
 export interface TableConfigProps extends TablePageProps {
   config: any; // TODO: change any
+  isCheckboxAndCollapseEnabled?: boolean;
 }
 
 export interface TableCellsComponent {
@@ -68,11 +70,15 @@ export interface TableCellsComponent {
   tableCellWidth: { [x: string]: string };
 }
 
-export interface TableDetailsWrapperProps extends TableActionsProps {
+export interface TableDetailsWrapperProps
+  extends TableActionsProps,
+    ComponentWrapperExtraProps {
   tableData: any;
   tableCellWidth: { [x: string]: string };
   ariaLabelContent: { [x: string]: string };
   colSpan: number;
+  actions: any;
+  isCheckboxAndCollapseEnabled?: boolean;
   detailsComponent: (props: any) => JSX.Element;
   getFormattedData: (v: any) => {
     rowId: number;
@@ -81,7 +87,7 @@ export interface TableDetailsWrapperProps extends TableActionsProps {
   };
 }
 
-export interface TableDetailsProps {
+export interface TableDetailsProps extends ComponentWrapperExtraProps {
   params: TableDetailsWrapperProps;
   details: any;
   tableStyle: any;
@@ -108,7 +114,7 @@ export interface ExtraInfoComponentProps {
   text: string;
 }
 
-export interface TableHeadProps {
+export interface TableHeadProps extends ComponentWrapperExtraProps {
   titles: string[]; // titiles
   onSelectAllClick: () => void;
 }
@@ -129,7 +135,7 @@ export interface TableBodyWrapperProps {
   tableData: any;
 }
 
-export interface CustomTableProps {
+export interface CustomTableProps extends ComponentWrapperExtraProps {
   children: React.ReactNode;
   titles: string[];
   tableData: any;
@@ -146,4 +152,21 @@ export interface HeaderTitleProps extends TableStyleProp {
 
 export interface useTableProps extends TableStyleProp {
   columnsData?: any;
+}
+
+export interface TableActionsComponentProps {
+  tableCellWidth: any;
+  handleDelete?: (() => void) | undefined;
+  handleEdit?: (() => void) | undefined;
+  handleForward?: (() => void) | undefined;
+}
+
+export interface ComponentWrapperExtraProps {
+  isCheckboxAndCollapseEnabled?: boolean;
+}
+
+export interface TableCellsProps {
+  formattedData: any;
+  rowId: string;
+  tableCellWidth: { [x: string]: string };
 }

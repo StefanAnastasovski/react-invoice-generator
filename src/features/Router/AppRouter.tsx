@@ -10,6 +10,8 @@ import {
 import { Customers } from "@pages/Customers";
 import { NotFound } from "@pages/errors";
 import { Services } from "@pages/Services";
+import { Invoices } from "@pages/Invoices";
+import { invoicesRoutes } from "./routes/invoices";
 
 const BASE_ROUTE = "/";
 
@@ -46,6 +48,20 @@ export const AppRouter = () => {
         path={`${BASE_ROUTE}${servicesRoutes.edit}`}
         element={<Services isEdit />}
       />
+
+      {/* Invoices */}
+      <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.list}`}
+        element={<Invoices />}
+      />
+      {/* <Route
+        path={`${BASE_ROUTE}${servicesRoutes.new}`}
+        element={<Invoices isNew />}
+      />
+      <Route
+        path={`${BASE_ROUTE}${servicesRoutes.edit}`}
+        element={<Invoices isEdit />}
+      /> */}
 
       {/* Errors */}
       <Route path={errorsRoutes.notFound} element={<NotFound />} />

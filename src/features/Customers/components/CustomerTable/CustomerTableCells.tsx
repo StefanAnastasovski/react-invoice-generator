@@ -1,12 +1,13 @@
 import React from "react";
 import { CustomTableCell } from "@components/atoms/Table/CustomTableCell";
 import { getTableCellWidthStyle } from "@utils/tableUtils";
+import { TableCellsProps } from "types/components/TableProps";
 
 export const CustomerTableCells = ({
   formattedData,
   rowId,
   tableCellWidth,
-}: any) => {
+}: TableCellsProps) => {
   return (
     <>
       {formattedData.map((item: any) => {

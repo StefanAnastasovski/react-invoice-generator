@@ -5,12 +5,13 @@ import { BoxDiv } from "@components/atoms";
 import { getTableCellWidthStyle } from "@utils/tableUtils";
 import { SERVICE_IMAGE_URL } from "@features/Services/constants/constants";
 import { Paragraph } from "@components/atoms/Typography/Paragraph";
+import { TableCellsProps } from "types/components/TableProps";
 
 export const ServiceTableCells = ({
   formattedData,
   rowId,
   tableCellWidth,
-}: any) => {
+}: TableCellsProps) => {
   const style = styles();
 
   return (

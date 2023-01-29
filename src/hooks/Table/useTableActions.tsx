@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getEditLink } from "@features/Router/utils/routerUtils";
+import {
+  getEditLink,
+  getForwardLink,
+} from "@features/Router/utils/routerUtils";
 import { tableActions } from "@stores/slices/tableSlice";
 import { useRouterHook } from "../index";
 
@@ -57,6 +60,14 @@ export const useTableActions = ({
     navigate(routes.list);
   };
 
+  const handleForward = (id: number | string) => {
+    const url = getForwardLink({
+      path: routes.base,
+      id: id,
+    });
+    navigate(url);
+  };
+
   const getDataById = () => {
     const item = tableData.filter((item: any) => {
       return item[tableId] === params.id;
@@ -71,6 +82,7 @@ export const useTableActions = ({
     handleDelete,
     handleEdit,
     handleClose,
+    handleForward,
     getDataById,
     data,
     setData,

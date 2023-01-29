@@ -1,5 +1,7 @@
-import { ProfileMenuAriaValuesType } from "@features/ProfileMenu/ProfileMenu";
 import { Theme } from "@mui/material";
+import { StyleDefaultProps, StyleSxCSSPropertiesProps } from "types/StyleProps";
+import { StyleCustomProps } from "types/StyleProps";
+import { ProfileMenuAriaValuesType } from "@features/ProfileMenu/ProfileMenu";
 
 export type ButtonProps = {
   children: React.ReactNode;
@@ -22,4 +24,10 @@ export type StyledProfileButtonProps = {
   isOpen: boolean;
   ariaValues: ProfileMenuAriaValuesType;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
+};
+
+export type LinkButtonProps = {
+  children: React.ReactNode;
+  path: string;
+  style?: StyleDefaultProps | StyleCustomProps | StyleSxCSSPropertiesProps;
 };

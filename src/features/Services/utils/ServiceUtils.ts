@@ -1,9 +1,10 @@
 import { PRICE_SIGN } from "../constants/constants";
 
 const returnPrice = (price: number, isPricePerHour: boolean) => {
+  const formattedPrice = `${PRICE_SIGN} ${price}`;
   return isPricePerHour
-    ? `${price}${PRICE_SIGN} (per hour)`
-    : `${price}${PRICE_SIGN} (per unit)`;
+    ? `${formattedPrice} (per hour)`
+    : `${formattedPrice} (per unit)`;
 };
 
 const getFormattedCollapseData = (collapseData: any) => {
