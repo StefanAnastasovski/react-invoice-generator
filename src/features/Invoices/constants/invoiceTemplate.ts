@@ -20,6 +20,12 @@ export const invoiceTemplateTitles = [
   "Amount",
 ];
 
+export const CTAs = {
+  print: "Print",
+  download: "Download",
+  send: "Send",
+};
+
 export const invoiceDetails = {
   docInfo: {
     title: "Invoice",

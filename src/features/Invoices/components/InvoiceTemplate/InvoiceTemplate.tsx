@@ -1,124 +1,94 @@
 import React, { useRef } from "react";
-import { Box, Button, Divider } from "@mui/material";
-import { BoxDiv } from "@components/atoms";
+import { useReactToPrint } from "react-to-print";
+import { savePDF } from "@progress/kendo-react-pdf";
+import { BoxFlex, CustomButton } from "@components/atoms";
+
+import { horizontalPaddings, joinStyles } from "@utils/styleUtils";
+import { PRINT_PAGE_SIZE } from "@features/Invoices/constants/constants";
 import {
-  InvoiceDates,
-  InvoiceHeader,
-  InvoiceNotesAndTotal,
-  InvoicePaymentDetails,
-} from "../InvoiceTemplate";
-import { CustomDataTable } from "@components/Table";
-import { verticalMargins } from "@utils/styleUtils";
-import { opacityHexSuffix } from "@constants/opacityHexConstants";
-// import { useReactToPrint } from "react-to-print";
+  addStyling,
+  getPrintStyle,
+  resetStyling,
+} from "@features/Invoices/utils/invoiceUtils";
+import { useCommonStyles } from "@hooks/index";
+import {
+  CTAs,
+  invoiceDetails,
+} from "@features/Invoices/constants/invoiceTemplate";
+import { InvoicePaper } from "./InvoicePaper";
+import moment from "moment";
 
-// CTAs: Print, Download, Send
-// react-to-print -> Print
-// html2canvas, jsPDF, react-pdf -> Download
-// https://react-pdf.org/
-// react-pdf -> Display PDF
-
-// const PAGE_SIZE = "A4";
+// TODO: CTAs: Send
+// TODO: Add file(doc) name
 
 export const InvoiceTemplate = () => {
+  const { buttonStyle } = useCommonStyles({});
   const style = styles();
-  const invoiceRef = useRef(null);
-  // TODO: create dynamic docTitle
+  // TODO: replace with props
+  const { invoiceNumber, billedTo } = invoiceDetails;
+  const invoiceRef = useRef<HTMLElement | null>(null);
 
-  const handlePrint =
-    // useReactToPrint({
-    //   content: () => invoiceRef?.current,
-    //   // documentTitle: "emp-data", // Invoice-{CustomerName}_{currentDate}_{PONumber}
-    //   pageStyle: printStyle,
-    //   onBeforeGetContent: () => {
-    //     console.log("Change it here");
-    //   },
-    // });
-    () => {
-      console.log("Print");
-      console.log(invoiceRef);
-    };
-  const customDataTableStyle = {
-    tableHead: style.tableHead,
-    table: style.table,
-    tableBody: {},
+  const date = moment().format("MM-DD-YYYY");
+  const docTitle = `Invoice-${billedTo.customer.company}_${date}_${invoiceNumber.value}`;
+
+  const handlePrint = useReactToPrint({
+    content: () => invoiceRef?.current,
+    documentTitle: docTitle,
+    pageStyle: getPrintStyle({ pageSize: PRINT_PAGE_SIZE.auto }),
+  });
+
+  const handleExportPdf = () => {
+    addStyling();
+    savePDF(invoiceRef?.current as any, {
+      paperSize: PRINT_PAGE_SIZE.auto,
+      margin: "10mm",
+    });
+    resetStyling();
   };
 
   return (
     <>
-      <BoxDiv style={style.container}>
-        <Box
-          ref={invoiceRef}
-          sx={style.invoiceContainer}
-          className="invoice-print-container"
+      <BoxFlex style={style.ctaContainer}>
+        <CustomButton
+          isPrimary
+          style={joinStyles([
+            buttonStyle.primaryButton,
+            style.button,
+            style.leftButton,
+          ])}
+          onHoverStyle={buttonStyle.primaryButtonOnHover}
+          onClick={handlePrint}
         >
-          <InvoiceHeader />
-          <Divider sx={style.divider} />
-          <InvoicePaymentDetails />
-          <InvoiceDates />
+          {CTAs.print}
+        </CustomButton>
+        <CustomButton
+          isPrimary={false}
+          style={style.button}
+          onHoverStyle={buttonStyle.secondaryButtonOnHover}
+          onClick={handleExportPdf}
+        >
+          {CTAs.download}
+        </CustomButton>
+      </BoxFlex>
 
-          <CustomDataTable style={customDataTableStyle} />
-
-          <InvoiceNotesAndTotal />
-        </Box>
-      </BoxDiv>
-
-      <Button onClick={handlePrint}>PRINT THIS</Button>
+      <InvoicePaper invoiceRef={invoiceRef} />
     </>
   );
 };
 
 const styles = () => {
-  const backgroundColor = `#FFFFFF`;
-  const containerBorderColor = `#FFFFFF`;
-  const tableBackgroundColor = `#2A8EB5${opacityHexSuffix[40]}`;
-  const tableBorderColor = "black";
-
+  const paddingX = horizontalPaddings(0);
   return {
-    container: {
-      border: `0.1em solid ${containerBorderColor}`,
-      borderRadius: "5px",
-      margin: "120px auto",
-      backgroundColor: backgroundColor,
+    ctaContainer: {
+      justifyContent: "flex-end",
+      marginTop: 5,
     },
-    invoiceContainer: {
-      display: "flex",
-      flexDirection: "column",
-      padding: "24px",
+    button: {
+      width: "200px",
+      ...paddingX,
     },
-    divider: verticalMargins(2),
-    tableHead: {
-      backgroundColor: tableBackgroundColor,
-      textAlign: "center",
-      fontWeight: "800",
-      color: "black",
-    },
-    table: {
-      width: "100%",
-      backgroundColor: backgroundColor,
-      boxShadow: "none",
-      border: `1px solid ${tableBorderColor}`,
-      borderRadius: 0,
+    leftButton: {
+      marginRight: 2,
     },
   };
 };
-
-// const printStyle = `
-// @page { size: ${PAGE_SIZE};  margin: 0mm; }
-// @media print {
-//   thead tr th:not(:last-child) {
-//     border-right: 1px solid black !important;
-//   }
-//   div.invoice-print-container {
-//     height: 100vh !important; // fit for 1 page and it depends on no. of pages
-//     padding: 24px 24px !important;
-//   }
-//   div.invoice-signature-container {
-//     flex: 1 !important;
-//   }
-//   p, td, th{
-//     color: black !important;
-//     border-color: black !important;
-//     font-size: 12px !important;
-//   }
-// }`;

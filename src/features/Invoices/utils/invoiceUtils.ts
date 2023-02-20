@@ -135,3 +135,58 @@ export const getFormattedInvoiceTemplateData = ({ details }: any) => {
 
   return formattedData;
 };
+
+const styling = document.createElement("style");
+
+export const addStyling = () => {
+  styling.innerHTML = 
+  ` thead tr th:not(:last-child) {
+      border-right: 1px solid black !important;
+    }
+    div.invoice-print-container {
+      width: 605px !important;
+      margin: "0mm 0mm",
+
+    }
+    div.invoice-signature-container {
+      flex: 1 !important;
+    }
+    p, td, th {
+      color: black !important;
+      border-color: black !important;
+      font-size: 12px !important;
+    }`;
+  document.head.appendChild(styling);
+};
+
+export const resetStyling = () => {
+  document.head.removeChild(styling);
+};
+
+export const getPrintStyle = ({
+  pageSize,
+  margin,
+}: {
+  pageSize: string;
+  margin?: string;
+}) => {
+  return `
+    @page { size: ${pageSize};  margin: ${margin || "0mm"}; }
+    @media print {
+      thead tr th:not(:last-child) {
+        border-right: 1px solid black !important;
+      }
+      div.invoice-print-container {
+        height: 100vh !important; // fit for 1 page and it depends on no. of pages
+        // padding: 24px 24px !important;
+      }
+      div.invoice-signature-container {
+        flex: 1 !important;
+      }
+      p, td, th{
+        color: black !important;
+        border-color: black !important;
+        font-size: 12px !important;
+      }
+    }`;
+};
