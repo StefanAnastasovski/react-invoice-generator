@@ -106,65 +106,70 @@ const managementMenuItems = [
         subtitle: "Create",
         link: "/invoices/new",
       },
+      {
+        subtitleId: "mmi4s3",
+        subtitle: "Details",
+        link: "/invoices/details",
+      },
     ],
     link: "/",
     icon: <HomeOutlinedIcon />,
   },
 ];
 
-const platformMenuItems = [
-  {
-    id: "pmi1",
-    category: "Platforms",
-    title: "Job Listings",
-    subtitles: [],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
-  {
-    id: "pmi2",
-    category: "Platforms",
-    title: "Social Media",
-    subtitles: [],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
-  {
-    id: "pmi3",
-    category: "Platforms",
-    title: "Blog",
-    subtitles: [],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
-];
+// const platformMenuItems = [
+//   {
+//     id: "pmi1",
+//     category: "Platforms",
+//     title: "Job Listings",
+//     subtitles: [],
+//     link: "/",
+//     icon: <HomeOutlinedIcon />,
+//   },
+//   {
+//     id: "pmi2",
+//     category: "Platforms",
+//     title: "Social Media",
+//     subtitles: [],
+//     link: "/",
+//     icon: <HomeOutlinedIcon />,
+//   },
+//   {
+//     id: "pmi3",
+//     category: "Platforms",
+//     title: "Blog",
+//     subtitles: [],
+//     link: "/",
+//     icon: <HomeOutlinedIcon />,
+//   },
+// ];
 
-const appMenuItems = [
-  {
-    id: "ami1",
-    category: "Platforms",
-    title: "Kanban",
-    subtitles: [],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
-  {
-    id: "ami2",
-    category: "Platforms",
-    title: "Mail",
-    subtitles: [],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
-  {
-    id: "ami3",
-    category: "Platforms",
-    title: "Calendar",
-    subtitles: [],
-    link: "/",
-    icon: <HomeOutlinedIcon />,
-  },
-];
+// const appMenuItems = [
+//   {
+//     id: "ami1",
+//     category: "Platforms",
+//     title: "Kanban",
+//     subtitles: [],
+//     link: "/",
+//     icon: <HomeOutlinedIcon />,
+//   },
+//   {
+//     id: "ami2",
+//     category: "Platforms",
+//     title: "Mail",
+//     subtitles: [],
+//     link: "/",
+//     icon: <HomeOutlinedIcon />,
+//   },
+//   {
+//     id: "ami3",
+//     category: "Platforms",
+//     title: "Calendar",
+//     subtitles: [],
+//     link: "/",
+//     icon: <HomeOutlinedIcon />,
+//   },
+// ];
 
 export const menuItems = [
   // General

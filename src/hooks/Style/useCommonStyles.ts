@@ -9,10 +9,12 @@ export const useCommonStyles = ({
   const buttonStyle = buttonStyles(theme);
   const dividerStyle = dividerStyles();
   const tableStyle = tableStyles({ theme, cellWidth });
+  const textStyle = textStyles(theme);
   return {
     buttonStyle,
     dividerStyle,
     tableStyle,
+    textStyle,
   };
 };
 
@@ -78,6 +80,93 @@ export const tableStyles = ({
       cursor: "pointer",
       "&:hover": {
         color: theme.palette.primary.main,
+      },
+    },
+  };
+};
+
+export const textStyles = (theme: Theme) => {
+  return {
+    text: {
+      fontSize: {
+        text: {
+          fontSize: 16,
+        },
+        subtitle: {
+          fontSize: 20,
+        },
+        title: {
+          fontSize: 32,
+        },
+        xxlTitle: {
+          fontSize: 48,
+        },
+        xxlSmall: {
+          fontSize: 9,
+        },
+        xlSmall: {
+          fontSize: 10,
+        },
+        mediumSmall: {
+          fontSize: 11,
+        },
+        small: {
+          fontSize: 12,
+        },
+        smallerText: {
+          fontSize: 14,
+        },
+        biggerText: {
+          fontSize: 18,
+        },
+      },
+      letterSpacing: {
+        0: {
+          letterSpacing: "0.5px",
+        },
+        1: {
+          letterSpacing: "0.75px",
+        },
+        2: {
+          letterSpacing: "1px",
+        },
+      },
+      fontWeight: {
+        normal: {
+          fontWeight: "400",
+        },
+        600: {
+          fontWeight: "600",
+        },
+        bold: {
+          fontWeight: "800",
+        },
+      },
+      textAlign: {
+        textCenter: {
+          textAlign: "center",
+        },
+        textLeft: {
+          textAlign: "left",
+        },
+        textRight: {
+          textAlign: "right",
+        },
+      },
+      textTransform: {
+        lowercase: {
+          textTransform: "lowercase",
+        },
+        uppercase: {
+          textTransform: "uppercase",
+        },
+        capitalize: {
+          textTransform: "capitalize",
+        },
+      },
+      color: {
+        textBlack: { color: theme.palette.common.black },
+        textWhite: { color: theme.palette.common.white },
       },
     },
   };

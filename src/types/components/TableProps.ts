@@ -1,5 +1,8 @@
 import { SxProps } from "@mui/material";
-import { StyleSxCSSPropertiesProps } from "types/StyleProps";
+import {
+  StyleDefaultProps,
+  StyleSxCSSPropertiesProps,
+} from "types/StyleProps";
 
 export interface PageAndRowsPerPage {
   page: number;
@@ -143,15 +146,17 @@ export interface CustomTableProps extends ComponentWrapperExtraProps {
 }
 
 export interface TableStyleProp {
-  style?: StyleSxCSSPropertiesProps;
+  style?: StyleSxCSSPropertiesProps | StyleDefaultProps;
 }
 
 export interface HeaderTitleProps extends TableStyleProp {
   titles: string[];
+  hasBorder?: boolean;
 }
 
 export interface useTableProps extends TableStyleProp {
   columnsData?: any;
+  hasBorder?: boolean;
 }
 
 export interface TableActionsComponentProps {

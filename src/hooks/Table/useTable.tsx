@@ -10,29 +10,42 @@ import {
   useTableProps,
 } from "types/components/TableProps";
 
-const renderTableHeaderColumns = ({ titles, style }: HeaderTitleProps) =>
+const renderTableHeaderColumns = ({
+  titles,
+  style,
+  hasBorder,
+}: HeaderTitleProps) =>
   titles?.map((column: any, index: number) => {
-    const titleColumnStyle = {
-      ...styles.title,
-      ...(titles.length - 1 > index
+    const styleWithBorder =
+      hasBorder && titles && titles.length - 1 > index
         ? style?.cellBorderRight
-        : style?.lastCellBorderRight),
+        : style?.lastCellBorderRight;
+
+    const titleColumnStyle = hasBorder && {
+      ...styles?.title,
+      ...{ styleWithBorder },
     };
+
     return (
-      <CustomTableCell key={column} style={titleColumnStyle}>
+      <CustomTableCell key={column} style={titleColumnStyle || style}>
         {column}
       </CustomTableCell>
     );
   });
 
-export const useTable = ({ columnsData, style }: useTableProps) => {
+export const useTable = ({
+  columnsData,
+  style,
+  hasBorder = true,
+}: useTableProps) => {
   const renderHeaderColumns = useMemo(
     () =>
       renderTableHeaderColumns({
         titles: columnsData,
         style,
+        hasBorder,
       }),
-    [columnsData, style]
+    [columnsData, style, hasBorder]
   );
 
   const dispatch = useDispatch();

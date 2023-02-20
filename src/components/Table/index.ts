@@ -9,3 +9,4 @@ export { CustomTable } from "./CustomTable";
 export { TableDetailsWrapper } from "./TableDetailsWrapper";
 export { CheckboxAndCollapseEntities } from "./CheckboxAndCollapseEntities";
 export { TableActions } from "./TableActions";
+export { CustomDataTable } from "./DataTable/CustomDataTable";

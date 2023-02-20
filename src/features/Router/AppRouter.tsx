@@ -12,6 +12,7 @@ import { NotFound } from "@pages/errors";
 import { Services } from "@pages/Services";
 import { Invoices } from "@pages/Invoices";
 import { invoicesRoutes } from "./routes/invoices";
+import { InvoiceTemplate } from "@features/Invoices/components/InvoiceTemplate";
 
 const BASE_ROUTE = "/";
 
@@ -57,11 +58,11 @@ export const AppRouter = () => {
       {/* <Route
         path={`${BASE_ROUTE}${servicesRoutes.new}`}
         element={<Invoices isNew />}
-      />
+      />*/}
       <Route
-        path={`${BASE_ROUTE}${servicesRoutes.edit}`}
-        element={<Invoices isEdit />}
-      /> */}
+        path={`${BASE_ROUTE}${invoicesRoutes.details}`}
+        element={<InvoiceTemplate />}
+      />
 
       {/* Errors */}
       <Route path={errorsRoutes.notFound} element={<NotFound />} />

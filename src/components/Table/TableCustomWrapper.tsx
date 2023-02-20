@@ -5,9 +5,9 @@ import Table from "@mui/material/Table";
 import { ChildrenProps } from "types/ChildrenProps";
 import { TABLE_ARIA_LABEL } from "@constants/table";
 
-export const TableCustomWrapper = ({ children }: ChildrenProps) => {
+export const TableCustomWrapper = ({ children, style }: ChildrenProps) => {
   return (
-    <TableContainer component={Paper} sx={styles.tableMaxWidth}>
+    <TableContainer component={Paper} sx={style || styles.tableMaxWidth}>
       <Table sx={styles.tableMinWidth} aria-label={TABLE_ARIA_LABEL.table}>
         {children}
       </Table>

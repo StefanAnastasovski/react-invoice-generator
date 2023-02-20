@@ -75,3 +75,63 @@ const getCollapseData = (data: any) => {
     },
   };
 };
+
+export const formattedBilledToData = (data: any) => {
+  return {
+    title: data.title,
+    subtitle: data.customer.company,
+    address: data.address,
+    zipCode: data.zipCode,
+    city: data.city,
+    country: data.country,
+    cin: {
+      title: data.customer.cin.title,
+      value: data.customer.cin.value,
+    },
+    tin: {
+      title: data.customer.tin.title,
+      value: data.customer.tin.value,
+    },
+  };
+};
+
+export const formattedPaymentDetailsData = (data: any) => {
+  return {
+    title: data.title,
+    subtitle: data.bank.name,
+    bankAccount: data.bank.bankAccount,
+    zipCode: data.bank.zipCode,
+    city: data.bank.city,
+    country: data.bank.country,
+    cin: {
+      title: data.company.cin.title,
+      value: data.company.cin.value,
+    },
+    tin: {
+      title: data.company.tin.title,
+      value: data.company.tin.value,
+    },
+  };
+};
+
+export const getFormattedInvoiceTemplateData = ({ details }: any) => {
+  const {
+    description,
+    category,
+    "rate-item": rateOrItem,
+    quantity,
+    amount,
+    discount,
+  } = details;
+
+  const formattedData = [
+    { description },
+    { category },
+    { rateOrItem },
+    { quantity },
+    { discount },
+    { amount },
+  ];
+
+  return formattedData;
+};

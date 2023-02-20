@@ -17,12 +17,11 @@ export const TableBodyWrapper = ({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableData.length) : 0;
 
-  return (
-    <TableBody>
-      {children}
-      {renderEmptyRows({ emptyRows, emptyRowHeight, colSpan })}
-    </TableBody>
-  );
+  const compnent = children
+    ? children
+    : renderEmptyRows({ emptyRows, emptyRowHeight, colSpan });
+
+  return <TableBody>{compnent}</TableBody>;
 };
 
 const renderEmptyRows = ({

@@ -3,4 +3,5 @@ export const invoicesRoutes = {
   list: "/invoices",
   new: "/invoices/new",
   edit: "/invoices/:id/edit",
+  details: "/invoices/details",
 };
