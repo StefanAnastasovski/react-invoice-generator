@@ -38,3 +38,12 @@ export const OPERATORS_CHARACTERS: ObjectStringProps = {
   MIN: "at least",
   MAX: "maximum",
 };
+
+export const AVAILABLE_CURRENCIES = ["USD", "MKD", "DIN"];
+export const AVAILABLE_SIGN_CURRENCIES = ["$", "€"];
+export const SUPPORTED_IMAGE_FORMATS = `".jpeg", ".jpg", ".png", ".svg"`;
+
+export const MAPPED_FIELD_TYPES = {
+  textarea: "textarea",
+  checkbox: "checkbox",
+};

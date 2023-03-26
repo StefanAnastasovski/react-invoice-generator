@@ -12,7 +12,6 @@ import { NotFound } from "@pages/errors";
 import { Services } from "@pages/Services";
 import { Invoices } from "@pages/Invoices";
 import { invoicesRoutes } from "./routes/invoices";
-import { InvoiceTemplate } from "@features/Invoices/components/InvoiceTemplate";
 
 const BASE_ROUTE = "/";
 
@@ -55,13 +54,31 @@ export const AppRouter = () => {
         path={`${BASE_ROUTE}${invoicesRoutes.list}`}
         element={<Invoices />}
       />
-      {/* <Route
-        path={`${BASE_ROUTE}${servicesRoutes.new}`}
-        element={<Invoices isNew />}
-      />*/}
+      <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.edit}`}
+        element={<Invoices isEdit />}
+      />
       <Route
         path={`${BASE_ROUTE}${invoicesRoutes.details}`}
-        element={<InvoiceTemplate />}
+        element={<Invoices isInvoiceTemplate />}
+      />
+      
+      {/* Invoice Settings */}
+      <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.companyDetails}`}
+        element={<Invoices isNew />}
+      />
+      <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.invoiceSettings}`}
+        element={<Invoices isNew />}
+      />
+      <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.taxDetails}`}
+        element={<Invoices isNew />}
+      />
+      <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.notes}`}
+        element={<Invoices isNew />}
       />
 
       {/* Errors */}

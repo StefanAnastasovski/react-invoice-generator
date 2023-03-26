@@ -12,17 +12,25 @@ export const CustomTable = ({
   titles,
   onSelectAllClick,
   tableData,
-  isCheckboxAndCollapseEnabled = true,
+  isCheckboxEnabled = true,
+  isIdEnabled = false,
+  shouldRenderEmptyRows,
 }: CustomTableProps) => {
   return (
     <TableCustomWrapper>
       <TableHeaderColumns
         titles={titles}
         onSelectAllClick={onSelectAllClick}
-        isCheckboxAndCollapseEnabled={isCheckboxAndCollapseEnabled}
+        isCheckboxEnabled={isCheckboxEnabled}
+        isIdEnabled={isIdEnabled}
       />
 
-      <TableBodyWrapper tableData={tableData}>{children}</TableBodyWrapper>
+      <TableBodyWrapper
+        tableData={tableData}
+        shouldRenderEmptyRows={shouldRenderEmptyRows}
+      >
+        {children}
+      </TableBodyWrapper>
 
       <TablePaginationFooter tableData={tableData} />
     </TableCustomWrapper>

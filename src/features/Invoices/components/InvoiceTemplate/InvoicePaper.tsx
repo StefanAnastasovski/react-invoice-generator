@@ -11,6 +11,19 @@ import { CustomDataTable } from "@components/Table";
 import { verticalMargins } from "@utils/styleUtils";
 import { opacityHexSuffix } from "@constants/opacityHexConstants";
 
+import {
+  invoiceDetailsData,
+  invoiceTemplateTitles,
+} from "@features/Invoices/constants/invoiceTemplate";
+import { InvoiceDataTableRows } from "./InvoiceDataTableRows";
+
+const INVOICE_TEMPLTATE_CONFIG = {
+  titles: invoiceTemplateTitles,
+  tableData: invoiceDetailsData,
+  tableComponent: InvoiceDataTableRows,
+  shouldRenderEmptyRows: false,
+};
+
 export const InvoicePaper = ({ invoiceRef }: { invoiceRef: any }) => {
   const style = styles();
 
@@ -32,7 +45,10 @@ export const InvoicePaper = ({ invoiceRef }: { invoiceRef: any }) => {
         <InvoicePaymentDetails />
         <InvoiceDates />
 
-        <CustomDataTable style={customDataTableStyle} />
+        <CustomDataTable
+          config={INVOICE_TEMPLTATE_CONFIG}
+          style={customDataTableStyle}
+        />
 
         <InvoiceNotesAndTotal />
       </Box>

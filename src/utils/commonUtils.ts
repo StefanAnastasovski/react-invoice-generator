@@ -21,3 +21,14 @@ export const calculateTotalAmount = ({
   const discountAmount = amountWithoutDiscount * (discount / 100);
   return amountWithoutDiscount - discountAmount;
 };
+
+export const updateBooleanArray = (
+  array: boolean[],
+  index: number,
+  callback: (v: boolean[]) => void,
+  value?: boolean
+) => {
+  const tempArray = [...array];
+  tempArray[index] = !value ? !tempArray[index] : value;
+  callback(tempArray);
+};

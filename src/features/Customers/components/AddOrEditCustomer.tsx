@@ -112,7 +112,8 @@ export const AddOrEditCustomer = ({
             <Divider sx={dividerStyle.titleDivider} />
             {/* TODO: get the fileds from BE */}
             {isNew ||
-            (shouldEdit && Boolean(Object.keys(existingItemData).length > 0)) ? (
+            (shouldEdit &&
+              Boolean(Object.keys(existingItemData).length > 0)) ? (
               <form
                 onSubmit={formik.handleSubmit}
                 method={!shouldEdit ? FORM_METHODS.POST : FORM_METHODS.PATCH}

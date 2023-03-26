@@ -8,7 +8,10 @@ import { TableBodyWrapperProps } from "types/components/TableProps";
 export const TableBodyWrapper = ({
   children,
   tableData,
+  shouldRenderEmptyRows = true,
+  style
 }: TableBodyWrapperProps) => {
+  let component = null;
   const { page, rowsPerPage, colSpan, emptyRowHeight } = useSelector(
     (state: any) => state.table
   );
@@ -17,23 +20,33 @@ export const TableBodyWrapper = ({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableData.length) : 0;
 
-  const compnent = children
-    ? children
-    : renderEmptyRows({ emptyRows, emptyRowHeight, colSpan });
+  if (!shouldRenderEmptyRows) {
+    component = children;
+  } else {
+    component =
+      children && rowsPerPage < emptyRows
+        ? children
+        : renderEmptyRows({ children, emptyRows, emptyRowHeight, colSpan });
+  }
 
-  return <TableBody>{compnent}</TableBody>;
+  return <TableBody style={style}>{component}</TableBody>;
 };
 
 const renderEmptyRows = ({
+  children,
   emptyRows,
   emptyRowHeight,
   colSpan,
 }: {
-  [x: string]: number;
+  children: React.ReactNode;
+  emptyRows: number;
+  emptyRowHeight: number;
+  colSpan: number;
 }) => {
   const style = styles(emptyRows, emptyRowHeight);
   return (
     <>
+      {children}
       {emptyRows > 0 ? (
         <TableRow style={style.emptyRows}>
           <CustomTableCell colSpan={colSpan} children={""} />

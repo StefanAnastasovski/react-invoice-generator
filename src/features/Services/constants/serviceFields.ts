@@ -5,7 +5,7 @@ export const serviceFields = [
     items: [
       {
         id: "sfbd-1",
-        label: "Service Name*",
+        label: "Service Name",
         name: "service-name",
         placeholder: "Marketing Strategy",
         type: "text",
@@ -15,7 +15,7 @@ export const serviceFields = [
       },
       {
         id: "sfbd-2",
-        label: "Description*",
+        label: "Description",
         name: "service-description",
         placeholder: "Write more information about the service...",
         type: "textarea",
@@ -53,7 +53,7 @@ export const serviceFields = [
         id: "sfp-3",
         label: "Tax (%)",
         name: "service-tax",
-        placeholder: "Write a number between 0 and 100 (%).",
+        placeholder: "Enter a number between 0 and 100 (%).",
         type: "number",
         dbKey: "tax",
         isRequired: true,
@@ -91,7 +91,7 @@ export const serviceFields = [
       },
       {
         id: "sfc-2",
-        label: "SKU*",
+        label: "SKU",
         name: "service-sku",
         placeholder: "XYZ-2738",
         type: "text",

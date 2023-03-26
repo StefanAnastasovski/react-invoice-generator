@@ -1,7 +1,7 @@
 export const newCustomerFields = [
   {
     id: "ncf-1",
-    label: "Company Name*",
+    label: "Company Name",
     placeholder: "Awesome, LLC",
     name: "company-name",
     type: "text",
@@ -19,7 +19,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-3",
-    label: "Email*",
+    label: "Email",
     placeholder: "awesome@example.com",
     name: "email",
     type: "text",
@@ -28,7 +28,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-4",
-    label: "Phone number*",
+    label: "Phone number",
     placeholder: "+38977886622",
     name: "phone-number",
     type: "text",
@@ -37,7 +37,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-5",
-    label: "EDB (ID#1)*",
+    label: "EDB (ID#1)",
     placeholder: "XXXXXXXXXXXXX",
     name: "edb",
     type: "text",
@@ -46,7 +46,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-6",
-    label: "EMBS (ID#2)*",
+    label: "EMBS (ID#2)",
     placeholder: "XXXXXX",
     name: "embs",
     type: "text",
@@ -55,7 +55,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-7",
-    label: "Country*",
+    label: "Country",
     placeholder: "Macedonia",
     name: "country",
     type: "text",
@@ -64,7 +64,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-8",
-    label: "State/Region*",
+    label: "State/Region",
     placeholder: "Kumanovo",
     name: "state-region",
     type: "text",
@@ -73,7 +73,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-9",
-    label: "Zip Code*",
+    label: "Zip Code",
     placeholder: "1300",
     name: "zip-code",
     type: "text",
@@ -82,7 +82,7 @@ export const newCustomerFields = [
   },
   {
     id: "ncf-10",
-    label: "Address*",
+    label: "Address",
     placeholder: "St. James Bond no. 007",
     name: "address",
     type: "text",

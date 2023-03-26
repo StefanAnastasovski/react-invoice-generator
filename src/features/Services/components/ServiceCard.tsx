@@ -9,52 +9,46 @@ import {
   ServiceItemsProps,
 } from "../types/ServiceTypes";
 import { DropzoneComponent } from "@components/Dropzone";
+import { joinStyles } from "@utils/styleUtils";
+import { CustomCheckbox } from "@components/atoms/Checkbox";
+import { MAPPED_FIELD_TYPES } from "@constants/constants";
 // import { SERVICE_FIELD_MAP } from "../constants/serviceTable";
 
-const renderItems = ({ serviceData, formik, style }: ServiceItemsProps) => {
-  const { touched, errors } = formik;
+const DROPZONE_FIELDS = ["service-image"];
 
+const renderItems = ({
+  serviceData,
+  formik,
+  style,
+  textAreaProps,
+}: ServiceItemsProps) => {
   return serviceData.map((item: any) => {
-    const isTextarea = item.type === "textarea";
-    const isPercentage = item.name === "service-tax";
-    const isError = touched[item.name] && Boolean(errors[item.name]);
     // const fieldValue = formik.values[SERVICE_FIELD_MAP[item.name]] as string;
+    if (item.type === MAPPED_FIELD_TYPES.checkbox) {
+      return (
+        <CustomCheckbox
+          key={item.id}
+          item={item}
+          formik={formik}
+          style={style}
+        />
+      );
+    }
 
-    return item.items ? (
-      <CustomSelect
+    return item?.items ? (
+      <ServiceCustomSelect
         key={item.id}
-        label={item.label}
-        selectId={item.name}
-        selectName={item.name}
-        value={formik.values[item.name] as string}
-        itemList={item.items}
+        item={item}
         formik={formik}
-        labelStyle={style.labelStyle}
-        selectStyle={style.selectStyle}
+        style={style}
       />
     ) : (
-      <TextField
+      <ServiceTextField
         key={item.id}
-        // required={item.isRequired}
-        onChange={formik.handleChange}
-        id={item.name}
-        name={item.name}
-        type={item.type}
-        label={item.label}
-        placeholder={item.placeholder}
-        value={formik.values[item.name]}
-        autoComplete="off"
-        fullWidth
-        multiline={isTextarea}
-        rows={isTextarea ? 6 : undefined}
-        inputProps={{
-          min: 0,
-          max: isPercentage ? 100 : undefined,
-        }}
-        // TODO: implement validation
-        helperText={isError ? errors[item.name] : ""}
-        error={isError}
-        sx={[style.itemStyle, style.itemSpacingStyle]}
+        item={item}
+        formik={formik}
+        style={style}
+        textAreaProps={textAreaProps}
       />
     );
   });
@@ -66,46 +60,145 @@ const CardContent = ({
   serviceData,
   formik,
   style,
+  buttonComponent,
+  textAreaProps,
 }: CardContentProps) => {
   const isServiceDataEmpty = Boolean(serviceData);
-  const isImage = serviceData?.[0]?.name === "service-image";
+  const isImage = DROPZONE_FIELDS.includes(serviceData?.[0]?.name as string);
   return (
     <BasicCard
       key={title}
-      containerStyle={style.outerContainer}
+      containerStyle={joinStyles([
+        style.outerContainer,
+        style?.outerContainerStyle,
+      ])}
       cardContent={
-        <BoxFlex style={style.innerContainer}>
-          <BoxDiv style={style.leftCardContainer}>
-            <Typography variant="h6">{title}</Typography>
-            {subtitle ?? (
-              <Typography variant="subtitle2" style={style.subtitle}>
-                {subtitle}
-              </Typography>
+        <>
+          <BoxFlex
+            style={joinStyles([
+              style.innerContainer,
+              style?.innerContainerStyle,
+            ])}
+          >
+            {/* Card Title */}
+            {Boolean(title) && (
+              <BoxDiv style={style.leftCardContainer}>
+                <Typography variant="h6">{title}</Typography>
+                {subtitle ?? (
+                  <Typography variant="subtitle2" style={style.subtitle}>
+                    {subtitle}
+                  </Typography>
+                )}
+              </BoxDiv>
             )}
-          </BoxDiv>
 
-          <BoxDiv style={style.rightCardContainer}>
-            {isServiceDataEmpty && serviceData && !isImage ? (
-              renderItems({ serviceData, formik, style })
-            ) : (
-              <DropzoneComponent formik={formik} name="service-image" />
-            )}
-          </BoxDiv>
-        </BoxFlex>
+            {/* Render Items or Dropzone for uploadign file */}
+            <BoxDiv style={style.rightCardContainer}>
+              {isServiceDataEmpty && serviceData && !isImage ? (
+                renderItems({ serviceData, formik, style, textAreaProps })
+              ) : (
+                <DropzoneComponent formik={formik} name="service-image" />
+              )}
+            </BoxDiv>
+          </BoxFlex>
+
+          {/* Action Buttons inside card */}
+          {Boolean(buttonComponent) && (
+            <BoxDiv style={style?.buttonContainerStyle}>
+              {buttonComponent}
+            </BoxDiv>
+          )}
+        </>
       }
     />
   );
 };
 
 export const ServiceCard = (props: ServiceCardProps) => {
-  const { title } = props;
+  const { title, customStyle } = props;
   const theme = useTheme();
-  const style = styles(theme);
+  /**
+   * extend style with customStyle
+   */
+  const style = {
+    ...styles(theme),
+    outerContainerStyle: customStyle?.outerContainerStyle,
+    innerContainerStyle: customStyle?.innerContainerStyle,
+    serviceTextFieldStyle: customStyle?.serviceTextFieldStyle,
+    buttonContainerStyle: customStyle?.buttonContainerStyle,
+    checkboxLabelTypographyStyle: customStyle?.checkboxLabelTypographyStyle,
+    checkboxLabelStyle: customStyle?.checkboxLabelStyle,
+  };
+
   return (
     <BasicCard
       key={title}
-      containerStyle={style.outerContainer}
+      containerStyle={joinStyles([
+        style.outerContainer,
+        style?.outerContainerStyle,
+      ])}
       cardContent={<CardContent {...props} style={style} />}
+    />
+  );
+};
+
+const ServiceCustomSelect = ({ item, formik, style }: any) => {
+  return (
+    <CustomSelect
+      label={item.label}
+      selectId={item.name}
+      selectName={item.name}
+      value={formik.values[item.name] as string}
+      itemList={item.items}
+      formik={formik}
+      labelStyle={style.labelStyle}
+      selectStyle={style.selectStyle}
+    />
+  );
+};
+
+const ServiceTextField = ({ item, formik, style, textAreaProps }: any) => {
+  const { touched, errors } = formik;
+  const isTextarea = item.type === MAPPED_FIELD_TYPES.textarea;
+  const isPercentage = item.name === "service-tax";
+  const isError = touched[item.name] && Boolean(errors[item.name]);
+  const textAreaRows = isTextarea ? textAreaProps?.rows || 6 : undefined;
+  // add "*" to label for required fields
+  const label = `${item.label}${item.isRequired ? "*" : ""}`;
+  return (
+    <TextField
+      // required={item.isRequired}
+      onChange={formik.handleChange}
+      id={item.name}
+      name={item.name}
+      type={item.type}
+      label={label}
+      placeholder={item.placeholder}
+      value={formik.values[item.name]}
+      autoComplete="off"
+      fullWidth
+      multiline={isTextarea}
+      rows={textAreaRows}
+      inputProps={{
+        min: 0,
+        max: isPercentage ? 100 : undefined,
+      }}
+      InputLabelProps={{
+        error: isError,
+        color: isError ? "error" : "primary",
+      }}
+      // TODO: implement validation
+      helperText={isError ? errors[item.name] : ""}
+      error={isError}
+      sx={[
+        style.itemStyle,
+        style.itemSpacingStyle,
+        style?.serviceTextFieldStyle,
+        {
+          color: isError && style.errorColor,
+        },
+        isError && style.errorHoverColor,
+      ]}
     />
   );
 };
@@ -116,6 +209,7 @@ const styles = (theme: Theme) => {
       width: "100%",
       maxWidth: 800,
       marginTop: 3,
+      boxShadow: "none",
     },
     innerContainer: {
       padding: 4,
@@ -165,6 +259,20 @@ const styles = (theme: Theme) => {
       width: "80%",
       paddingTop: 4,
       color: theme.palette.text.secondary,
+    },
+    checkboxLabel: {
+      marginTop: 4,
+    },
+    checkboxLabelTypography: {
+      fontSize: 16,
+    },
+    errorColor: {
+      color: theme.palette.error.dark,
+    },
+    errorHoverColor: {
+      "& .MuiInputLabel-root.Mui-focused": {
+        color: theme.palette.error.dark,
+      },
     },
   };
 };

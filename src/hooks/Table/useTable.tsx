@@ -9,6 +9,7 @@ import {
   HeaderTitleProps,
   useTableProps,
 } from "types/components/TableProps";
+import { joinStyles } from "@utils/styleUtils";
 
 const renderTableHeaderColumns = ({
   titles,
@@ -21,10 +22,8 @@ const renderTableHeaderColumns = ({
         ? style?.cellBorderRight
         : style?.lastCellBorderRight;
 
-    const titleColumnStyle = hasBorder && {
-      ...styles?.title,
-      ...{ styleWithBorder },
-    };
+    const titleColumnStyle =
+      hasBorder && joinStyles([style?.title, styleWithBorder]);
 
     return (
       <CustomTableCell key={column} style={titleColumnStyle || style}>
@@ -80,11 +79,4 @@ export const useTable = ({
     handleChangeRowsPerPage,
     setDefaultFooter,
   };
-};
-
-const styles = {
-  title: {
-    fontSize: "1.25rem",
-    fontWeight: 800,
-  },
 };

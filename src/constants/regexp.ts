@@ -7,3 +7,9 @@ export const bankAccountMKDRegExp =
 export const emailRegExp =
   /^[a-zA-Z]\w{5,}([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i;
 export const skuRegExp = /^[a-zA-Z]{3}\-[0-9]{4,10}$/i;
+// TODO: Fix regex
+export const websiteRegExp =
+  /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+
+export const fullNameRegExp = /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/gi;
+// /^([a-zA-Z]{2,}\s([a-zA-Z]{1,})??'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/gi;

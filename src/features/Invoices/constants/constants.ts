@@ -1,5 +1,22 @@
 export const INVOICE_TABLE_COL_SPAN = 9;
 
+export const EMPTY_TABLE_INOVICE_ROW_HEIGHT = 57;
+
+export const NEW_COMPANY_DETAILS_INITIAL_VALUE = {
+  "company-name": "",
+  cin: "",
+  tin: "",
+  address: "",
+  "zip-code": "",
+  city: "",
+  country: "",
+  "phone-number": "",
+  email: "",
+  website: "",
+  "bank-name": "",
+  "bank-account": "",
+};
+
 export const INVOICE_ARIA_LABEL = {
   ariaCollapse: "expand row",
   selectCheckbox: "select invoice",

@@ -39,7 +39,8 @@ export const BodyHeader = () => {
         {showMenuIcon}
         <RowContainer {...rowContainer}>
           <GridItem>
-            <Typography>Left Header</Typography>
+            {/* Left Header */}
+            <Typography></Typography>
           </GridItem>
           <GridItem>
             <ProfileMenu />

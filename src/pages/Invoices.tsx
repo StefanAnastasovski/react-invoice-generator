@@ -3,12 +3,26 @@ import { TablePageProps } from "types/components/TableProps";
 import { tableConfig } from "@config/tableConfig";
 import { PageWrapper } from "@components/Page";
 import { TableComponentWrapper } from "@components/Table/TableComponentWrapper";
+import { InvoiceTemplate } from "@features/Invoices/components/InvoiceTemplate";
 
-export const Invoices = ({ isEdit = false, isNew = false }: TablePageProps) => {
+interface InvoicesPageProps extends TablePageProps {
+  isInvoiceTemplate?: boolean;
+}
+
+export const Invoices = ({
+  isEdit = false,
+  isNew = false,
+  isInvoiceTemplate = false,
+}: InvoicesPageProps) => {
   const {
     invoices: { pageTitle },
     invoices: config,
   } = tableConfig;
+
+  // render invoice details template page
+  if (isInvoiceTemplate) {
+    return <InvoiceTemplate />;
+  }
 
   return (
     <PageWrapper pageTitle={pageTitle}>
@@ -16,7 +30,7 @@ export const Invoices = ({ isEdit = false, isNew = false }: TablePageProps) => {
         isNew={isNew}
         isEdit={isEdit}
         config={config}
-        isCheckboxAndCollapseEnabled={false}
+        isCheckboxEnabled={false}
       />
     </PageWrapper>
   );

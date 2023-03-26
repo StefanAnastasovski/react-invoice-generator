@@ -104,7 +104,7 @@ const managementMenuItems = [
       {
         subtitleId: "mmi4s2",
         subtitle: "Create",
-        link: "/invoices/new",
+        link: "/invoices/settings/details",
       },
       {
         subtitleId: "mmi4s3",

@@ -9,7 +9,13 @@ export const TableComponentWrapper = ({
   isNew = false,
   isEdit = false,
   config,
-  isCheckboxAndCollapseEnabled,
+  isCheckboxEnabled,
+  isCollapseEnabled,
+  isIdEnabled,
+  // TODO: remove after testing
+  data: dataPlus,
+  setData: setDataPlus,
+  handleCustomEdit,
 }: TableConfigProps) => {
   const isTable = !isEdit && !isNew;
   const {
@@ -29,6 +35,7 @@ export const TableComponentWrapper = ({
     tableComponent,
     detailsComponent,
     actions,
+    shouldRenderEmptyRows,
   } = config;
 
   const {
@@ -79,33 +86,53 @@ export const TableComponentWrapper = ({
     updateButtonText,
   ]);
 
+  // TODO: remove after testing
+  const handleDeleteDataPlus = (item: any) => {
+    const filterData = dataPlus?.filter((searchItem: any) => {
+      return searchItem?.id !== item;
+    });
+
+    const fixedNoteId = filterData.map((noteItem: any, index: number) => {
+      return { ...noteItem, "note-id": index + 1 };
+    });
+    setDataPlus(fixedNoteId);
+  };
+
   const tableActionComponent = useMakeTableComponent({
     tableComponent: tableComponent,
     ...props,
   });
+
+  const handleCustomEditFn = (item: any) => {
+    handleCustomEdit && handleCustomEdit(item);
+  };
 
   return (
     <BoxDiv>
       {isTable && (
         <CustomTable
           titles={titles}
-          tableData={data}
+          tableData={dataPlus || data} // TODO: remove after testing
           onSelectAllClick={onSelectAllClick}
-          isCheckboxAndCollapseEnabled={isCheckboxAndCollapseEnabled}
+          isCheckboxEnabled={isCheckboxEnabled}
+          isCollapseEnabled={isCollapseEnabled}
+          isIdEnabled={isIdEnabled}
+          shouldRenderEmptyRows={shouldRenderEmptyRows}
         >
           <TableDetailsWrapper
-            tableData={data}
+            tableData={dataPlus || data} // TODO: remove after testing
             tableCellWidth={tableCellWidth}
             ariaLabelContent={ariaLabelContent}
             colSpan={colSpan}
             detailsComponent={detailsComponent}
-            isCheckboxAndCollapseEnabled={isCheckboxAndCollapseEnabled}
+            isCheckboxEnabled={isCheckboxEnabled}
+            isCollapseEnabled={isCollapseEnabled}
             actions={actions}
             getFormattedData={(details: any) => getFormattedData({ details })}
             onSelectClick={onSelectClick}
             handleCollapse={handleCollapse}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
+            handleDelete={!dataPlus ? handleDelete : handleDeleteDataPlus} // TODO: remove after testing
+            handleEdit={handleCustomEdit ? handleCustomEditFn : handleEdit}
             handleForward={handleForward}
           />
         </CustomTable>

@@ -1,5 +1,6 @@
 import { SxProps } from "@mui/material";
 import {
+  StyleCustomProps,
   StyleDefaultProps,
   StyleSxCSSPropertiesProps,
 } from "types/StyleProps";
@@ -61,9 +62,14 @@ export interface TablePageProps {
   isNew?: boolean;
 }
 
-export interface TableConfigProps extends TablePageProps {
+export interface TableConfigProps
+  extends TablePageProps,
+    ComponentWrapperExtraProps {
   config: any; // TODO: change any
-  isCheckboxAndCollapseEnabled?: boolean;
+  // TODO: remove after testing
+  data?: any;
+  setData?: any;
+  handleCustomEdit?: (v?: any) => void;
 }
 
 export interface TableCellsComponent {
@@ -81,7 +87,6 @@ export interface TableDetailsWrapperProps
   ariaLabelContent: { [x: string]: string };
   colSpan: number;
   actions: any;
-  isCheckboxAndCollapseEnabled?: boolean;
   detailsComponent: (props: any) => JSX.Element;
   getFormattedData: (v: any) => {
     rowId: number;
@@ -136,12 +141,15 @@ export interface CustomerTableCellProps {
 export interface TableBodyWrapperProps {
   children: React.ReactNode;
   tableData: any;
+  shouldRenderEmptyRows?: boolean;
+  style?: React.CSSProperties | StyleCustomProps | StyleDefaultProps;
 }
 
 export interface CustomTableProps extends ComponentWrapperExtraProps {
   children: React.ReactNode;
   titles: string[];
   tableData: any;
+  shouldRenderEmptyRows?: boolean;
   onSelectAllClick: () => void;
 }
 
@@ -167,7 +175,9 @@ export interface TableActionsComponentProps {
 }
 
 export interface ComponentWrapperExtraProps {
-  isCheckboxAndCollapseEnabled?: boolean;
+  isCheckboxEnabled?: boolean;
+  isCollapseEnabled?: boolean;
+  isIdEnabled?: boolean;
 }
 
 export interface TableCellsProps {

@@ -22,7 +22,8 @@ export const DrawerHeader = () => {
       {isOpen ? (
         <RowContainer {...styles.rowContainer}>
           <GridItem>
-            <Typography>left</Typography>
+            {/* Left Menu*/}
+            <Typography></Typography>
           </GridItem>
           <GridItem>
             <StyledIconButton onClick={handleDrawerClose}>

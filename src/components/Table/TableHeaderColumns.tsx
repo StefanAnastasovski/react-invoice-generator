@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import TableRow from "@mui/material/TableRow";
 import { Checkbox, TableHead } from "@mui/material";
@@ -10,7 +10,8 @@ import { TABLE_ARIA_LABEL } from "@constants/table";
 export const TableHeaderColumns = ({
   titles,
   onSelectAllClick,
-  isCheckboxAndCollapseEnabled,
+  isCheckboxEnabled = false,
+  isIdEnabled = false,
 }: TableHeadProps) => {
   const { selectedRows, rowsPerPageData } = useSelector(
     (state: any) => state.table
@@ -23,28 +24,31 @@ export const TableHeaderColumns = ({
   return (
     <TableHead>
       <TableRow>
-        <>
-          {isCheckboxAndCollapseEnabled ? (
-            <>
-              <CustomTableCell style={styles.cellBorderRight}>
-                <Checkbox
-                  checked={
-                    selectedRows.length > 0 &&
-                    rowsPerPageData.length === selectedRows.length
-                  }
-                  onChange={onSelectAllClick}
-                  inputProps={{
-                    "aria-label": TABLE_ARIA_LABEL.headerSelectAllCustomers,
-                  }}
-                />
-              </CustomTableCell>
-              <CustomTableCell style={styles.cellBorderRight}>
-                {""}
-              </CustomTableCell>
-            </>
-          ) : null}
-          {renderHeaderColumns}
-        </>
+        {isIdEnabled ? (
+          <CustomTableCell style={[styles.cellBorderRight, styles.title]}>
+            #
+          </CustomTableCell>
+        ) : null}
+        {isCheckboxEnabled ? (
+          <Fragment>
+            <CustomTableCell style={styles.cellBorderRight}>
+              <Checkbox
+                checked={
+                  selectedRows.length > 0 &&
+                  rowsPerPageData.length === selectedRows.length
+                }
+                onChange={onSelectAllClick}
+                inputProps={{
+                  "aria-label": TABLE_ARIA_LABEL.headerSelectAllCustomers,
+                }}
+              />
+            </CustomTableCell>
+            <CustomTableCell style={styles.cellBorderRight}>
+              {""}
+            </CustomTableCell>
+          </Fragment>
+        ) : null}
+        {renderHeaderColumns}
       </TableRow>
     </TableHead>
   );
@@ -56,5 +60,9 @@ const styles = {
   },
   lastCellBorderRight: {
     borderRight: "unset",
+  },
+  title: {
+    fontSize: "1.25rem",
+    fontWeight: 800,
   },
 };

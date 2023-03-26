@@ -52,7 +52,8 @@ const TableDetails = ({
     tableCellWidth,
     ariaLabelContent,
     colSpan,
-    isCheckboxAndCollapseEnabled = true,
+    isCheckboxEnabled = true,
+    isCollapseEnabled = true,
     actions,
     detailsComponent,
     getFormattedData,
@@ -93,6 +94,7 @@ const TableDetails = ({
   };
 
   const actionItems = useMemo(() => {
+    // eslint-disable-next-line array-callback-return
     return actions.map((item: any) => {
       // TODO: refactor
       if (item.onClick === "handleEdit")
@@ -107,7 +109,7 @@ const TableDetails = ({
   return (
     <React.Fragment key={rowId}>
       <TableRow style={tableStyle.container}>
-        {isCheckboxAndCollapseEnabled ? (
+        {isCheckboxEnabled && isCollapseEnabled ? (
           <CheckboxAndCollapseEntities
             rowId={rowId}
             shouldCollapse={shouldCollapse}
