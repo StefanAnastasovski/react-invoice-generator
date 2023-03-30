@@ -44,11 +44,6 @@ const managementMenuItems = [
         subtitle: "Create",
         link: "/customers/new",
       },
-      {
-        subtitleId: "mmi1s3",
-        subtitle: "Details",
-        link: "/details",
-      },
     ],
     link: "/",
     icon: <HomeOutlinedIcon />,
