@@ -2,9 +2,9 @@ import * as yup from "yup";
 import { getMinSentance, shortStringTrimYup } from "@constants/schemaConstants";
 import {
   bankAccountMKDRegExp,
-  edbMKDRegExp,
+  cinMKDRegExp,
+  tinKDRegExp,
   emailRegExp,
-  embsKDRegExp,
   phoneMKDRegExp,
   zipCodeMKDRegExp,
 } from "@constants/regexp";
@@ -21,9 +21,9 @@ import {
 // constants
 const ADDRESS_CHARS = 5;
 const COUNTRY_STATE_REGION_CHARS = 3;
-const EDB_NUMS = 13;
-const EMBS_NUMS = 6;
-const ZIP_CODE_NUMS = 4;
+const CIN_LENGTH = 13;
+const TIN_LENGTH = 6;
+const ZIP_CODE_LENGTH = 4;
 
 // messages
 const addressValidMessage = getMinSentance({
@@ -37,15 +37,15 @@ const countryAndStateRegionValidMessage = getMinSentance({
   characterOperator: "min",
 });
 
-const edbValidMessage = getMinSentance({
-  fieldName: "EDB",
-  noOfCharacters: EDB_NUMS,
+const cinValidMessage = getMinSentance({
+  fieldName: "CIN",
+  noOfCharacters: CIN_LENGTH,
   characterOperator: "length",
   isNumber: true,
 });
-const ebmsValidMessage = getMinSentance({
-  fieldName: "EMBS",
-  noOfCharacters: EMBS_NUMS,
+const tinValidMessage = getMinSentance({
+  fieldName: "TIN",
+  noOfCharacters: TIN_LENGTH,
   characterOperator: "length",
   isNumber: true,
 });
@@ -73,13 +73,13 @@ export const customerSchema = yup.object().shape({
     .length(12, phoneNumberFieldValidExampleMessage)
     .matches(phoneMKDRegExp, phoneNumberFieldValidMessage)
     .required(fieldRequiredMessaage),
-  edb: shortStringTrimYup
-    .length(EDB_NUMS, edbValidMessage)
-    .matches(edbMKDRegExp, edbValidMessage)
+  cin: shortStringTrimYup
+    .length(CIN_LENGTH, cinValidMessage)
+    .matches(cinMKDRegExp, cinValidMessage)
     .required(fieldRequiredMessaage),
-  embs: shortStringTrimYup
-    .length(EMBS_NUMS, ebmsValidMessage)
-    .matches(embsKDRegExp, ebmsValidMessage)
+  tin: shortStringTrimYup
+    .length(TIN_LENGTH, tinValidMessage)
+    .matches(tinKDRegExp, tinValidMessage)
     .required(fieldRequiredMessaage),
   country: shortStringTrimYup
     .min(COUNTRY_STATE_REGION_CHARS, countryAndStateRegionValidMessage)
@@ -88,7 +88,7 @@ export const customerSchema = yup.object().shape({
     .min(COUNTRY_STATE_REGION_CHARS, countryAndStateRegionValidMessage)
     .required(fieldRequiredMessaage),
   "zip-code": shortStringTrimYup
-    .length(ZIP_CODE_NUMS, zipCodeValidMessage)
+    .length(ZIP_CODE_LENGTH, zipCodeValidMessage)
     .matches(zipCodeMKDRegExp, zipCodeValidMessage)
     .required(fieldRequiredMessaage),
 });

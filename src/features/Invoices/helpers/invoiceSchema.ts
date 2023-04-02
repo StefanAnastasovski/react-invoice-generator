@@ -17,9 +17,9 @@ import {
 } from "@constants/schemaConstants";
 import {
   bankAccountMKDRegExp,
-  edbMKDRegExp,
+  cinMKDRegExp,
+  tinKDRegExp,
   emailRegExp,
-  embsKDRegExp,
   phoneMKDRegExp,
   websiteRegExp,
   zipCodeMKDRegExp,
@@ -44,11 +44,11 @@ export const invoiceSchema = yup.object().shape({
     ),
   cin: shortStringTrimYup
     .length(CIN_LENGTH, cinValidMessage(CIN_LENGTH))
-    .matches(edbMKDRegExp, cinValidMessage(CIN_LENGTH))
+    .matches(cinMKDRegExp, cinValidMessage(CIN_LENGTH))
     .required(fieldRequiredMessaage),
   tin: shortStringTrimYup
     .length(TIN_LENGTH, tinValidMessage(TIN_LENGTH))
-    .matches(embsKDRegExp, tinValidMessage(TIN_LENGTH))
+    .matches(tinKDRegExp, tinValidMessage(TIN_LENGTH))
     .required(fieldRequiredMessaage),
   address: shortStringTrimYup
     .min(MIN_ADDRESS_CHARS, addressValidMessage(MIN_ADDRESS_CHARS))

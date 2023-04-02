@@ -1,6 +1,123 @@
 export const newCustomerFields = [
   {
     id: "ncf-1",
+    title: "Company Details",
+    items: [
+      {
+        id: "ncfcd-1",
+        label: "Company Name",
+        placeholder: "Awesome, LLC",
+        name: "company-name",
+        type: "text",
+        dbKey: "companyName",
+        isRequired: true,
+      },
+      {
+        id: "ncfcd-2",
+        label: "CIN",
+        placeholder: "XXXXXXXXXXXXX",
+        name: "cin",
+        type: "text",
+        dbKey: "cin",
+        isRequired: true,
+      },
+      {
+        id: "ncfcd-3",
+        label: "TIN",
+        placeholder: "XXXXXX",
+        name: "tin",
+        type: "text",
+        dbKey: "tin",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    id: "ncf-2",
+    title: "Location",
+    items: [
+      {
+        id: "ncfl-1",
+        label: "Country",
+        placeholder: "Macedonia",
+        name: "country",
+        type: "text",
+        dbKey: "country",
+        isRequired: true,
+      },
+      {
+        id: "ncfl-2",
+        label: "State/Region",
+        placeholder: "Kumanovo",
+        name: "state-region",
+        type: "text",
+        dbKey: "stateRegion",
+        isRequired: true,
+      },
+      {
+        id: "ncfl-3",
+        label: "Zip Code",
+        placeholder: "1300",
+        name: "zip-code",
+        type: "text",
+        dbKey: "zipCode",
+        isRequired: true,
+      },
+      {
+        id: "ncfl-4",
+        label: "Address",
+        placeholder: "St. James Bond no. 007",
+        name: "address",
+        type: "text",
+        dbKey: "address",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    id: "ncf-3",
+    title: "Contact",
+    items: [
+      {
+        id: "ncfc-1",
+        label: "Email",
+        placeholder: "awesome@example.com",
+        name: "email",
+        type: "text",
+        dbKey: "email",
+        isRequired: true,
+      },
+      {
+        id: "ncfc-2",
+        label: "Phone number",
+        placeholder: "+38977886622",
+        name: "phone-number",
+        type: "text",
+        dbKey: "phoneNumber",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    id: "ncf-4",
+    title: "Bank Account",
+    items: [
+      {
+        id: "ncf-2",
+        label: "Bank Account",
+        placeholder: "XXX-XXXXXXXXXX-XX",
+        name: "bank-account",
+        type: "text",
+        dbKey: "bankAccount",
+        isRequired: false,
+      },
+    ],
+  },
+];
+
+export const newCustomerFieldsLegacy = [
+  {
+    id: "ncf-1",
     label: "Company Name",
     placeholder: "Awesome, LLC",
     name: "company-name",
