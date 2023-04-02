@@ -59,7 +59,6 @@ export const InvoiceNotes = ({
         // set default values and reset form
         setIsEdit(EDIT_INITIAL_VALUES.isEdit);
         setEditItem(EDIT_INITIAL_VALUES.editItem);
-        handleResetForm();
       } else {
         // TODO: remove after testing
         tempData.push({
@@ -68,6 +67,7 @@ export const InvoiceNotes = ({
           note: invoiceNotes["invoice-note"],
         });
         setData(tempData);
+        handleResetForm();
       }
     },
   });
