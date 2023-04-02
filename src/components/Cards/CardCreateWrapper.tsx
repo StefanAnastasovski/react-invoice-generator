@@ -66,10 +66,8 @@ const CardContent = ({
   return (
     <BasicCard
       key={title}
-      containerStyle={joinStyles([
-        style.outerContainer,
-        style?.outerContainerStyle,
-      ])}
+      containerStyle={style.boxShadowNone}
+      contentStyle={style.contentStyle}
       cardContent={
         <>
           <BoxFlex
@@ -135,11 +133,13 @@ export const CardCreateWrapper = (props: CardProps) => {
         style.outerContainer,
         style?.outerContainerStyle,
       ])}
+      contentStyle={style.contentStyle}
       cardContent={<CardContent {...props} style={style} />}
     />
   );
 };
 
+// fields
 const ServiceCustomSelect = ({ item, formik, style }: any) => {
   return (
     <CustomSelect
@@ -270,6 +270,14 @@ const styles = (theme: Theme) => {
     errorHoverColor: {
       "& .MuiInputLabel-root.Mui-focused": {
         color: theme.palette.error.dark,
+      },
+    },
+    boxShadowNone: {
+      boxShadow: "none",
+    },
+    contentStyle: {
+      "&:last-child": {
+        paddingBottom: 2,
       },
     },
   };
