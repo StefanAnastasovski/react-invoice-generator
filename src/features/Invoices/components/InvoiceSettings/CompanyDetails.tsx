@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Typography } from "@mui/material";
 import { BoxDiv } from "@components/atoms";
 import { ActionButtons } from "@components/ActionButtons";
-import { ServiceCard } from "@features/Services/components/ServiceCard";
 import { invoiceCompanyFields } from "@features/Invoices/constants/invoiceFields";
 import { useFormik } from "formik";
 import { FORM_METHODS } from "@constants/constants";
@@ -11,6 +10,7 @@ import { invoiceSchema } from "@features/Invoices/helpers/invoiceSchema";
 import { joinStyles } from "@utils/styleUtils";
 import { InvoiceDetails } from "./InvoiceDetails";
 import { updateBooleanArray } from "@utils/commonUtils";
+import { CardCreateWrapper } from "@components/Cards";
 
 const CONTENT = {
   ADD_COMPANY_DETAILS: "Add Company Details",
@@ -72,10 +72,9 @@ export const CompanyDetails = ({
             style={style.innerContainer}
           >
             <>
-              {/* TODO: refactor service card */}
               {invoiceCompanyFields.map((item) => {
                 return (
-                  <ServiceCard
+                  <CardCreateWrapper
                     key={item.id}
                     title={item.title}
                     serviceData={item.items ?? item.items}

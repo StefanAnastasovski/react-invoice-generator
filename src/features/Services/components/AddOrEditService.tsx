@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { ServiceCard } from "./ServiceCard";
 import { BoxDiv, BoxFlex } from "@components/atoms/Box";
 import { FORM_METHODS } from "@constants/constants";
 import { serviceFields } from "../constants/serviceFields";
@@ -9,6 +8,7 @@ import { NEW_SERVICE_INITIAL_VALUE } from "../constants/constants";
 import { serviceSchema } from "../helpers/serviceSchema";
 import { ServiceCompProps } from "../types/ServiceTypes";
 import { ActionButtons } from "@components/ActionButtons";
+import { CardCreateWrapper } from "@components/Cards";
 
 const CONTENT = {
   NEW_SERVICE: "Create a New Service",
@@ -62,7 +62,7 @@ export const AddOrEditService = ({
         <>
           {serviceFields.map((item) => {
             return (
-              <ServiceCard
+              <CardCreateWrapper
                 key={item.id}
                 title={item.title}
                 subtitle={item?.subtitle ?? item?.subtitle}

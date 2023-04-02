@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Typography } from "@mui/material";
-import { ServiceCard } from "@features/Services/components/ServiceCard";
 import { useFormik } from "formik";
 import {
   invoiceGeneralSettingsFields,
@@ -13,6 +12,7 @@ import { invoiceGeneralSettingsSchema } from "@features/Invoices/helpers/invoice
 import { updateBooleanArray } from "@utils/commonUtils";
 import { InvoiceDetails } from "./InvoiceDetails";
 import { FORM_METHODS } from "@constants/constants";
+import { CardCreateWrapper } from "@components/Cards";
 
 const CONTENT = {
   NEW_INVOICE_SETTINGS: "Add Invoice Settings",
@@ -68,18 +68,16 @@ export const InvoiceGeneralSettings = ({
           >
             {title}
           </Typography>
-          {/* TODO: refactor service card */}
           <form
             onSubmit={formik.handleSubmit}
             method={FORM_METHODS.POST}
             style={style.innerContainer}
           >
             <>
-              {/* TODO: refactor service card */}
               {/* TODO: add Authorised Sign => Default Digital Signatory => Image => upload file png file with your signature*/}
               {invoiceGeneralSettingsFields.map((item) => {
                 return (
-                  <ServiceCard
+                  <CardCreateWrapper
                     key={item.id}
                     title={item.title}
                     serviceData={item.items ?? item.items}

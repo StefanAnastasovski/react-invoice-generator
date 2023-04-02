@@ -3,16 +3,15 @@ import { TextField, Theme, Typography, useTheme } from "@mui/material";
 import { BasicCard } from "@components/atoms/Card";
 import { BoxDiv, BoxFlex } from "@components/atoms/Box";
 import { CustomSelect } from "@components/atoms/Select";
-import {
-  CardContentProps,
-  ServiceCardProps,
-  ServiceItemsProps,
-} from "../types/ServiceTypes";
 import { DropzoneComponent } from "@components/Dropzone";
 import { joinStyles } from "@utils/styleUtils";
 import { CustomCheckbox } from "@components/atoms/Checkbox";
 import { MAPPED_FIELD_TYPES } from "@constants/constants";
-// import { SERVICE_FIELD_MAP } from "../constants/serviceTable";
+import {
+  CardContentProps,
+  CardItemsProps,
+  CardProps,
+} from "types/components/CardProps";
 
 const DROPZONE_FIELDS = ["service-image"];
 
@@ -21,9 +20,8 @@ const renderItems = ({
   formik,
   style,
   textAreaProps,
-}: ServiceItemsProps) => {
+}: CardItemsProps) => {
   return serviceData.map((item: any) => {
-    // const fieldValue = formik.values[SERVICE_FIELD_MAP[item.name]] as string;
     if (item.type === MAPPED_FIELD_TYPES.checkbox) {
       return (
         <CustomCheckbox
@@ -114,7 +112,7 @@ const CardContent = ({
   );
 };
 
-export const ServiceCard = (props: ServiceCardProps) => {
+export const CardCreateWrapper = (props: CardProps) => {
   const { title, customStyle } = props;
   const theme = useTheme();
   /**

@@ -4,13 +4,13 @@ import { BasicCard, BoxDiv, BoxFlex, Paragraph } from "@components/atoms";
 import { Edit as EditIcon } from "@mui/icons-material";
 import { useCommonStyles } from "@hooks/index";
 import { ActionButtons } from "@components/ActionButtons";
-import { ServiceCard } from "@features/Services/components/ServiceCard";
 import {
   CONTENT_BUTTON_ACTIONS,
   FORM_METHODS,
   MAPPED_FIELD_TYPES,
 } from "@constants/constants";
 import { CustomCheckbox } from "@components/atoms/Checkbox";
+import { CardCreateWrapper } from "@components/Cards";
 
 export const InvoiceDetails = ({
   title,
@@ -72,8 +72,7 @@ export const InvoiceDetails = ({
             <BoxDiv>
               <form onSubmit={formik.handleSubmit} method={FORM_METHODS.PATCH}>
                 <>
-                  {/* TODO: refactor service card */}
-                  <ServiceCard
+                  <CardCreateWrapper
                     serviceData={invoiceDetailsFields}
                     formik={formik}
                     customStyle={{

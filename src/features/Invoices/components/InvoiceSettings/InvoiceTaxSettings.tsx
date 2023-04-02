@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import { Typography } from "@mui/material";
 import { joinStyles } from "@utils/styleUtils";
-import { ServiceCard } from "@features/Services/components/ServiceCard";
 import { ActionButtons } from "@components/ActionButtons";
 import { BoxDiv } from "@components/atoms";
 import {
@@ -13,6 +12,7 @@ import { invoiceTaxSettingsSchema } from "@features/Invoices/helpers/invoiceTaxS
 import { updateBooleanArray } from "@utils/commonUtils";
 import { InvoiceDetails } from "./InvoiceDetails";
 import { FORM_METHODS } from "@constants/constants";
+import { CardCreateWrapper } from "@components/Cards";
 
 const CONTENT = {
   ADD_TAX_DETAILS: "Add Tax Details",
@@ -67,10 +67,9 @@ export const InvoiceTaxSettings = ({
               style={style.innerContainer}
             >
               <>
-                {/* TODO: refactor service card */}
                 {invoiceTaxSettingsFields.map((item) => {
                   return (
-                    <ServiceCard
+                    <CardCreateWrapper
                       key={item.id}
                       title={item.title}
                       serviceData={item.items ?? item.items}

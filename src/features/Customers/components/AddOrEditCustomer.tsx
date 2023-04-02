@@ -5,10 +5,10 @@ import { BoxDiv, BoxFlex } from "@components/atoms/Box";
 import { FORM_METHODS } from "@constants/constants";
 import { NEW_CUSTOMER_INITIAL_VALUE } from "../constants/constants";
 import { ActionButtons } from "@components/ActionButtons";
-import { ServiceCard } from "@features/Services/components/ServiceCard";
 import { newCustomerFields } from "../constants/customerFields";
 import { customerSchema } from "../helpers/customerSchema";
 import { ServiceCompProps } from "@features/Services/types/ServiceTypes";
+import { CardCreateWrapper } from "@components/Cards";
 
 const CONTENT = {
   NEW_CUSTOMER: "Add a New Customer",
@@ -62,7 +62,7 @@ export const AddOrEditCustomer = ({
         <>
           {newCustomerFields.map((item: any) => {
             return (
-              <ServiceCard
+              <CardCreateWrapper
                 key={item.id}
                 title={item.title}
                 serviceData={item.items ?? item.items}

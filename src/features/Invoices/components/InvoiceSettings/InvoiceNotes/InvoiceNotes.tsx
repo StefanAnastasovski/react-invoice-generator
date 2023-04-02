@@ -6,11 +6,11 @@ import {
   invoiceNoteFields,
   INVOICE_NOTES_INITIAL_VALUE,
 } from "@features/Invoices/constants/invoiceNotesFields";
-import { ServiceCard } from "@features/Services/components/ServiceCard";
 import { ActionButtons } from "@components/ActionButtons";
 import { InvoiceNotesList } from "./InvoiceNotesList";
 import { tableConfig } from "@config/tableConfig";
 import { invoiceNotesSchema } from "@features/Invoices/helpers/invoiceNotesSchema";
+import { CardCreateWrapper } from "@components/Cards";
 
 const CONTENT = {
   NEW_INVOICE_NOTE: "Add a New Invoice Note",
@@ -108,7 +108,7 @@ export const InvoiceNotes = ({
       >
         {invoiceNoteFields.map((item) => {
           return (
-            <ServiceCard
+            <CardCreateWrapper
               key={item.id}
               title={item?.title}
               serviceData={item.items ?? item.items}

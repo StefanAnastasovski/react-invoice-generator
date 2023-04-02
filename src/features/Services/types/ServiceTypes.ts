@@ -63,23 +63,3 @@ export type ImageProps = {
 export interface ServiceTableDetailProps extends TableActionsProps {
   tableData: any;
 }
-export interface ServiceItemsProps {
-  serviceData: ServiceDataProps[];
-  formik: FormikProps<StringNumberObjectProps>;
-  style: StyleCustomProps;
-  textAreaProps?: any;
-}
-
-export interface ServiceCardProps {
-  title?: string;
-  subtitle?: string;
-  serviceData: ServiceDataProps[] | null;
-  formik: FormikProps<any>;
-  buttonComponent?: React.ReactNode;
-  customStyle?: any; // TODO: fix it
-  textAreaProps?: any; // TODO: fix it
-}
-
-export interface CardContentProps extends ServiceCardProps {
-  style: StyleCustomProps;
-}
