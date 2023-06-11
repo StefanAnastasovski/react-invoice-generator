@@ -99,10 +99,15 @@ const managementMenuItems = [
       {
         subtitleId: "mmi4s2",
         subtitle: "Create",
-        link: "/invoices/settings/details",
+        link: "/invoices/new",
       },
       {
         subtitleId: "mmi4s3",
+        subtitle: "Settings",
+        link: "/invoices/settings/details",
+      },
+      {
+        subtitleId: "mmi4s4",
         subtitle: "Details",
         link: "/invoices/details",
       },

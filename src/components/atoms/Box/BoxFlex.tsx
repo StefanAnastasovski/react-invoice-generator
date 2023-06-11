@@ -6,6 +6,7 @@ export const BoxFlex = ({
   children,
   style = {},
   column,
+  onClick,
   ...restProps
 }: BoxFlexProps) => {
   const flexStyle = styles(column);
@@ -13,6 +14,7 @@ export const BoxFlex = ({
     <Box
       component="div"
       sx={[style, { ...flexStyle.container }]}
+      onClick={onClick ?? onClick}
       {...restProps}
     >
       {children}
@@ -31,4 +33,5 @@ const styles = (column?: boolean) => {
 
 interface BoxFlexProps extends ChildrenProps {
   column?: boolean;
+  onClick?: any;
 }

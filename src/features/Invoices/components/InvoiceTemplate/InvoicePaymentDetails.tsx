@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { BoxDiv } from "@components/atoms";
 import { HStack } from "@components/atoms/Stack";
-import { Typography } from "@mui/material";
+import { IconButton, Theme, Typography } from "@mui/material";
 import { getZipCityCountry } from "@utils/commonUtils";
 import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
 import { useCommonStyles } from "@hooks/index";
@@ -11,20 +11,55 @@ import {
   formattedPaymentDetailsData,
 } from "@features/Invoices/utils/invoiceUtils";
 
+import { Edit as EditIcon } from "@mui/icons-material";
+import { CustomSelectBox } from "@components/SelectBox";
+import { CustomModal } from "@components/Modal";
+import { RenderItems } from "@components/SelectBox/components";
+
 export const InvoicePaymentDetails = () => {
-  const { textStyle } = useCommonStyles({});
-  const style = styles();
-  const groupedStyles = { ...style, ...textStyle };
+  const {
+    theme,
+    textStyle,
+    tableStyle: { icons },
+  } = useCommonStyles({});
+  const style = styles(theme);
+  const groupedStyles = { ...style, ...textStyle, icons, theme };
   const { billedTo, paymentDetails } = invoiceDetails;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [customer, setCustomer] = useState({});
+  const showEditCustomer = Object.keys(customer).length > 0;
+
+  const handleShowModal = () => {
+    setIsModalOpen((isModalOpen: boolean) => !isModalOpen);
+  };
 
   return (
     <HStack style={style.headerContainer}>
+      {!showEditCustomer && (
+        <BoxDiv style={style.selectBoxContainer}>
+          <CustomSelectBox
+            isModalOpen={isModalOpen}
+            handleShowModal={handleShowModal}
+          />
+          <CustomModal isModalOpen={isModalOpen} showArrowTop={true}>
+            <RenderItems
+              handleShowModal={handleShowModal}
+              setCustomer={setCustomer}
+            />
+          </CustomModal>
+        </BoxDiv>
+      )}
+
       <BoxDiv>
         {/* Billed To */}
-        <RenderDataComponent
-          data={formattedBilledToData(billedTo)}
-          style={groupedStyles}
-        />
+        {showEditCustomer && (
+          <RenderDataComponent
+            data={formattedBilledToData(billedTo)}
+            style={groupedStyles}
+            setCustomer={setCustomer}
+            showEditCustomer={showEditCustomer}
+          />
+        )}
       </BoxDiv>
       <BoxDiv>
         {/* Payment Details */}
@@ -37,8 +72,19 @@ export const InvoicePaymentDetails = () => {
   );
 };
 
-const RenderDataComponent = ({ data, style }: any) => {
+const RenderDataComponent = ({
+  data,
+  style,
+  setCustomer,
+  showEditCustomer,
+}: any) => {
+  const formattedAddress = getZipCityCountry({
+    zipCode: data.zipCode,
+    city: data.city,
+    country: data.country,
+  });
   const { text, titleBottomSpacing, companyIdFieldContainer } = style;
+
   const {
     fontSize,
     fontWeight: { bold },
@@ -65,22 +111,30 @@ const RenderDataComponent = ({ data, style }: any) => {
   ]);
   const textStyle = joinStyles([fontSize.text, textBlack]);
 
+  const handleEdit = () => {
+    setCustomer && setCustomer({});
+  };
+
   return (
     <>
       <HStack style={titleBottomSpacing}>
         <Typography style={titleStyle}>{data.title}</Typography>
+        {showEditCustomer && (
+          <BoxDiv style={style.iconContainer}>
+            <IconButton
+              onClick={handleEdit}
+              sx={[style.icons, style.editIconButton]}
+            >
+              <EditIcon style={style.editIcon} />
+            </IconButton>
+          </BoxDiv>
+        )}
       </HStack>
       <Typography style={subtitleStyle}>{data.subtitle}</Typography>
       <Typography style={textStyle}>
         {data.address || data.bankAccount}
       </Typography>
-      <Typography style={textStyle}>
-        {getZipCityCountry({
-          zipCode: data.zipCode,
-          city: data.city,
-          country: data.country,
-        })}
-      </Typography>
+      <Typography style={textStyle}>{formattedAddress}</Typography>
       <HStack>
         <Typography style={companyIdFieldStyle}>{data.cin.title}</Typography>
         <Typography style={textStyle}>{data.cin.value}</Typography>
@@ -93,7 +147,7 @@ const RenderDataComponent = ({ data, style }: any) => {
   );
 };
 
-const styles = () => {
+const styles = (theme: Theme) => {
   return {
     headerContainer: {
       flexDirection: "row",
@@ -105,6 +159,25 @@ const styles = () => {
     },
     titleBottomSpacing: {
       marginBottom: "10px",
+    },
+    selectBoxContainer: {
+      width: "100%",
+      maxWidth: 300,
+      position: "relative",
+    },
+    iconContainer: {
+      position: "relative",
+    },
+    editIconButton: {
+      position: "absolute",
+      left: 10,
+      top: -5,
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
+    editIcon: {
+      width: 20,
+      height: 20,
+      fill: theme.palette.primary.main,
     },
   };
 };

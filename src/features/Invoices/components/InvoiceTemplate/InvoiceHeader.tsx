@@ -7,11 +7,12 @@ import { joinStyles } from "@utils/styleUtils";
 import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
 import { useCommonStyles } from "@hooks/index";
 import { getZipCityCountry } from "@utils/commonUtils";
+import { InvoiceTitleComponent } from "./components/InvoiceTitleComponent";
 
 export const InvoiceHeader = () => {
-  const { textStyle } = useCommonStyles({});
+  const { textStyle, tableStyle } = useCommonStyles({});
   const style = styles();
-  const groupedStyles = { ...style, ...textStyle };
+  const groupedStyles = { ...style, ...textStyle, ...tableStyle };
   const { docInfo, invoiceFrom, invoiceLogo, invoiceNumber, contactInfo } =
     invoiceDetails;
 
@@ -83,39 +84,6 @@ const InvoiceLogoComponent = ({ invoiceLogo, style }: any) => {
         containerStyle={imageContainerStyle}
       />
     </HStack>
-  );
-};
-
-const InvoiceTitleComponent = ({ title, invoiceNumber, style }: any) => {
-  const { text, title: titleColor } = style;
-  const {
-    fontSize,
-    fontWeight: { bold },
-    letterSpacing,
-    textTransform: { uppercase },
-    color: { textBlack },
-  } = text;
-
-  const titleStyle = joinStyles([
-    fontSize.title,
-    bold,
-    uppercase,
-    letterSpacing[1],
-    titleColor,
-  ]);
-  const subtitleStyle = joinStyles([
-    fontSize.subtitle,
-    letterSpacing[1],
-    textBlack,
-  ]);
-
-  return (
-    <>
-      <Typography style={titleStyle}>{title}</Typography>
-      <Typography style={subtitleStyle}>
-        {`${invoiceNumber.title}: ${invoiceNumber.value}`}
-      </Typography>
-    </>
   );
 };
 

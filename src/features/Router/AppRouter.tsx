@@ -55,6 +55,10 @@ export const AppRouter = () => {
         element={<Invoices />}
       />
       <Route
+        path={`${BASE_ROUTE}${invoicesRoutes.new}`}
+        element={<Invoices isInvoiceTemplate />}
+      />
+      <Route
         path={`${BASE_ROUTE}${invoicesRoutes.edit}`}
         element={<Invoices isEdit />}
       />
@@ -62,7 +66,7 @@ export const AppRouter = () => {
         path={`${BASE_ROUTE}${invoicesRoutes.details}`}
         element={<Invoices isInvoiceTemplate />}
       />
-      
+
       {/* Invoice Settings */}
       <Route
         path={`${BASE_ROUTE}${invoicesRoutes.companyDetails}`}

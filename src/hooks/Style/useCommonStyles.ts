@@ -15,6 +15,7 @@ export const useCommonStyles = ({
     dividerStyle,
     tableStyle,
     textStyle,
+    theme,
   };
 };
 
