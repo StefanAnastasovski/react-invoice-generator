@@ -21,5 +21,6 @@ const styles = {
   },
   tableMinWidth: {
     minWidth: 500,
+    overflow: "hidden",
   },
 };
