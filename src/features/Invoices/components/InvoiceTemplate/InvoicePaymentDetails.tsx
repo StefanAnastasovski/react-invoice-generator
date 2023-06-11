@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BoxDiv } from "@components/atoms";
 import { HStack } from "@components/atoms/Stack";
-import { IconButton, Theme, Typography } from "@mui/material";
+import { Theme, Typography } from "@mui/material";
 import { getZipCityCountry } from "@utils/commonUtils";
 import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
 import { useCommonStyles } from "@hooks/index";
@@ -11,10 +11,10 @@ import {
   formattedPaymentDetailsData,
 } from "@features/Invoices/utils/invoiceUtils";
 
-import { Edit as EditIcon } from "@mui/icons-material";
 import { CustomSelectBox } from "@components/SelectBox";
 import { CustomModal } from "@components/Modal";
 import { RenderItems } from "@components/SelectBox/components";
+import { ReusableEditButton } from "@components/ReusableButtons";
 
 export const InvoicePaymentDetails = () => {
   const {
@@ -120,20 +120,14 @@ const RenderDataComponent = ({
       <HStack style={titleBottomSpacing}>
         <Typography style={titleStyle}>{data.title}</Typography>
         {showEditCustomer && (
-          <BoxDiv style={style.iconContainer}>
-            <IconButton
-              onClick={handleEdit}
-              sx={[style.icons, style.editIconButton]}
-            >
-              <EditIcon style={style.editIcon} />
-            </IconButton>
-          </BoxDiv>
+          <ReusableEditButton style={style} handleEdit={handleEdit} />
         )}
       </HStack>
       <Typography style={subtitleStyle}>{data.subtitle}</Typography>
       <Typography style={textStyle}>
         {data.address || data.bankAccount}
       </Typography>
+      <Typography style={textStyle}>{formattedAddress}</Typography>
       <Typography style={textStyle}>{formattedAddress}</Typography>
       <HStack>
         <Typography style={companyIdFieldStyle}>{data.cin.title}</Typography>

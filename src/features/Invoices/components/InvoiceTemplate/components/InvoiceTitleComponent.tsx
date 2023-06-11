@@ -8,8 +8,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { joinStyles } from "@utils/styleUtils";
-import { BoxFlex } from "@components/atoms";
-import { Edit as EditIcon, Add as AddIcon } from "@mui/icons-material";
+import { HStack } from "@components/atoms";
+import { Add as AddIcon } from "@mui/icons-material";
+import { ReusableEditButton } from "@components/ReusableButtons";
 
 const ARIA_LABEL = {
   ADD: "toggle new invoice number",
@@ -60,16 +61,16 @@ export const InvoiceTitleComponent = ({
   return (
     <>
       <Typography style={titleStyle}>{title}</Typography>
-      <BoxFlex style={style.container}>
+      <HStack>
         {/* Show latest Invoice Number or add it manually*/}
         <Typography style={subtitleStyle}>{invoiceNumberValue}</Typography>
-        <IconButton
-          onClick={handleEditInvoiceNumber}
-          sx={[icons, style.editIconButton]}
-        >
-          <EditIcon style={style.editIcon} />
-        </IconButton>
-      </BoxFlex>
+        {!canEditInvoiceNumber && (
+          <ReusableEditButton
+            handleEdit={handleEditInvoiceNumber}
+            style={style}
+          />
+        )}
+      </HStack>
 
       {/* TODO: add correct values */}
       {canEditInvoiceNumber && (
@@ -143,15 +144,6 @@ const styles = (theme: Theme) => {
   return {
     container: {
       alignItems: "center",
-    },
-    editIconButton: {
-      marginLeft: 1,
-      border: `1px solid ${theme.palette.primary.main}`,
-    },
-    editIcon: {
-      width: 20,
-      height: 20,
-      fill: theme.palette.primary.main,
     },
     addIconButton: {
       paddingX: 2,

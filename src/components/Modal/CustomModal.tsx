@@ -42,6 +42,7 @@ const styles = (theme: Theme) => {
       borderRadius: 2,
       boxShadow: `0px 4px 44px ${modalShadowColor}`,
       background: theme.palette.background.paper,
+      zIndex: 9999, // highest index
     },
     arrowTop: {
       // Modal arrow style
