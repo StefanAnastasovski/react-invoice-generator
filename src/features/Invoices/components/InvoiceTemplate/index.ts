@@ -4,3 +4,5 @@ export { InvoiceNotesAndTotal } from "./InvoiceNotesAndTotal";
 export { InvoicePaymentDetails } from "./InvoicePaymentDetails";
 export { InvoiceSignature } from "./InvoiceSignature";
 export { InvoiceTemplate } from "./InvoiceTemplate";
+export { InvoiceDataTableRows } from "./InvoiceDataTableRows";
+export { InvoiceCreateNewItems } from "./InvoiceCreateNewItems";

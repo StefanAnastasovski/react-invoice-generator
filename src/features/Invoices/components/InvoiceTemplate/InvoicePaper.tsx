@@ -12,16 +12,28 @@ import { verticalMargins } from "@utils/styleUtils";
 import { opacityHexSuffix } from "@constants/opacityHexConstants";
 
 import {
+  invoiceCreateTemplateTitles,
   invoiceDetailsData,
   invoiceTemplateTitles,
 } from "@features/Invoices/constants/invoiceTemplate";
 import { InvoiceDataTableRows } from "./InvoiceDataTableRows";
+import { InvoiceCreateNewItems } from "./InvoiceCreateNewItems";
 
-const INVOICE_TEMPLTATE_CONFIG = {
-  titles: invoiceTemplateTitles,
-  tableData: invoiceDetailsData,
-  tableComponent: InvoiceDataTableRows,
-  shouldRenderEmptyRows: false,
+const CREATE_TEMPLATE = true;
+
+const INVOICE_TEMPLATE_CONFIG = {
+  SHOW: {
+    titles: invoiceTemplateTitles,
+    tableData: invoiceDetailsData,
+    tableComponent: InvoiceDataTableRows,
+    shouldRenderEmptyRows: false,
+  },
+  CREATE: {
+    titles: invoiceCreateTemplateTitles,
+    tableData: [],
+    tableComponent: InvoiceCreateNewItems,
+    shouldRenderEmptyRows: false,
+  },
 };
 
 export const InvoicePaper = ({ invoiceRef }: { invoiceRef: any }) => {
@@ -46,7 +58,11 @@ export const InvoicePaper = ({ invoiceRef }: { invoiceRef: any }) => {
         <InvoiceDates />
 
         <CustomDataTable
-          config={INVOICE_TEMPLTATE_CONFIG}
+          config={
+            CREATE_TEMPLATE
+              ? INVOICE_TEMPLATE_CONFIG.CREATE
+              : INVOICE_TEMPLATE_CONFIG.SHOW
+          }
           style={customDataTableStyle}
         />
 

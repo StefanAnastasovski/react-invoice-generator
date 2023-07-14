@@ -19,7 +19,7 @@ const CONTENT = {
 
 type NoteProps = {
   id: string;
-  "note-id": number;
+  noteId: number;
   note: string;
 };
 
@@ -63,7 +63,7 @@ export const InvoiceNotes = ({
         // TODO: remove after testing
         tempData.push({
           id: `note-${data.length + 1}`,
-          "note-id": data.length + 1,
+          noteId: data.length + 1,
           note: invoiceNotes["invoice-note"],
         });
         setData(tempData);

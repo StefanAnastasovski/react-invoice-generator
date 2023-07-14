@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BoxFlex, RouterLink } from "@components/atoms";
 import { CompanyDetails } from "./CompanyDetails";
 import { Box, Theme, useTheme } from "@mui/material";
@@ -6,28 +6,33 @@ import { InvoiceGeneralSettings } from "./InvoiceGeneralSettings";
 import { InvoiceTaxSettings } from "./InvoiceTaxSettings";
 import { InvoiceNotes } from "./InvoiceNotes/InvoiceNotes";
 import { joinStyles } from "@utils/styleUtils";
+import { useLocation } from "react-router-dom";
 
 const invoiceDetailsSettings = [
   {
     id: "ids-1",
+    componentName: "Company Details",
     buttonText: "Company Details",
     link: "/invoices/settings/details",
     component: CompanyDetails,
   },
   {
     id: "ids-2",
+    componentName: "Invoice Settings",
     buttonText: "Invoice Settings",
     link: "/invoices/settings/invoice",
     component: InvoiceGeneralSettings,
   },
   {
     id: "ids-3",
+    componentName: "Tax Details",
     buttonText: "Tax Details",
     link: "/invoices/settings/tax",
     component: InvoiceTaxSettings,
   },
   {
     id: "ids-4",
+    componentName: "Notes",
     buttonText: "Notes",
     link: "/invoices/settings/notes",
     component: InvoiceNotes,
@@ -74,17 +79,35 @@ export const InvoiceSettings = (props: any) => {
   const theme = useTheme();
   const [index, setIndex] = useState(0);
   const style = styles(theme);
+  const location = useLocation();
   // TODO: remove after testing (BE)
   const shouldEdit = false;
 
-  const [component, setComponent] = useState(
-    React.createElement(invoiceDetailsSettings[0].component, {
-      ...props,
-      // TODO: remove after testing (BE) =>
-      shouldEdit: shouldEdit,
-      existingItemData: shouldEdit && existingItemData[0],
-    })
-  );
+  const [component, setComponent] = useState<JSX.Element | null>(null);
+
+  useEffect(() => {
+    if (location.state?.component) {
+      let componentIndex = 0;
+      invoiceDetailsSettings.forEach((item, itemIndex: number) => {
+        if (item.componentName === location.state?.component) {
+          componentIndex = itemIndex;
+        }
+      });
+      setIndex(componentIndex);
+    }
+  }, [location?.state]);
+
+  useEffect(() => {
+    setComponent(
+      React.createElement(invoiceDetailsSettings[index].component, {
+        ...props,
+        // TODO: remove after testing (BE) =>
+        shouldEdit: shouldEdit,
+        existingItemData: shouldEdit && existingItemData[index],
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
 
   const handleRouterLink = (index: number) => {
     setIndex(index);

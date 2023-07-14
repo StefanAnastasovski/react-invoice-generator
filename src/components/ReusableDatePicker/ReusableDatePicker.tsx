@@ -60,10 +60,15 @@ const styles = (theme: Theme, value: any) => {
 
   return {
     input: {
-      "& .MuiOutlinedInput-input": {
-        fontSize: 16,
-        p: "8px 16px",
-        color: priDarkColor,
+      "&": {
+        ".MuiOutlinedInput-input": {
+          fontSize: 16,
+          padding: "0 12px",
+          color: priDarkColor,
+        },
+        ".MuiOutlinedInput-root": {
+          height: "100%",
+        },
       },
     },
     label: {
@@ -96,8 +101,6 @@ const styles = (theme: Theme, value: any) => {
     },
     iconBox: {
       alignSelf: "center",
-      width: 30,
-      height: 30,
       marginLeft: 1,
       padding: "4px",
       border: `1px solid ${priDarkColor}`,
@@ -109,8 +112,7 @@ const styles = (theme: Theme, value: any) => {
       },
     },
     icon: {
-      width: "100%",
-      height: "100%",
+      padding: 0.25,
     },
   };
 };

@@ -127,7 +127,7 @@ export const getFormattedInvoiceTemplateData = ({ details }: any) => {
   const formattedData = [
     { description },
     { category },
-    { rateOrItem },
+    { "rate-item": rateOrItem },
     { quantity },
     { discount },
     { amount },
@@ -139,8 +139,7 @@ export const getFormattedInvoiceTemplateData = ({ details }: any) => {
 const styling = document.createElement("style");
 
 export const addStyling = () => {
-  styling.innerHTML = 
-  ` thead tr th:not(:last-child) {
+  styling.innerHTML = ` thead tr th:not(:last-child) {
       border-right: 1px solid black !important;
     }
     div.invoice-print-container {

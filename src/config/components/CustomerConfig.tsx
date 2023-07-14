@@ -18,7 +18,7 @@ export const customerConfig = {
   id: "customers",
   table: "customers",
   pageTitle: "Customers",
-  tableId: "edb",
+  tableId: "tin",
   titles: customerColumns,
   routes: customersRoutes,
   tableData: customerMockedRows,

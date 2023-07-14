@@ -20,7 +20,7 @@ export const InvoiceSignature = () => {
   const style = styles({ borderColor: textBlack.color });
 
   const {
-    signature: { signaturePlace, authorisedSign, authorisedPerson },
+    signature: { signaturePlace, authorizedSignature, authorizedPerson },
   } = invoiceDetails;
 
   const signatureFieldStyle = joinStyles([
@@ -29,14 +29,14 @@ export const InvoiceSignature = () => {
     uppercase,
     textBlack,
   ]);
-  const authorisedSignStyle = joinStyles([
-    style.authorisedFieldContainer,
+  const authorizedSignatureStyle = joinStyles([
+    style.authorizedFieldContainer,
     textCenter,
     textBlack,
   ]);
   const SignPersonStyle = joinStyles([
     fontSize.subtitle,
-    style.authorisedFieldContainer,
+    style.authorizedFieldContainer,
     textCenter,
     style.signPersonStyle,
     textBlack,
@@ -46,8 +46,10 @@ export const InvoiceSignature = () => {
     <BoxDiv style={style.container} classNames="invoice-signature-container">
       <VStack>
         <Typography style={signatureFieldStyle}>{signaturePlace}</Typography>
-        <Typography style={authorisedSignStyle}>{authorisedSign}</Typography>
-        <Typography style={SignPersonStyle}>{authorisedPerson}</Typography>
+        <Typography style={authorizedSignatureStyle}>
+          {authorizedSignature}
+        </Typography>
+        <Typography style={SignPersonStyle}>{authorizedPerson}</Typography>
       </VStack>
     </BoxDiv>
   );
@@ -67,7 +69,7 @@ const styles = ({ borderColor }: InvoiceStyleProps) => {
     signatureStyle: {
       paddingBottom: "40px",
     },
-    authorisedFieldContainer: {
+    authorizedFieldContainer: {
       width: "250px",
     },
     signPersonStyle: {

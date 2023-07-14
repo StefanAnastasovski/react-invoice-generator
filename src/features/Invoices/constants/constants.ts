@@ -62,3 +62,10 @@ export const printStyle = `
     font-size: 12px !important;
   }
 }`;
+
+export const INOVICE_COMPONENTS_MAPPED = {
+  companyDetails: "Company Details",
+  invoiceSettings: "Invoice Settings",
+  taxDetails: "Tax Details",
+  notes: "Notes",
+};

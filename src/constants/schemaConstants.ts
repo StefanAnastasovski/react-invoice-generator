@@ -28,7 +28,7 @@ export const getMinSentance = ({
 }: NewCustomerSchemaMessageProps) => {
   return `${fieldName.toUpperCase()}  must be ${
     OPERATORS_CHARACTERS[characterOperator.toUpperCase()]
-  } ${noOfCharacters} ${isNumber ? "numbers" : "characters"}`;
+  } ${noOfCharacters} ${isNumber ? "digits" : "characters"}`;
 };
 
 /**

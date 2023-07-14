@@ -1,13 +1,13 @@
 import LogoImg from "@images/logo.png";
 
 export const invoiceTemplateTableCellWidth = {
-  "row-number": "",
+  "row-number": "5%",
   description: "45%",
-  category: "",
-  "rate-item": "",
-  quantity: "",
-  amount: "",
-  discount: "",
+  category: "15%",
+  "rate-item": "10%",
+  quantity: "5%",
+  amount: "10%",
+  discount: "5%",
 };
 
 export const invoiceTemplateTitles = [
@@ -16,8 +16,19 @@ export const invoiceTemplateTitles = [
   "Category",
   "Rate/Item",
   "Quantity",
-  "Discount(%)",
+  "Discount",
   "Amount",
+];
+
+export const invoiceCreateTemplateTitles = [
+  "#",
+  "Description",
+  "Category",
+  "Rate/Item",
+  "Quantity",
+  "Discount",
+  "Amount",
+  "Actions",
 ];
 
 export const CTAs = {
@@ -72,8 +83,8 @@ export const invoiceDetails = {
     country: "Macedonia",
     customer: {
       company: "Customer Name",
-      cin: { title: "CIN:", value: "4017000000090" },
-      tin: { title: "TIN:", value: "7500090" },
+      cin: { title: "CIN:", value: "7500090" },
+      tin: { title: "TIN:", value: "4017000000090" },
     },
   },
   paymentDetails: {
@@ -86,8 +97,8 @@ export const invoiceDetails = {
       country: "Macedonia",
     },
     company: {
-      cin: { title: "CIN:", value: "4017000000073" },
-      tin: { title: "TIN:", value: "7500007" },
+      cin: { title: "CIN:", value: "7500007" },
+      tin: { title: "TIN:", value: "4017000000073" },
     },
   },
   notes: {
@@ -102,22 +113,17 @@ export const invoiceDetails = {
       },
       {
         id: "si-2",
-        title: "Additional Charges",
-        value: "600.00",
-      },
-      {
-        id: "si-3",
         title: "Discount",
         value: "350.00",
       },
       {
-        id: "si-4",
+        id: "si-3",
         title: "Subtotal",
         value: "3000.00",
       },
     ],
     total: {
-      title: "Total Amount:",
+      title: "Total Amount",
       value: "300000.00",
     },
   },
@@ -137,8 +143,8 @@ export const invoiceDetails = {
   },
   signature: {
     signaturePlace: "Signature goes here",
-    authorisedSign: "Authorised Sign,",
-    authorisedPerson: "Stefan Anastasovski",
+    authorizedSignature: "Authorized Signature,",
+    authorizedPerson: "Stefan Anastasovski",
   },
 };
 
@@ -167,7 +173,7 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
   createData({
     description: "Dell Laptop",
@@ -175,7 +181,7 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
   createData({
     description: "Dell Laptop",
@@ -183,7 +189,7 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
   createData({
     description: "Dell Laptop",
@@ -191,7 +197,7 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
   createData({
     description: "Dell Laptop",
@@ -199,7 +205,7 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
   createData({
     description: "Dell Laptop",
@@ -207,7 +213,7 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
   createData({
     description: "Dell Laptop",
@@ -215,6 +221,81 @@ export const invoiceDetailsData = [
     rateOrItem: "1100",
     quantity: "2",
     discount: "10",
-    amount: "990",
+    amount: "1980",
   }),
+];
+
+export const invoiceNewItemField = [
+  {
+    id: "description",
+    name: "description",
+    type: "text",
+    label: "Descripton",
+    value: "",
+    placeholder: "Marketing Strategy",
+    isRequired: true,
+    icon: null,
+    isIcon: false,
+    ariaLabel: `toggle something`,
+  },
+  {
+    id: "category",
+    name: "category",
+    type: "select",
+    label: "Category",
+    value: "Paid Media",
+    placeholder: "Paid Media",
+    isRequired: true,
+    icon: null,
+    isIcon: false,
+    ariaLabel: `toggle something`,
+  },
+  {
+    id: "rate-item",
+    name: "rate-item",
+    type: "number",
+    label: "Rate/Item",
+    value: "",
+    placeholder: "$1100",
+    isRequired: true,
+    icon: null,
+    isIcon: false,
+    ariaLabel: `toggle something`,
+  },
+  {
+    id: "quantity",
+    name: "quantity",
+    type: "number",
+    label: "Quantity",
+    value: "",
+    placeholder: "2",
+    isRequired: true,
+    icon: null,
+    isIcon: false,
+    ariaLabel: `toggle something`,
+  },
+  {
+    id: "discount",
+    name: "discount",
+    type: "number",
+    label: "Discount",
+    value: "",
+    placeholder: "10",
+    isRequired: true,
+    icon: null,
+    isIcon: false,
+    ariaLabel: `toggle something`,
+  },
+  {
+    id: "amount",
+    name: "amount",
+    type: "number",
+    label: "Amount",
+    value: "",
+    placeholder: "$1980",
+    isRequired: true,
+    icon: null,
+    isIcon: false,
+    ariaLabel: `toggle something`,
+  },
 ];

@@ -5,6 +5,7 @@ import { ButtonProps } from "./types/ButtonProps";
 export const CustomButton = ({
   children,
   onClick,
+  startIcon,
   endIcon,
   size,
   type,
@@ -22,6 +23,7 @@ export const CustomButton = ({
           ...onHoverStyle,
         },
       }}
+      startIcon={startIcon}
       endIcon={endIcon}
       size={size}
       type={type}

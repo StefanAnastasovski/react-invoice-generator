@@ -74,7 +74,7 @@ export const InvoiceGeneralSettings = ({
             style={style.innerContainer}
           >
             <>
-              {/* TODO: add Authorised Sign => Default Digital Signatory => Image => upload file png file with your signature*/}
+              {/* TODO: add Authorized Signature => Default Digital Signatory => Image => upload file png file with your signature*/}
               {invoiceGeneralSettingsFields.map((item) => {
                 return (
                   <CardCreateWrapper

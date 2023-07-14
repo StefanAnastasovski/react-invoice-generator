@@ -7,6 +7,7 @@ export type ButtonProps = {
   children: React.ReactNode;
   isPrimary?: boolean;
   onClick?: () => void;
+  startIcon?: any;
   endIcon?: any;
   size?: "small" | "medium" | "large";
   type?: "button" | "reset" | "submit";

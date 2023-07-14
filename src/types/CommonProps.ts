@@ -5,3 +5,5 @@ export interface StringNumberObjectProps {
 export interface ClassNamesProps {
   classNames?: string;
 }
+
+export type EmptyVoidFn = () => void;

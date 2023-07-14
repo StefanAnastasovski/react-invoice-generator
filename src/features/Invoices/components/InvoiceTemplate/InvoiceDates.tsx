@@ -68,7 +68,10 @@ export const InvoiceDates = () => {
       <HStack style={style.container}>
         {/* Issue Date */}
         {canEditIssueDate ? (
-          <BoxFlex column style={style.datePickerContainer}>
+          <BoxFlex
+            column
+            style={joinStyles([style.datePickerContainer, style.flex1])}
+          >
             {/* Issue Date Picker */}
             <ReusableDatePicker {...datePickerItems.issueDate} />
             {/* ERROR MESSAGE */}
@@ -78,7 +81,7 @@ export const InvoiceDates = () => {
             />
           </BoxFlex>
         ) : (
-          <HStack>
+          <HStack style={style.flex1}>
             <Typography style={titleStyle}>{issueDate.title}</Typography>
             <Typography style={valueStyle}>
               {formattedIssueDate || issueDate.value}
@@ -92,7 +95,14 @@ export const InvoiceDates = () => {
 
         {/* Due Date */}
         {canEditDueDate ? (
-          <BoxFlex column style={style.datePickerContainer}>
+          <BoxFlex
+            column
+            style={joinStyles([
+              style.datePickerContainer,
+              style.flex1,
+              style.alignItemsCenter,
+            ])}
+          >
             {/* Due Date Picker */}
             <ReusableDatePicker {...datePickerItems.dueDate} />
             {/* ERROR MESSAGE */}
@@ -102,7 +112,7 @@ export const InvoiceDates = () => {
             />
           </BoxFlex>
         ) : (
-          <HStack>
+          <HStack style={joinStyles([style.flex1, style.justifyContentCenter])}>
             <Typography style={titleStyle}>{dueDate.title}</Typography>
             <Typography style={valueStyle}>
               {formattedDueDate || dueDate.value}
@@ -112,7 +122,7 @@ export const InvoiceDates = () => {
         )}
 
         {/* Invoice Number */}
-        <HStack>
+        <HStack style={joinStyles([style.flex1, style.justifyContentEnd])}>
           <Typography style={titleStyle}>{invoicePO.title}</Typography>
           <Typography style={valueStyle}>{invoicePO.value}</Typography>
         </HStack>
@@ -143,6 +153,18 @@ const styles = (theme: Theme) => {
   const priDarkColor = theme.palette.primary.dark;
   const secDarkColor = theme.palette.secondary.dark;
   return {
+    flex1: {
+      flex: 1,
+    },
+    alignItemsCenter: {
+      alignItems: "center",
+    },
+    justifyContentCenter: {
+      justifyContent: "center",
+    },
+    justifyContentEnd: {
+      justifyContent: "flex-end",
+    },
     datePickerContainer: {
       position: "relative",
     },

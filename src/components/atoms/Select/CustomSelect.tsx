@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SxProps,
   Theme,
   useTheme,
 } from "@mui/material";
@@ -14,6 +15,23 @@ import { StringNumberObjectProps } from "types/CommonProps";
 type itemList = {
   id: string;
   value: string | number;
+};
+
+type CustomSelectProps = {
+  label?: string;
+  selectId: string;
+  selectName: string;
+  value?: string;
+  itemList: itemList[];
+  formik?: FormikProps<StringNumberObjectProps>; // TODO: only for testing create invoice
+  fieldRef?: React.RefObject<any>;
+  formControlStyle?: React.CSSProperties;
+  selectStyle?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+  itemStyle?: React.CSSProperties;
+  inputPropsStyle?: SxProps;
+  helperTextStyle?: React.CSSProperties;
+  fullWidth?: boolean;
 };
 
 export const CustomSelect = ({
@@ -28,41 +46,34 @@ export const CustomSelect = ({
   labelStyle,
   selectStyle,
   itemStyle,
+  inputPropsStyle,
   helperTextStyle,
   fullWidth = true,
-}: {
-  label: string;
-  selectId: string;
-  selectName: string;
-  value: string;
-  itemList: itemList[];
-  formik: FormikProps<StringNumberObjectProps>;
-  fieldRef?: React.RefObject<any>;
-  formControlStyle?: React.CSSProperties;
-  selectStyle?: React.CSSProperties;
-  labelStyle?: React.CSSProperties;
-  itemStyle?: React.CSSProperties;
-  helperTextStyle?: React.CSSProperties;
-  fullWidth?: boolean;
-}) => {
+}: CustomSelectProps) => {
   const theme = useTheme();
-  const { touched, errors } = formik;
-  const isError = touched[selectName] && Boolean(errors[selectName]);
+  const { touched, errors } = formik || {}; // TODO: only for testing create invoice
+  const isError =
+    touched && touched[selectName] && errors && Boolean(errors[selectName]); // TODO: only for testing create invoice
   const styling = styles(theme, isError);
 
   return (
     <FormControl fullWidth={fullWidth} error={isError} sx={formControlStyle}>
-      <InputLabel id={selectId} error={isError} sx={styling.labelStyle}>
-        {label}
-      </InputLabel>
+      {label && (
+        <InputLabel id={selectId} error={isError} sx={styling.labelStyle}>
+          {label}
+        </InputLabel>
+      )}
       <Select
         labelId={selectId}
         id={selectId}
         name={selectName}
         value={value || ""}
-        label={label}
-        onChange={formik.handleChange}
+        label={label || ""}
+        onChange={formik?.handleChange}
         error={isError}
+        inputProps={{
+          sx: inputPropsStyle,
+        }}
         sx={selectStyle}
       >
         {itemList.map((item: itemList) => {
@@ -75,7 +86,7 @@ export const CustomSelect = ({
       </Select>
       {isError && (
         <FormHelperText error={isError} sx={helperTextStyle}>
-          {formik.errors[selectName]}
+          {formik?.errors[selectName]}
         </FormHelperText>
       )}
     </FormControl>

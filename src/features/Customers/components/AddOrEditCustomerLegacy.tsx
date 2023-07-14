@@ -84,7 +84,7 @@ export const Temp = ({
   const { dividerStyle } = useCommonStyles({});
 
   const handleDeleteClick = () => {
-    handleDelete && handleDelete(existingItemData.edb);
+    handleDelete && handleDelete(existingItemData.tin);
   };
   const formik = useFormik({
     initialValues: !shouldEdit ? NEW_CUSTOMER_INITIAL_VALUE : existingItemData,

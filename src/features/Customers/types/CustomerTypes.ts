@@ -23,8 +23,8 @@ export interface CustomerProps {
   "bank-account"?: string;
   "company-name": string;
   "phone-number": string;
-  edb: string | number;
-  embs: string | number;
+  tin: string | number;
+  cin: string | number;
   country: string;
   "state-region": string;
   "zip-code": string | number;
@@ -36,8 +36,8 @@ export interface TableCustomerProps {
   bankAccount?: string;
   companyName: string;
   phoneNumber: string;
-  edb: string | number;
-  embs: string | number;
+  tin: string | number;
+  cin: string | number;
   country: string;
   stateRegion: string;
   zipCode: string | number;

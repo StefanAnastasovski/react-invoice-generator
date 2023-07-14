@@ -7,7 +7,7 @@ import { joinStyles } from "@utils/styleUtils";
 import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
 import { useCommonStyles } from "@hooks/index";
 import { getZipCityCountry } from "@utils/commonUtils";
-import { InvoiceTitleComponent } from "./components/InvoiceTitleComponent";
+import { InvoiceTitleComponent } from "./components";
 
 export const InvoiceHeader = () => {
   const { textStyle, tableStyle } = useCommonStyles({});

@@ -93,7 +93,7 @@ export const TableComponentWrapper = ({
     });
 
     const fixedNoteId = filterData.map((noteItem: any, index: number) => {
-      return { ...noteItem, "note-id": index + 1 };
+      return { ...noteItem, noteId: index + 1 };
     });
     setDataPlus(fixedNoteId);
   };

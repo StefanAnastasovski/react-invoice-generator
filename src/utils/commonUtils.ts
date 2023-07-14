@@ -1,3 +1,5 @@
+import { PRICE_SIGN } from "@features/Services/constants/constants";
+
 export const getZipCityCountry = ({
   zipCode,
   city,
@@ -31,4 +33,15 @@ export const updateBooleanArray = (
   const tempArray = [...array];
   tempArray[index] = !value ? !tempArray[index] : value;
   callback(tempArray);
+};
+
+export const getSign = (row: any, sign: "price" | "discount") => {
+  switch (sign) {
+    case "price":
+      return row["rate-item"] || row.amount ? PRICE_SIGN : "";
+    case "discount":
+      return row.discount ? "%" : "";
+    default:
+      return "";
+  }
 };

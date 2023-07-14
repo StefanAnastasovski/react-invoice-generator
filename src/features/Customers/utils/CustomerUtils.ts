@@ -33,8 +33,8 @@ const getFormattedCollapseData = (collapseData: any) => {
 
 export const getFormattedCustomerData = ({ details }: any) => {
   const {
-    edb,
-    embs,
+    tin,
+    cin,
     "company-name": companyName,
     address,
     "zip-code": zipCode,
@@ -45,7 +45,7 @@ export const getFormattedCustomerData = ({ details }: any) => {
     // "phone-number": phoneNumber,
   } = details;
 
-  const rowId = details.edb;
+  const rowId = details.tin;
   const collapseData = getCollapseData(details);
   const formattedAddress = {
     address: `${address}, ${stateRegion}, ${zipCode} - ${country}`,
@@ -53,7 +53,7 @@ export const getFormattedCustomerData = ({ details }: any) => {
 
   const formattedCollapseData = getFormattedCollapseData(collapseData);
 
-  const formattedData = [{ companyName }, formattedAddress, { edb }, { embs }];
+  const formattedData = [{ companyName }, formattedAddress, { tin }, { cin }];
 
   return {
     formattedData,

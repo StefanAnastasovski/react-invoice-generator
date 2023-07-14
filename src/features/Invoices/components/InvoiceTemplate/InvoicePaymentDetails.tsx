@@ -127,8 +127,13 @@ const RenderDataComponent = ({
       <Typography style={textStyle}>
         {data.address || data.bankAccount}
       </Typography>
-      <Typography style={textStyle}>{formattedAddress}</Typography>
-      <Typography style={textStyle}>{formattedAddress}</Typography>
+      <Typography style={textStyle}>
+        {getZipCityCountry({
+          zipCode: data.zipCode,
+          city: data.city,
+          country: data.country,
+        })}
+      </Typography>
       <HStack>
         <Typography style={companyIdFieldStyle}>{data.cin.title}</Typography>
         <Typography style={textStyle}>{data.cin.value}</Typography>
