@@ -17,13 +17,22 @@ import {
 import { DATE_PICKER_FORMAT } from "@constants/date";
 import { HelpCenterOutlined as HelpIcon } from "@mui/icons-material";
 import { BoxFlex } from "@components/atoms";
+import { useInvoiceDates } from "@features/Invoices/hooks/InvoiceTemplate/useInvoiceDates";
+import { useInvoiceNumber } from "@features/Invoices/hooks/InvoiceTemplate/useInvoiceNumber";
 
 export const InvoiceDates = () => {
-  const {
-    invoiceDates: { issueDate, dueDate },
-    invoicePO,
-  } = invoiceDetails;
   const { titleStyle, valueStyle, style } = getStyles(useCommonStyles({}));
+  const {
+    invoiceDateTitles: { issueDateTitle, dueDateTitle },
+    PONumberTitle,
+  } = invoiceDetails;
+  const { getInvoiceDates } = useInvoiceDates();
+  const { getInvoiceNumber } = useInvoiceNumber();
+
+  const data = {
+    ...getInvoiceDates(),
+    invoiceNumber: getInvoiceNumber(),
+  };
 
   const {
     issueDateValue,
@@ -82,9 +91,9 @@ export const InvoiceDates = () => {
           </BoxFlex>
         ) : (
           <HStack style={style.flex1}>
-            <Typography style={titleStyle}>{issueDate.title}</Typography>
+            <Typography style={titleStyle}>{issueDateTitle}</Typography>
             <Typography style={valueStyle}>
-              {formattedIssueDate || issueDate.value}
+              {formattedIssueDate || data.issueDate}
             </Typography>
             <ReusableEditButton
               handleEdit={handleEditIssueDate}
@@ -113,9 +122,9 @@ export const InvoiceDates = () => {
           </BoxFlex>
         ) : (
           <HStack style={joinStyles([style.flex1, style.justifyContentCenter])}>
-            <Typography style={titleStyle}>{dueDate.title}</Typography>
+            <Typography style={titleStyle}>{dueDateTitle}</Typography>
             <Typography style={valueStyle}>
-              {formattedDueDate || dueDate.value}
+              {formattedDueDate || data.dueDate}
             </Typography>
             <ReusableEditButton handleEdit={handleEditDueDate} style={style} />
           </HStack>
@@ -123,8 +132,8 @@ export const InvoiceDates = () => {
 
         {/* Invoice Number */}
         <HStack style={joinStyles([style.flex1, style.justifyContentEnd])}>
-          <Typography style={titleStyle}>{invoicePO.title}</Typography>
-          <Typography style={valueStyle}>{invoicePO.value}</Typography>
+          <Typography style={titleStyle}>{PONumberTitle}</Typography>
+          <Typography style={valueStyle}>{data.invoiceNumber}</Typography>
         </HStack>
       </HStack>
     </BoxFlex>

@@ -37,36 +37,60 @@ export const CTAs = {
   send: "Send",
 };
 
-export const invoiceDetails = {
-  docInfo: {
-    title: "Invoice",
+export const invoiceSender = {
+  company: {
+    name: "Stefan Anastasovski",
+    tin: "4017000000073",
+    cin: "7500007",
   },
-  invoiceNumber: {
-    title: "Invoice Number",
-    value: "OLD230001",
-  },
-  invoiceFrom: {
-    title: "Invoice from",
-    company: "Stefan Anastasovski",
+  companyAddress: {
     address: "st. JNA no. 64",
     zipCode: "1300",
     city: "Kumanovo",
     country: "Macedonia",
   },
-  contactInfo: {
+  contact: {
+    phoneNumber: "+38977888888",
+    email: "stefan@mail.com",
+    website: "www.stefananastasovski.com",
+  },
+  invoiceLogo: {
+    image: LogoImg,
+    alt: "Oloid Solutions",
+  },
+  bank: {
+    name: "Bank name",
+    account: "210-0011223300-95",
+    // zipCode: "1300",
+    // city: "Kumanovo",
+    // country: "Macedonia",
+  },
+  bankAddress: {
+    address: "st. Okt no. 102",
+    zipCode: "1300",
+    city: "Kumanovo",
+    country: "Macedonia",
+  },
+  invoiceNumber: "OLD230001",
+  taxable: 0,
+  authorizedSignature: "Stefan Anastasovski",
+};
+
+export const invoiceDetails = {
+  docInfo: {
+    title: "Invoice",
+  },
+  invoiceNumberTitle: "Invoice Number",
+  invoiceNumber: {
+    title: "Invoice Number",
+    value: "OLD230001",
+  },
+  invoiceFromTitle: "Invoice from",
+  contactTitles: {
     title: "Contact",
-    phone: {
-      title: "Phone:",
-      value: "+38977888888",
-    },
-    email: {
-      title: "Email:",
-      value: "stefan@mail.com",
-    },
-    website: {
-      title: "Website:",
-      value: "www.stefananastasovski.com",
-    },
+    phone: "Phone:",
+    email: "Email:",
+    website: "Website:",
   },
   invoiceLogo: {
     image: LogoImg,
@@ -74,7 +98,7 @@ export const invoiceDetails = {
   },
   // CIN: Company Identification Number => EMBS
   // TIN: Tax Identification Number => EDB
-
+  billedToTitle: "Billed to",
   billedTo: {
     title: "Billed to",
     address: "st. OKT no. 55",
@@ -87,65 +111,24 @@ export const invoiceDetails = {
       tin: { title: "TIN:", value: "4017000000090" },
     },
   },
-  paymentDetails: {
-    title: "Payment Details",
-    bank: {
-      name: "Bank name",
-      bankAccount: "210-0011223300-95",
-      zipCode: "1300",
-      city: "Kumanovo",
-      country: "Macedonia",
-    },
-    company: {
-      cin: { title: "CIN:", value: "7500007" },
-      tin: { title: "TIN:", value: "4017000000073" },
-    },
-  },
-  notes: {
-    title: "Notes:",
-  },
+  paymentDetailsTitle: "Payment Details",
+  cinTitle: "CIN",
+  tinTitle: "TIN",
+  notesTitle: "Notes:",
   summary: {
-    items: [
-      {
-        id: "si-1",
-        title: "Taxable",
-        value: "5500.00",
-      },
-      {
-        id: "si-2",
-        title: "Discount",
-        value: "350.00",
-      },
-      {
-        id: "si-3",
-        title: "Subtotal",
-        value: "3000.00",
-      },
-    ],
-    total: {
-      title: "Total Amount",
-      value: "300000.00",
-    },
+    summaryTaxableTitle: "Taxable",
+    summarySubtotalTitle: "Subtotal",
+    summaryDiscountTitle: "Discount",
+    summaryTotalAmountTitle: "Total Amount",
   },
-  invoiceDates: {
-    issueDate: {
-      title: "Issue Date:",
-      value: "02 Feb 2023",
-    },
-    dueDate: {
-      title: "Due Date:",
-      value: "02 Aug 2023",
-    },
+  invoiceDateTitles: {
+    issueDateTitle: "Issue Date:",
+    dueDateTitle: "Due Date:",
   },
-  invoicePO: {
-    title: "PO Number:",
-    value: "OLD230001",
-  },
-  signature: {
-    signaturePlace: "Signature goes here",
-    authorizedSignature: "Authorized Signature,",
-    authorizedPerson: "Stefan Anastasovski",
-  },
+  PONumberTitle: "PO Number:",
+  authorizedSignatureTitle: "Authorized Signature,",
+  signaturePlaceTitle: "Signature goes here",
+  authorizedPerson: "Stefan Anastasovski",
 };
 
 function createData({

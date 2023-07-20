@@ -64,8 +64,14 @@ const styles = (theme: Theme) => {
       maxHeight: "30px",
       marginX: 1,
       fontSize: 14,
+      padding: 0,
       color: theme.palette.primary.dark,
       border: `1px solid ${theme.palette.secondary.main}`,
+      "& .MuiOutlinedInput-input": {
+        // needed to fix a bug with adding bottom space in table when click on Category select.
+        paddingTop: "6px",
+        paddingBottom: "6px",
+      },
       "& svg": {
         color: theme.palette.primary.dark,
         paddingLeft: 1,

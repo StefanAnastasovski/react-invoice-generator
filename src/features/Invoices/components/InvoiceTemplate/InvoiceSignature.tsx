@@ -6,9 +6,37 @@ import { joinStyles } from "@utils/styleUtils";
 import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
 import { useCommonStyles } from "@hooks/index";
 import { InvoiceStyleProps } from "@features/Invoices/types/InvoiceTypes";
+import { useAuthorizedSignature } from "@features/Invoices/hooks/InvoiceTemplate/useAuthorizedSignature";
 
 export const InvoiceSignature = () => {
   const { textStyle } = useCommonStyles({});
+  const {
+    style,
+    signatureFieldStyle,
+    authorizedSignatureStyle,
+    signPersonStyle,
+  } = getStyles(textStyle);
+  const { signaturePlaceTitle, authorizedSignatureTitle } = invoiceDetails;
+
+  const { getAuthorizedSignature } = useAuthorizedSignature();
+  const authorizedPerson = getAuthorizedSignature();
+
+  return (
+    <BoxDiv style={style.container} classNames="invoice-signature-container">
+      <VStack>
+        <Typography style={signatureFieldStyle}>
+          {signaturePlaceTitle}
+        </Typography>
+        <Typography style={authorizedSignatureStyle}>
+          {authorizedSignatureTitle}
+        </Typography>
+        <Typography style={signPersonStyle}>{authorizedPerson}</Typography>
+      </VStack>
+    </BoxDiv>
+  );
+};
+
+const getStyles = (compStyle: any) => {
   const {
     text: {
       fontSize,
@@ -16,12 +44,8 @@ export const InvoiceSignature = () => {
       textTransform: { uppercase },
       color: { textBlack },
     },
-  } = textStyle;
+  } = compStyle;
   const style = styles({ borderColor: textBlack.color });
-
-  const {
-    signature: { signaturePlace, authorizedSignature, authorizedPerson },
-  } = invoiceDetails;
 
   const signatureFieldStyle = joinStyles([
     style.signatureStyle,
@@ -34,25 +58,19 @@ export const InvoiceSignature = () => {
     textCenter,
     textBlack,
   ]);
-  const SignPersonStyle = joinStyles([
+  const signPersonStyle = joinStyles([
     fontSize.subtitle,
     style.authorizedFieldContainer,
     textCenter,
     style.signPersonStyle,
     textBlack,
   ]);
-
-  return (
-    <BoxDiv style={style.container} classNames="invoice-signature-container">
-      <VStack>
-        <Typography style={signatureFieldStyle}>{signaturePlace}</Typography>
-        <Typography style={authorizedSignatureStyle}>
-          {authorizedSignature}
-        </Typography>
-        <Typography style={SignPersonStyle}>{authorizedPerson}</Typography>
-      </VStack>
-    </BoxDiv>
-  );
+  return {
+    style,
+    signatureFieldStyle,
+    authorizedSignatureStyle,
+    signPersonStyle,
+  };
 };
 
 const styles = ({ borderColor }: InvoiceStyleProps) => {

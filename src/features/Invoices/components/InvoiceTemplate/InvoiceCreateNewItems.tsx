@@ -3,10 +3,11 @@ import { TableRow } from "@mui/material";
 import { useCommonStyles } from "@hooks/index";
 import { invoiceNewItemField } from "@features/Invoices/constants/invoiceTemplate";
 import { RenderInvoiceCreateRowData } from "./components/InvoiceCreateNewItems";
+import { ItemType, RowFieldsType } from "@features/Invoices/types/InvoiceTypes";
 
 // it's main component to render fields for creating new item/service in invoice
 export const InvoiceCreateNewItems = () => {
-  const [items, setItems] = useState([invoiceNewItemField]);
+  const [items, setItems] = useState<RowFieldsType[]>([invoiceNewItemField]);
   const commonStyle = useCommonStyles({});
 
   const addItem = (currentItemIndex: number) => {
@@ -27,12 +28,12 @@ export const InvoiceCreateNewItems = () => {
 
   return (
     <>
-      {items.map((item: any, itemIndex: number) => {
+      {items.map((rowFields: ItemType[], rowIndex: number) => {
         return (
-          <TableRow key={`row-${itemIndex}`}>
+          <TableRow key={`row-${rowIndex}`}>
             <RenderInvoiceCreateRowData
-              item={item}
-              itemIndex={itemIndex}
+              rowFields={rowFields}
+              rowIndex={rowIndex}
               items={items}
               commonStyle={commonStyle}
               addItem={addItem}

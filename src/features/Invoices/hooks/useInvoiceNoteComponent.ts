@@ -1,3 +1,4 @@
+import { useNotes } from "@features/Invoices/hooks/InvoiceTemplate/useNotes";
 import { useEffect, useState } from "react";
 import { isNumber } from "lodash";
 import {
@@ -10,8 +11,8 @@ const MAX_NOTES = 10;
 
 const INITIAL_NEW_NOTE: NEW_NOTE_PROPS = { value: "" };
 
-export const useInvoiceNoteComponent = (notes: Note[]) => {
-  const [data, setData] = useState<Note[]>([]);
+export const useInvoiceNoteComponent = () => {
+  const { getNotes, setNotes } = useNotes();
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<Note | null>(null);
   const [selectedItemIndex, setSelectedItemIndex] = useState<null | number>(
@@ -21,11 +22,7 @@ export const useInvoiceNoteComponent = (notes: Note[]) => {
   const [newNotes, setNewNotes] = useState<NEW_NOTE_PROPS[]>([
     INITIAL_NEW_NOTE,
   ]);
-
-  useEffect(() => {
-    // TODO: get the data from BE
-    setData(notes);
-  }, [notes]);
+  const notes = getNotes();
 
   useEffect(() => {
     // reset state only when dialog is closed
@@ -62,7 +59,7 @@ export const useInvoiceNoteComponent = (notes: Note[]) => {
       return handleOpenDialog();
     }
 
-    const selectedNote = data?.filter((item: Note, index: number) => {
+    const selectedNote = notes?.filter((item: Note, index: number) => {
       if (item?.noteId === noteId) {
         setSelectedItemIndex(index);
         return item?.noteId === noteId;
@@ -76,36 +73,40 @@ export const useInvoiceNoteComponent = (notes: Note[]) => {
   };
 
   const handleOnSaveChanges = () => {
-    const newData: Note[] = [...data];
-
-    if (isNumber(selectedItemIndex))
-      newData[selectedItemIndex].note = noteValue;
-    setData(newData);
+    const newData: Note[] = [...notes];
+    if (isNumber(selectedItemIndex)) {
+      const newNoteObject = {
+        ...newData[selectedItemIndex],
+        note: noteValue,
+      };
+      newData[selectedItemIndex] = newNoteObject;
+    }
+    setNotes(newData);
     handleCloseDialog();
   };
 
   const handleSaveNewNotes = () => {
     const createNewNote: Note[] = newNotes.map((newNote, index) => {
       return {
-        id: `note-${data.length + newNotes.length + index}`,
-        noteId: `${data.length + newNotes.length + index}`,
+        id: `note-${notes.length + newNotes.length + index}`,
+        noteId: `${notes.length + newNotes.length + index}`,
         note: newNote.value,
       };
     });
-    const newData: Note[] = [...data, ...createNewNote];
-    setData(newData);
+    const newData: Note[] = [...notes, ...createNewNote];
+    setNotes(newData);
     handleCloseDialog();
   };
 
   const handleRemoveNote = (noteId: NoteId) => {
-    const filteredData = data?.filter((item: Note) => {
+    const filteredData = notes?.filter((item: Note) => {
       return item?.noteId !== noteId;
     });
-    setData(filteredData);
+    setNotes(filteredData);
   };
 
   const handleAddNewNote = () => {
-    if (data.length + newNotes.length === MAX_NOTES) {
+    if (notes.length + newNotes.length === MAX_NOTES) {
       return;
     }
     const updatedNotes = [...newNotes];
@@ -116,14 +117,18 @@ export const useInvoiceNoteComponent = (notes: Note[]) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (isNumber(index)) {
       const updatedNewNotes = [...newNotes];
-      updatedNewNotes[index].value = e.target.value;
+      const newObj = {
+        ...updatedNewNotes[index],
+        value: e.target.value,
+      };
+      updatedNewNotes[index] = newObj;
       return setNewNotes(updatedNewNotes);
     }
     setNoteValue(e.target.value);
   };
 
   return {
-    data,
+    notes,
     isDialogOpen,
     selectedItem,
     noteValue,

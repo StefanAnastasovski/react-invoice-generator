@@ -1,3 +1,5 @@
+import { NoteType } from "types/InvoiceProps";
+
 export const INVOICE_NOTES_TABLE_COL_SPAN = 3;
 
 export const invoicesNotesColumns = ["Note", "Actions"];
@@ -20,7 +22,7 @@ export const elementKeys: { [x: string]: string } = {
   note: "note",
 };
 
-function createData({ id, noteId, note }: any) {
+function createData({ id, noteId, note }: NoteType) {
   return {
     id: id,
     noteId: noteId,

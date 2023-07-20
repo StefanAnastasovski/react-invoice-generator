@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Typography } from "@mui/material";
 import { joinStyles } from "@utils/styleUtils";
 import { HStack } from "@components/atoms";
 import { ReusableEditButton } from "@components/ReusableButtons";
 import { ReusableTextField } from "@components/ReusableTextField";
+import { useInvoiceNumber } from "@features/Invoices/hooks/InvoiceTemplate/useInvoiceNumber";
 
 const textFieldItem = {
   id: "invoice-number",
@@ -19,25 +20,36 @@ const textFieldItem = {
 
 export const InvoiceTitleComponent = ({
   title,
-  invoiceNumber,
+  invoiceNumberTitle,
   style: compStyle,
 }: any) => {
   const { style, titleStyle, subtitleStyle } = getStyles(compStyle);
-  const invoiceNumberValue = `${invoiceNumber.title}: ${invoiceNumber.value}`;
   const [canEditInvoiceNumber, setCanEditInvoiceNumber] = useState(false);
+  const [invoiceNumberState, setInvoiceNumberState] = useState("");
+  const { getInvoiceNumber, setInvoiceNumber } = useInvoiceNumber();
+
+  const invoiceNumberValue = `${invoiceNumberTitle}: ${getInvoiceNumber()}`;
 
   const handleEditInvoiceNumber = () => {
     setCanEditInvoiceNumber(!canEditInvoiceNumber);
   };
 
   const handleAddInvoiceNumber = () => {
+    setInvoiceNumber(invoiceNumberState);
     // TODO: add logic to update the invoice number here
     setCanEditInvoiceNumber(false);
+  };
+
+  const onChange = (
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setInvoiceNumberState(event.target.value);
   };
 
   return (
     <>
       <Typography style={titleStyle}>{title}</Typography>
+      {/* TODO: ADD RESET BUTTON TO RESET INVOICENUMBER */}
       <HStack>
         {/* Show latest Invoice Number or add it manually*/}
         <Typography style={subtitleStyle}>{invoiceNumberValue}</Typography>
@@ -54,6 +66,7 @@ export const InvoiceTitleComponent = ({
         <ReusableTextField
           item={textFieldItem}
           onClickIcon={handleAddInvoiceNumber}
+          onChange={onChange}
         />
       )}
     </>

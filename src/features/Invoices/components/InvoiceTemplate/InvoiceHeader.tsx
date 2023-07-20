@@ -8,13 +8,32 @@ import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
 import { useCommonStyles } from "@hooks/index";
 import { getZipCityCountry } from "@utils/commonUtils";
 import { InvoiceTitleComponent } from "./components";
+import {
+  CompanyAddressType,
+  CompanyContactType,
+  CompanyType,
+} from "types/InvoiceProps";
+import { useInvoiceHeaderData } from "@features/Invoices/hooks/InvoiceTemplate/useInvoiceHeaderData";
 
 export const InvoiceHeader = () => {
   const { textStyle, tableStyle } = useCommonStyles({});
   const style = styles();
   const groupedStyles = { ...style, ...textStyle, ...tableStyle };
-  const { docInfo, invoiceFrom, invoiceLogo, invoiceNumber, contactInfo } =
-    invoiceDetails;
+  const {
+    docInfo,
+    invoiceFromTitle,
+    invoiceLogo,
+    invoiceNumberTitle,
+    contactTitles,
+  } = invoiceDetails;
+  const { getCompanyInfo, getCompanyAddress, getContactInfo } =
+    useInvoiceHeaderData();
+
+  const data = {
+    company: getCompanyInfo(),
+    companyAddress: getCompanyAddress(),
+    contact: getContactInfo(),
+  };
 
   return (
     <HStack style={style.headerContainer}>
@@ -23,15 +42,24 @@ export const InvoiceHeader = () => {
         <InvoiceLogoComponent invoiceLogo={invoiceLogo} style={groupedStyles} />
         <InvoiceTitleComponent
           title={docInfo.title}
-          invoiceNumber={invoiceNumber}
+          invoiceNumberTitle={invoiceNumberTitle}
           style={groupedStyles}
         />
       </BoxDiv>
 
       {/* Company Info */}
       <BoxDiv>
-        <InvoiceFromComponent invoiceFrom={invoiceFrom} style={groupedStyles} />
-        <ContactInfoComponent contactInfo={contactInfo} style={groupedStyles} />
+        <InvoiceFromComponent
+          company={data.company}
+          companyAddress={data.companyAddress}
+          invoiceFromTitle={invoiceFromTitle}
+          style={groupedStyles}
+        />
+        <ContactInfoComponent
+          contact={data.contact}
+          contactTitles={contactTitles}
+          style={groupedStyles}
+        />
       </BoxDiv>
     </HStack>
   );
@@ -87,7 +115,41 @@ const InvoiceLogoComponent = ({ invoiceLogo, style }: any) => {
   );
 };
 
-const InvoiceFromComponent = ({ invoiceFrom, style }: any) => {
+interface InvoceFromProps {
+  company: CompanyType;
+  companyAddress: CompanyAddressType;
+  invoiceFromTitle: string;
+  style: any;
+}
+
+const InvoiceFromComponent = ({
+  company,
+  companyAddress,
+  invoiceFromTitle,
+  style,
+}: InvoceFromProps) => {
+  const { subtitleStyle, titleStyle, textStyle, titleBottomSpacing } =
+    getInvoiceFromStyles(style);
+
+  return (
+    <>
+      <HStack style={titleBottomSpacing}>
+        <Typography style={titleStyle}>{invoiceFromTitle}</Typography>
+      </HStack>
+      <Typography style={subtitleStyle}>{company.name}</Typography>
+      <Typography style={textStyle}>{companyAddress.address}</Typography>
+      <Typography style={textStyle}>
+        {getZipCityCountry({
+          zipCode: companyAddress.zipCode,
+          city: companyAddress.city,
+          country: companyAddress.country,
+        })}
+      </Typography>
+    </>
+  );
+};
+
+const getInvoiceFromStyles = (compStyle: any) => {
   const {
     text: {
       fontSize,
@@ -95,8 +157,10 @@ const InvoiceFromComponent = ({ invoiceFrom, style }: any) => {
       textTransform: { capitalize },
       color: { textBlack },
     },
-  } = style;
-  const { subtitleBottomSpacing, titleBottomSpacing } = style;
+    subtitleBottomSpacing,
+    titleBottomSpacing,
+  } = compStyle;
+
   const titleStyle = joinStyles([
     fontSize.subtitle,
     bold,
@@ -111,25 +175,47 @@ const InvoiceFromComponent = ({ invoiceFrom, style }: any) => {
   ]);
   const textStyle = joinStyles([fontSize.text, textBlack]);
 
+  return {
+    subtitleStyle,
+    titleStyle,
+    textStyle,
+    titleBottomSpacing,
+  };
+};
+
+interface ContactInfoProps {
+  contact: CompanyContactType;
+  contactTitles: any;
+  style: any;
+}
+
+const ContactInfoComponent = ({
+  contact,
+  contactTitles,
+  style,
+}: ContactInfoProps) => {
+  const { contactFieldStyle, titleStyle, textStyle } = getContactStyles(style);
+
   return (
     <>
-      <HStack style={titleBottomSpacing}>
-        <Typography style={titleStyle}>{invoiceFrom.title}</Typography>
+      <Typography style={titleStyle}>{contactTitles.title}</Typography>
+
+      <HStack>
+        <Typography style={contactFieldStyle}>{contactTitles.phone}</Typography>
+        <Typography style={textStyle}>{contact.phoneNumber}</Typography>
       </HStack>
-      <Typography style={subtitleStyle}>{invoiceFrom.company}</Typography>
-      <Typography style={textStyle}>{invoiceFrom.address}</Typography>
-      <Typography style={textStyle}>
-        {getZipCityCountry({
-          zipCode: invoiceFrom.zipCode,
-          city: invoiceFrom.city,
-          country: invoiceFrom.country,
-        })}
-      </Typography>
+
+      <HStack>
+        <Typography style={contactFieldStyle}>{contactTitles.email}</Typography>
+        <Typography style={textStyle}>{contact.email}</Typography>
+      </HStack>
+
+      <Typography style={textStyle}>{contact.website}</Typography>
     </>
   );
 };
 
-const ContactInfoComponent = ({ contactInfo, style }: any) => {
+const getContactStyles = (compStyle: any) => {
   const {
     text: {
       fontSize,
@@ -138,7 +224,7 @@ const ContactInfoComponent = ({ contactInfo, style }: any) => {
     },
     contactFieldContainer,
     contactTitleContainer,
-  } = style;
+  } = compStyle;
 
   const contactFieldStyle = joinStyles([
     fontSize.text,
@@ -153,25 +239,9 @@ const ContactInfoComponent = ({ contactInfo, style }: any) => {
   ]);
   const textStyle = joinStyles([fontSize.text, textBlack]);
 
-  return (
-    <>
-      <Typography style={titleStyle}>{contactInfo.title}</Typography>
-
-      <HStack>
-        <Typography style={contactFieldStyle}>
-          {contactInfo.phone.title}
-        </Typography>
-        <Typography style={textStyle}>{contactInfo.phone.value}</Typography>
-      </HStack>
-
-      <HStack>
-        <Typography style={contactFieldStyle}>
-          {contactInfo.email.title}
-        </Typography>
-        <Typography style={textStyle}>{contactInfo.email.value}</Typography>
-      </HStack>
-
-      <Typography style={textStyle}>{contactInfo.website.value}</Typography>
-    </>
-  );
+  return {
+    contactFieldStyle,
+    titleStyle,
+    textStyle,
+  };
 };

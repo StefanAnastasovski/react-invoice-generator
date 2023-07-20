@@ -1,4 +1,5 @@
 import { PRICE_SIGN } from "@features/Services/constants/constants";
+import { BankType, CompanyType, CompanyAddressType } from "types/InvoiceProps";
 
 const getFormattedCollapseData = (collapseData: any) => {
   return {
@@ -20,8 +21,8 @@ export const getFormattedInvoiceData = ({ details }: any) => {
     "invoice-due-date": dueDate,
     "invoice-status": status,
     "invoice-amount": amount,
-    "invoice-subtotal": subtotal,
-    "invoice-taxes": taxes,
+    // "invoice-subtotal": subtotal,
+    // "invoice-taxes": taxes,
     "invoice-company-info": companyInfo,
   } = details;
 
@@ -76,40 +77,47 @@ const getCollapseData = (data: any) => {
   };
 };
 
-export const formattedBilledToData = (data: any) => {
+export const formattedBilledToData = (
+  customer: CompanyType,
+  customerAddress: CompanyAddressType,
+  titles: any
+) => {
   return {
-    title: data.title,
-    subtitle: data.customer.company,
-    address: data.address,
-    zipCode: data.zipCode,
-    city: data.city,
-    country: data.country,
+    subtitle: customer.name,
+    address: customerAddress.address,
+    zipCode: customerAddress.zipCode,
+    city: customerAddress.city,
+    country: customerAddress.country,
     cin: {
-      title: data.customer.cin.title,
-      value: data.customer.cin.value,
+      title: titles.cin,
+      value: customer.cin,
     },
     tin: {
-      title: data.customer.tin.title,
-      value: data.customer.tin.value,
+      title: titles.tin,
+      value: customer.tin,
     },
   };
 };
 
-export const formattedPaymentDetailsData = (data: any) => {
+export const formattedPaymentDetailsData = (
+  company: CompanyType,
+  bank: BankType,
+  bankAddress: CompanyAddressType,
+  titles: any
+) => {
   return {
-    title: data.title,
-    subtitle: data.bank.name,
-    bankAccount: data.bank.bankAccount,
-    zipCode: data.bank.zipCode,
-    city: data.bank.city,
-    country: data.bank.country,
+    subtitle: bank.name, // bankName
+    bankAccount: bank.account,
+    zipCode: bankAddress.zipCode,
+    city: bankAddress.city,
+    country: bankAddress.country,
     cin: {
-      title: data.company.cin.title,
-      value: data.company.cin.value,
+      title: titles.cin,
+      value: company.cin,
     },
     tin: {
-      title: data.company.tin.title,
-      value: data.company.tin.value,
+      title: titles.tin,
+      value: company.tin,
     },
   };
 };
@@ -188,4 +196,65 @@ export const getPrintStyle = ({
         font-size: 12px !important;
       }
     }`;
+};
+
+export const calculateSummary = (services: any, taxable?: number) => {
+  const total = services.reduce(
+    (acc: { discount: number; subtotal: number }, item: any) => {
+      const { "rate-item": price, quantity, discount } = item;
+
+      if (!price || !quantity || !discount) {
+        console.error("ERROR, something went wrong");
+        return acc;
+      }
+
+      const totalAmountWithoutDiscount = calculateSummarySubtotal(
+        price,
+        quantity
+      );
+
+      const totalDiscount = calculateSummaryDiscount(
+        totalAmountWithoutDiscount,
+        discount
+      );
+
+      const calculatedSubtotal = acc.subtotal + totalAmountWithoutDiscount;
+      const calculatedDiscount = acc.discount + totalDiscount;
+
+      return { discount: calculatedDiscount, subtotal: calculatedSubtotal };
+    },
+    {
+      discount: 0,
+      subtotal: 0,
+    }
+  );
+
+  // return subtotal and discount in object => {subtotal: 0, discount: 0}
+
+  return total;
+};
+
+export const calculateSummarySubtotal = (price: number, quantity: number) => {
+  return Math.ceil(price * quantity);
+};
+
+export const calculateSummaryDiscount = (amount: number, discount: number) => {
+  const convertedDiscount = discount / 100;
+  return Math.ceil(amount * convertedDiscount);
+};
+
+export const calculateSummaryTaxable = (amount: number, taxable: number) => {
+  const convertedTaxable = taxable / 100;
+  return Math.ceil(amount * convertedTaxable);
+};
+
+export const calculateSummaryTotalAmount = (summary: any, taxable?: any) => {
+  const amount = Math.ceil(summary.subtotal - summary.discount);
+
+  if (!taxable) {
+    return amount;
+  }
+
+  const taxableAmount = calculateSummaryTaxable(amount, taxable);
+  return Math.ceil(amount + taxableAmount);
 };

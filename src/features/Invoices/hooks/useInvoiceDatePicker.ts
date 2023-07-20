@@ -133,7 +133,11 @@ export const useInvoiceDatePicker = () => {
       return;
     }
     setDueDate(newDate);
-    isDateEditable.canEditIssueDate && setIssueDate(newDate);
+
+    // TODO: test regression. FIX: if the due date is set first, the issue date will be change to the selected due date
+    isDateEditable.canEditIssueDate &&
+      !datePickerState.issueDateValue.isBefore(newDate) &&
+      setIssueDate(newDate);
     handleEditDueDate();
     setErrorState({ dueDate: { ...initialErrorState.dueDate } });
   };
@@ -173,6 +177,7 @@ const setDateError = (
   }
 };
 
+// TODO: Move to the right place
 const ERROR_MESSAGES = {
   ISSUE_DATE: {
     message: "Please select a valid Issue Date.",

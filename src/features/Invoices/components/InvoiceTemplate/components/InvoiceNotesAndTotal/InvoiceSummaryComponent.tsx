@@ -1,85 +1,50 @@
-import React from "react";
-import { Theme, Typography } from "@mui/material";
-import { BoxDiv } from "@components/atoms";
-import { HStack } from "@components/atoms/Stack";
-import { ReusableTextField } from "@components/ReusableTextField";
+import React, { CSSProperties } from "react";
+import { Theme } from "@mui/material";
 import { joinStyles, setTextFieldItemColorStyle } from "@utils/styleUtils";
+import { useTaxable } from "@features/Invoices/hooks/InvoiceTemplate/useTaxable";
+import { useSummary } from "@features/Invoices/hooks/InvoiceTemplate/useSummary";
+import { invoiceDetails } from "@features/Invoices/constants/invoiceTemplate";
+import { calculateSummaryTotalAmount } from "@features/Invoices/utils/invoiceUtils";
+import { SummaryItems } from "./SummaryItems";
+import { SummaryItemWrapper } from "./SummaryItemWrapper";
 
-const TAX_NUMBER_FIELD = {
-  id: "taxable",
-  name: "taxable",
-  type: "number",
-  label: "Taxable",
-  placeholder: "Enter a Tax 0 - 100 (%)",
-  isIcon: true,
-  min: 0,
-  max: 100,
+type Props = {
+  style: CSSProperties;
 };
 
-export const InvoiceSummaryComponent = ({ summary, style }: any) => {
+export const InvoiceSummaryComponent = ({ style }: Props) => {
+  const { getSummary } = useSummary();
+  const { getTaxable } = useTaxable();
+  const summary = getSummary();
+  const taxable = getTaxable();
+  const totalAmount = calculateSummaryTotalAmount(summary, taxable);
+
+  const {
+    summary: { summaryTotalAmountTitle, ...restTitles },
+  } = invoiceDetails;
   const { summaryTotalContainer, summaryTotalStyle, ...itemStyles } =
     getStyles(style);
 
   return (
     <>
       {/* Summary Items */}
-      <RenderSummaryItems summaryItems={summary?.items} style={itemStyles} />
+      <SummaryItems
+        titles={restTitles}
+        summary={summary}
+        style={itemStyles as any}
+        totalAmount={totalAmount}
+      />
 
       {/* Total Amount */}
-      <HStack style={summaryTotalContainer}>
-        <Typography
-          style={summaryTotalStyle}
-        >{`${summary?.total.title}:`}</Typography>
-        <Typography
-          style={summaryTotalStyle}
-        >{`$${summary?.total.value}`}</Typography>
-      </HStack>
+      <SummaryItemWrapper
+        style={{
+          summaryItemContainer: summaryTotalContainer,
+          textStyle: summaryTotalStyle,
+        }}
+        title={summaryTotalAmountTitle}
+        value={totalAmount}
+      />
     </>
-  );
-};
-
-const RenderSummaryItems = ({ summaryItems, style }: any) => {
-  const {
-    textStyle,
-    summaryContainer,
-    summaryItemContainer,
-    ...textFieldStyle
-  } = style;
-
-  const handleAddTax = () => {
-    // TODO: add logic
-    console.log("add tax number");
-  };
-
-  return (
-    <BoxDiv style={summaryContainer}>
-      {summaryItems.map((item: any) => {
-        const isTaxable = item.title === "Taxable";
-        const titleComponent = (
-          <Typography
-            style={{
-              ...textStyle,
-              ...{ alignSelf: "center", paddingRight: 8 },
-            }}
-          >{`${item.title}:`}</Typography>
-        );
-        const editableTitleComponent = isTaxable ? (
-          <ReusableTextField
-            item={TAX_NUMBER_FIELD}
-            style={textFieldStyle}
-            onClickIcon={handleAddTax}
-          />
-        ) : (
-          titleComponent
-        );
-        return (
-          <HStack key={item.id} style={summaryItemContainer}>
-            {editableTitleComponent}
-            <Typography style={textStyle}>{`$${item.value}`}</Typography>
-          </HStack>
-        );
-      })}
-    </BoxDiv>
   );
 };
 

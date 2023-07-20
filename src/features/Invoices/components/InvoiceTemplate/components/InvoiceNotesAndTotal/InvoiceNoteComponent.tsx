@@ -12,15 +12,14 @@ import { Add as AddIcon } from "@mui/icons-material";
 
 type Props = {
   title: string;
-  notes: Note[];
   style: CSSProperties;
 };
 
-export const InvoiceNoteComponent = ({
-  title,
-  notes,
-  style: compStyle,
-}: Props) => {
+const CONTENT = {
+  addNewNoteBtn: "Add a new note",
+};
+
+export const InvoiceNoteComponent = ({ title, style: compStyle }: Props) => {
   const {
     textStyle,
     noteTitle,
@@ -29,7 +28,7 @@ export const InvoiceNoteComponent = ({
   } = getStyles(compStyle);
 
   const {
-    data,
+    notes,
     isDialogOpen,
     selectedItem,
     noteValue,
@@ -42,7 +41,7 @@ export const InvoiceNoteComponent = ({
     handleOpenDialog,
     handleSaveNewNotes,
     onChange,
-  } = useInvoiceNoteComponent(notes as Note[]);
+  } = useInvoiceNoteComponent();
 
   const dialogComponent = (
     <>
@@ -50,7 +49,7 @@ export const InvoiceNoteComponent = ({
         <NoteTextField onChange={onChange} value={noteValue} />
       ) : (
         <AddNewNotesComponent
-          notesLength={data.length}
+          notesLength={notes.length}
           newNotes={newNotes}
           onChange={onChange}
           handleAddNewNote={handleAddNewNote}
@@ -75,8 +74,8 @@ export const InvoiceNoteComponent = ({
       />
 
       <BoxDiv>
-        {data &&
-          data.map((item: Note, index: number) => {
+        {notes &&
+          notes.map((item: Note, index: number) => {
             const text = `${index + 1}. ${item.note}`;
             return (
               <BoxFlex key={`${item.id}${index}`}>
@@ -141,7 +140,7 @@ const AddNewNotesComponent = ({
             background: theme.palette.secondary.main,
           }}
         >
-          Add a new note
+          {CONTENT.addNewNoteBtn}
         </CustomButton>
       </BoxFlex>
     </>
